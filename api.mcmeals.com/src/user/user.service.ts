@@ -16,7 +16,7 @@ export class UserService {
     ) {}
 
 
-    // Register user
+    // User Register
     register(user: User): Observable<User> {
         // Hash password
         return this.authService.hashPassword(user.password).pipe(
@@ -26,9 +26,10 @@ export class UserService {
                 newUser.surname = user.surname;
                 newUser.email = user.email;
                 newUser.password = passwordHash;
+
                 return from(this.userRepository.save(newUser)).pipe(
                     map((user: User) => {
-                        // Not returning the hashed password
+                        // Return everything but the hashed password
                         const {password, ...result} = user;
                         return result;
                     }),
@@ -38,42 +39,10 @@ export class UserService {
         )
     }
 
-    // Get all users
-    findAll(): Observable<User[]> {
-        return from(this.userRepository.find()).pipe(
-            map((users: User[]) => {
-                users.forEach(user => {
-                    delete user.password
-                });
-                return users;
-            })
-        );
-    }
 
-    // Get user by id
-    findOne(id: number): Observable<User> {
-        return from(this.userRepository.findOne({ id })).pipe(
-            map((user: User) => {
-                const {password, ...result} = user;
-                return result;
-            })
-        );
-    }
-
-    // Update user by id
-    updateOne(id: number, user: User): Observable<any> {
-        delete user.email;
-        delete user.password;
-        return from(this.userRepository.update(id, user));
-    }
-
-    // Delete user by id
-    deleteOne(id: number): Observable<any> {
-        return from(this.userRepository.delete(id));
-    }
-
-    // Login
+    // User Login
     login(user: User): Observable<string> {
+        // Validate that user exists
         return this.validateUser(user.email, user.password).pipe(
             switchMap((user: User) => {
                 if(user) {
@@ -87,8 +56,54 @@ export class UserService {
         )
     }
 
-    // Validate user
+
+    // Get all users
+    findAll(): Observable<User[]> {
+        return from(this.userRepository.find()).pipe(
+            map((users: User[]) => {
+                users.forEach(user => {
+                    delete user.password
+                });
+                return users;
+            })
+        );
+    }
+
+
+    // Get user by id
+    findOne(id: number): Observable<User> {
+        return from(this.userRepository.findOne({ id })).pipe(
+            map((user: User) => {
+                const {password, ...result} = user;
+                return result;
+            })
+        );
+    }
+
+
+    // Update user by id
+    updateOne(id: number, user: User): Observable<any> {
+        delete user.email;
+        delete user.password;
+        return from(this.userRepository.update(id, user));
+    }
+
+
+    // Update user role
+    updateUserRole(id: number, user: User): Observable<any> {
+        return from(this.userRepository.update(id, user));
+    }
+
+
+    // Delete user by id
+    deleteOne(id: number): Observable<any> {
+        return from(this.userRepository.delete(id));
+    }
+
+
+    // Validate that user exists
     validateUser(email: string, password: string): Observable<User> {
+        console.log(password);
         return this.findByEmail(email).pipe(
             switchMap((user: User) => this.authService.comparePasswords(password, user.password).pipe(
                 map((match: boolean) => {
@@ -103,6 +118,7 @@ export class UserService {
         )
     }
 
+    
     // Find user by email
     findByEmail(email: string): Observable<User> {
         return from(this.userRepository.findOne({ email }))
