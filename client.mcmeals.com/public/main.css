@@ -1,0 +1,22 @@
+:root {
+    --color-background-primary: #000000;
+    --color-background-secondary: #EEEEEE;
+
+    --color-hover-light: rgb(225, 225, 225);
+
+    --color-button-primary: grey;
+}
+
+#app {
+    width: 100vw;
+    height: 100vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
