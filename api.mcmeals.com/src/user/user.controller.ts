@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Pagination } from 'nestjs-typeorm-paginate';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
@@ -37,12 +38,16 @@ export class UserController {
 
 
     // Get all users
-    @hasRoles(UserRole.ADMIN)
-    @UseGuards(JwtAuthGuard, RolesGuard)
+    // @hasRoles(UserRole.ADMIN)
+    // @UseGuards(JwtAuthGuard, RolesGuard)
     @Get()
-    findAll(): Observable<User[]> {
-        return this.userService.findAll();
+    index(@Query('page') page: number = 1, @Query('limit') limit: number = 2): Observable<Pagination<User>> {
+        limit = limit > 15 ? 15 : limit;
+        return this.userService.paginate({ page: Number(page), limit: Number(limit), route: 'http://localhost:3000/users' });
     }
+    // findAll(): Observable<User[]> {
+    //     return this.userService.findAll();
+    // }
 
 
     // Get user by id
