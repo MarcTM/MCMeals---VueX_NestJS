@@ -1,0 +1,14 @@
+export const LOGIN = "login";
+;export const REGISTER = "register";
+export const LOGOUT = "logout";
+export const VALIDATE = "validate"
+export const GET_MEALS = "getMeals";
+export const GET_MEALS_BY_SEARCH = "getMealsBySearch";
+export const GET_MEALS_BY_PAGINATION = "getMealsByPagination";
+export const GET_MEAL = "getMeal";
+export const GET_CATEGORIES = "getCategories";
+export const GET_CATEGORY = "getCategory";
+export const GET_PROFILE = "getProfile";
+export const GET_CART = "getCart";
+export const ADD_CART = "addCart";
+export const REMOVE_CART = "removeCart";
