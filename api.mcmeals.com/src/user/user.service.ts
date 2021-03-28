@@ -86,7 +86,6 @@ export class UserService {
 
     // Paginate users with filter
     paginateFilter(options: IPaginationOptions, user: User): Observable<Pagination<User>> {
-        console.log(options.page, options.limit);
         return from(this.userRepository.findAndCount({
             skip: +options.page * +options.limit || 0,
             take: +options.limit || 4,
@@ -154,7 +153,6 @@ export class UserService {
 
     // Validate that user exists
     validateUser(email: string, password: string): Observable<User> {
-        console.log(password);
         return this.findByEmail(email).pipe(
             switchMap((user: User) => this.authService.comparePasswords(password, user.password).pipe(
                 map((match: boolean) => {
