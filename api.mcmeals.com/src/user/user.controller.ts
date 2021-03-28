@@ -37,17 +37,28 @@ export class UserController {
     }
 
 
-    // Get all users
+    // Get all users by pagination and filtered
     // @hasRoles(UserRole.ADMIN)
     // @UseGuards(JwtAuthGuard, RolesGuard)
     @Get()
-    index(@Query('page') page: number = 1, @Query('limit') limit: number = 2): Observable<Pagination<User>> {
+    index(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 4,
+        @Query('email') email: string
+    ): Observable<Pagination<User>> {
         limit = limit > 15 ? 15 : limit;
-        return this.userService.paginate({ page: Number(page), limit: Number(limit), route: 'http://localhost:3000/users' });
+
+        if(email === null || email === undefined) {
+            return this.userService.paginate({ page: Number(page), limit: Number(limit), route: 'http://localhost:3000/users' });
+        } else {
+            if(page === 1) { page = 0 };
+            return this.userService.paginateFilter(
+                { page: Number(page), limit: Number(limit), route: 'http://localhost:3000/users' },
+                { email: email.toLowerCase() }
+            );
+        }
+
     }
-    // findAll(): Observable<User[]> {
-    //     return this.userService.findAll();
-    // }
 
 
     // Get user by id
@@ -63,7 +74,10 @@ export class UserController {
     @hasRoles(UserRole.ADMIN)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Put(':id')
-    updateOne(@Param('id') id: string, @Body() user: User): Observable<any> {
+    updateOne(
+        @Param('id') id: string,
+        @Body() user: User
+    ): Observable<any> {
         return this.userService.updateOne(Number(id), user);
     }
 
@@ -81,7 +95,10 @@ export class UserController {
     @hasRoles(UserRole.ADMIN)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Put(':id/role')
-    updateUserRole(@Param('id') id: string, @Body() user: User): Observable<User> {
+    updateUserRole(
+        @Param('id') id: string,
+        @Body() user: User
+    ): Observable<User> {
         return this.userService.updateUserRole(Number(id), user);
     }
 }
