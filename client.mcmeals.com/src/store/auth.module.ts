@@ -4,18 +4,12 @@ import {
   LOGIN,
   LOGOUT,
   REGISTER,
-  VALIDATE,
-  GET_PROFILE,
-  GET_CART,
-  ADD_CART,
-  REMOVE_CART
+  VALIDATE_TOKEN,
 } from "./actions.type";
 import {
   SET_AUTH,
   PURGE_AUTH,
   SET_ERROR,
-  SET_PROFILE,
-  SET_CART
 } from "./mutations.type";
 
 
@@ -73,15 +67,17 @@ const actions = {
     });
   },
 
+
   // Logout
   [LOGOUT](context: any) {
     context.commit(PURGE_AUTH);
   },
 
+
   // Register
   [REGISTER](context: any, credentials: any) {
     return new Promise((resolve, reject) => {
-      ApiService.post("users/register", credentials)
+      ApiService.post("users", credentials)
         .then(({ data }) => {
           resolve(data);
         })
@@ -92,8 +88,9 @@ const actions = {
     });
   },
 
+
   // Check auth
-  [VALIDATE](context: any) {
+  [VALIDATE_TOKEN](context: any) {
     if (JwtService.getToken()) {
       ApiService.get("users/validate", true)
         .catch(({ response }) => {
@@ -104,52 +101,6 @@ const actions = {
       context.commit(PURGE_AUTH);
     }
   },
-
-  // Get profile
-  [GET_PROFILE](context: any) {
-    return new Promise(resolve => {
-      ApiService.get("users/profile", true)
-        .then(({ data }) => {
-          context.commit(SET_PROFILE, data);
-          resolve(data);
-        })
-        .catch(({ response }) => {
-          context.commit(SET_ERROR, response);
-        });
-    });
-  },
-
-  // Get cart
-  [GET_CART](context: any) {
-    return new Promise(resolve => {
-      ApiService.get("users/cart", true)
-        .then(({ data }) => {
-          console.log(data);
-          context.commit(SET_CART, data);
-          resolve(data);
-        })
-        .catch(({ response }) => {
-          context.commit(SET_ERROR, response);
-        });
-    });
-  },
-
-  // Get cart
-  [ADD_CART](context: any, id: number) {
-    return new Promise(resolve => {
-      ApiService.post("users/cart/" + id, {}, true)
-    });
-  },
-
-  // Get cart
-  [REMOVE_CART](context: any, id: number) {
-    return new Promise(resolve => {
-      ApiService.delete("users/cart/" + id, true)
-        .then(({ data }) => {
-          resolve(data);
-        })
-    });
-  },
 };
 
 
@@ -159,6 +110,7 @@ const mutations = {
     state.errors = error;
   },
 
+
   // Set auth
   [SET_AUTH](state: any, token: string) {
     state.isAuthenticated = true;
@@ -167,24 +119,13 @@ const mutations = {
     JwtService.saveToken(state.user.token);
   },
 
+  
   // Purge auth
   [PURGE_AUTH](state: any) {
     state.isAuthenticated = false;
     state.user = {};
     state.errors = {};
     JwtService.destroyToken();
-  },
-
-  // Set profile
-  [SET_PROFILE](state: any, profile: any) {
-    state.profile = profile;
-    state.errors = {};
-  },
-
-  //  Set cart
-  [SET_CART](state: any, cart: any) {
-    state.cart = cart;
-    state.errors = {};
   },
 };
 

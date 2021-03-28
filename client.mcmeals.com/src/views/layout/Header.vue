@@ -28,7 +28,7 @@
 
 <script>
 import {
-  VALIDATE
+  VALIDATE_TOKEN
 } from "@/store/actions.type";
 import { mapGetters } from "vuex";
 
@@ -45,7 +45,7 @@ export default {
 
     methods: {
       validate_token() {
-        this.$store.dispatch(VALIDATE)
+        this.$store.dispatch(VALIDATE_TOKEN)
       }
     }
 }
