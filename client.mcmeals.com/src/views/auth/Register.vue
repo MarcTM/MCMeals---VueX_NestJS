@@ -2,9 +2,12 @@
   <section class="register">
     <h1>SIGN UP</h1>
 
-      <form class="register-form" @submit.prevent="onSubmit(username, email, password, rpassword)">
-        <label>Username</label>
-        <input type="text" v-model="username" rerquired />
+      <form class="register-form" @submit.prevent="onSubmit(name, surname, email, password, rpassword)">
+        <label>Name</label>
+        <input type="text" v-model="name" rerquired />
+
+        <label>Surname</label>
+        <input type="text" v-model="surname" rerquired />
         
         <label>Email</label>
         <input type="email" v-model="email" rerquired />
@@ -15,7 +18,7 @@
         <label>Repeat Password</label>
         <input type="password" v-model="rpassword" required />
 
-        <section class="prova">
+        <section>
           <button class="register-button">SIGN UP</button>
           <router-link to="/login">Login</router-link>
         </section>  
@@ -33,22 +36,18 @@
   export default {
     name: "Register",
 
-    data() {
-      return {
-        username: null,
-        password: null
-      };
-    },
-
     methods: {
-        onSubmit(username, email, password, rpassword) {
-          store
-            .dispatch(REGISTER, { username, email, password, rpassword })
+        onSubmit(name, surname, email, password, rpassword) {
+          if (password === rpassword) {
+            store
+            .dispatch(REGISTER, { name, surname, email, password })
             .then((response) => {
-              console.log(response);
               this.$router.push({ name: "Login"});
             })
-            .catch((response) => {console.log(response.data)})
+            .catch((response) => {
+              console.log(response.data);
+            })
+          }
         }
     },
   }
@@ -61,13 +60,14 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    margin-bottom: 30px;
   }
 
   .register h1 {
     margin-top: 40px;
     width: 80%;
     padding-bottom: 20px;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid var(--light-grey);
   }
 
   .register-form {
@@ -77,7 +77,7 @@
     width: 80%;
   }
 
-  form label {
+  .register-form label {
     text-align: left;
     display: block;
     margin-bottom: 10px;
@@ -86,12 +86,12 @@
     font-size: 0.8em;
   }
 
-  form input {
+  .register-form input {
     padding-left: 10px;
     width: 50%;
     height: 50px;
     margin-bottom: 40px;
-    border: 1.5px solid grey;
+    border: 1.5px solid var(--light-grey);
     border-radius: 0;
   }
 
@@ -100,20 +100,36 @@
     width: 50%;
     height: 50px;
     color: white;
-    background-color: grey;
-    border: 1px solid grey;
+    background-color: var(--light-grey);
+    border: 1px solid var(--light-grey);
   }
 
   .register-button:hover {
-    transition: 0.4s;
-    background-color: #f7432e;
-    border: 1px solid #f7432e;
+    transition: 0.3s;
+    background-color: var(--color-hover-red);
+    border: 1px solid var(--color-hover-red);
   }
 
-  .prova {
+  .register-button:focus {
+    outline: none;
+  }
+
+  .register-form section {
     width: 50%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .register-form section a {
+    font-weight: 400;
+    text-decoration: underline;
+    color: black;
+    font-size: 1.2em;
+  }
+
+  .register-form section a:hover {
+    transition: 0.3s;
+    color: var(--color-hover-red);
   }
 </style>

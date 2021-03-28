@@ -9,7 +9,7 @@
         <label>Password</label>
         <input type="password" v-model="password" required />
 
-        <section class="prova">
+        <section>
           <button class="login-button">SIGN IN</button>
           <router-link to="/register">Register</router-link>
         </section>  
@@ -24,16 +24,9 @@
   export default {
     name: "Login",
 
-    data() {
-      return {
-        email: null,
-        password: null
-      };
-    },
-
     methods: {
         onSubmit(email, password) {
-            this.$store.dispatch(LOGIN, { email, password })
+          this.$store.dispatch(LOGIN, { email, password })
             .then((response) => {
               setTimeout(() => {
                 this.$router.push({ name: "Home"})
@@ -55,13 +48,14 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    margin-bottom: 30px;
   }
 
   .login-page h1 {
     margin-top: 40px;
     width: 80%;
     padding-bottom: 20px;
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid var(--light-grey);
   }
 
   .login-form {
@@ -71,7 +65,7 @@
     width: 80%;
   }
 
-  form label {
+  .login-form label {
     text-align: left;
     display: block;
     margin-bottom: 10px;
@@ -80,12 +74,12 @@
     font-size: 0.8em;
   }
 
-  form input {
+  .login-form input {
     padding-left: 10px;
     width: 50%;
     height: 50px;
     margin-bottom: 40px;
-    border: 1.5px solid grey;
+    border: 1.5px solid var(--light-grey);
     border-radius: 0;
   }
 
@@ -94,20 +88,35 @@
     width: 50%;
     height: 50px;
     color: white;
-    background-color: grey;
-    border: 1px solid grey;
+    background-color: var(--light-grey);
+    border: 1px solid var(--light-grey);
   }
 
   .login-button:hover {
-    transition: 0.4s;
-    background-color: #f7432e;
-    border: 1px solid  #f7432e;
+    transition: 0.3s;
+    background-color: var(--color-hover-red);
+    border: 1px solid  var(--color-hover-red);
   }
 
-  .prova {
+  .login-button:focus {
+    outline: none;
+  }
+
+  .login-form section {
     width: 50%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+  .login-form section a {
+    font-weight: 400;
+    text-decoration: underline;
+    color: black;
+    font-size: 1.2em;
+  }
+
+  .login-form section a:hover {
+    transition: 0.3s;
+    color: var(--color-hover-red);
   }
 </style>
