@@ -1,3 +1,4 @@
+import { Product } from "./product.interface";
 import { Subcategory } from "./subcategory.interface";
 
 export interface Category {
@@ -5,5 +6,7 @@ export interface Category {
     slug?: string;
     name?: string;
     image?: string;
-    subcategories: Subcategory[];
+
+    subcategories?: Subcategory[];
+    products?: Product[];
 }
