@@ -5,6 +5,8 @@ import { CategoryEntity } from 'src/entities/category.entity';
 import { ProductModule } from 'src/product/product.module';
 import { SubcategoryModule } from 'src/subcategory/subcategory.module';
 import { UserModule } from 'src/user/user.module';
+import { CategoryController } from './category.controller';
+import { CategoryService } from './category.service';
 
 @Module({
     imports: [
@@ -13,6 +15,9 @@ import { UserModule } from 'src/user/user.module';
         TypeOrmModule.forFeature([CategoryEntity]),
         AuthModule,
         UserModule,
-    ]
+    ],
+    providers: [CategoryService],
+    controllers: [CategoryController],
+    exports: [CategoryService]
 })
 export class CategoryModule {}

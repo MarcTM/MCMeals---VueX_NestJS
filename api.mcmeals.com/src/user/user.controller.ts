@@ -62,7 +62,7 @@ export class UserController {
     }
 
 
-    // Get user by id
+    // Get user
     @Get('users/:id')
     // @hasRoles(UserRole.ADMIN)
     // @UseGuards(JwtAuthGuard, RolesGuard)
@@ -72,7 +72,7 @@ export class UserController {
     }
 
 
-    // Update user by id
+    // Update user
     // @hasRoles(UserRole.ADMIN)
     // @UseGuards(JwtAuthGuard, RolesGuard)
     @UseGuards(JwtAuthGuard, UserIsUser)
@@ -85,15 +85,6 @@ export class UserController {
     }
 
 
-    // Delete user by id
-    @hasRoles(UserRole.ADMIN)
-    @UseGuards(JwtAuthGuard, RolesGuard)
-    @Delete('users/:id')
-    deleteOne(@Param('id') id: string): Observable<User> {
-        return this.userService.deleteOne(Number(id));
-    }
-
-
     // Update user role
     @hasRoles(UserRole.ADMIN)
     @UseGuards(JwtAuthGuard, RolesGuard)
@@ -103,5 +94,14 @@ export class UserController {
         @Body() user: User
     ): Observable<User> {
         return this.userService.updateUserRole(Number(id), user);
+    }
+
+
+    // Delete user by id
+    @hasRoles(UserRole.ADMIN)
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Delete('users/:id')
+    deleteOne(@Param('id') id: string): Observable<User> {
+        return this.userService.deleteOne(Number(id));
     }
 }
