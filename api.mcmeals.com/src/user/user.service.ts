@@ -129,7 +129,7 @@ export class UserService {
     }
 
 
-    // Update user by id
+    // Update user
     updateOne(id: number, user: User): Observable<any> {
         delete user.email;
         delete user.password;
@@ -145,7 +145,7 @@ export class UserService {
     }
 
 
-    // Delete user by id
+    // Delete user
     deleteOne(id: number): Observable<any> {
         return from(this.userRepository.delete(id));
     }
