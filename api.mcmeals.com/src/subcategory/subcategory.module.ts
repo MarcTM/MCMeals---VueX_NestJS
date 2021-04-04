@@ -5,6 +5,8 @@ import { CategoryModule } from 'src/category/category.module';
 import { SubcategoryEntity } from 'src/entities/subcategory.entity';
 import { ProductModule } from 'src/product/product.module';
 import { UserModule } from 'src/user/user.module';
+import { SubcategoryService } from './subcategory.service';
+import { SubcategoryController } from './subcategory.controller';
 
 @Module({
     imports: [
@@ -13,6 +15,9 @@ import { UserModule } from 'src/user/user.module';
         TypeOrmModule.forFeature([SubcategoryEntity]),
         AuthModule,
         UserModule,
-    ]
+    ],
+    providers: [SubcategoryService],
+    controllers: [SubcategoryController],
+    exports: [SubcategoryService]
 })
 export class SubcategoryModule {}
