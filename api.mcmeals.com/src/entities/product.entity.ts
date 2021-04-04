@@ -20,22 +20,37 @@ export class ProductEntity {
     description: string;
 
     @Column()
+    weight: number;
+
+    @Column()
     price: number;
 
     @Column()
     type: string;
 
     @Column()
-    kcals: number;
+    energy: number;
 
     @Column()
     fats: number;
 
     @Column()
+    saturated: number;
+
+    @Column()
     carbohydrates: number;
 
     @Column()
+    sugars: number;
+
+    @Column()
+    fiber: number;
+
+    @Column()
     proteins: number;
+
+    @Column()
+    salt: number;
 
     @ManyToMany(() => CategoryEntity, category => category.products)
     categories: CategoryEntity[];
