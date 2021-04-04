@@ -7,12 +7,17 @@ export interface Product {
     name?: string;
     image?: string;
     description?: string;
+    weight?: number;
     price?: number;
     type?: string;
-    kcals?: number;
+    energy?: number;
     fats?: number;
+    saturated?: number;
     carbohydrates?: number;
+    sugars?: number;
+    fiber?: number;
     proteins?: number;
+    salt?: number;
 
     categories?: Category[]
     subcategories?: Subcategory[];
