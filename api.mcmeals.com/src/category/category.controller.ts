@@ -1,6 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { Observable } from 'rxjs';
+import { hasRoles } from 'src/auth/decorators/roles.decorator';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Category } from 'src/interfaces/category.interface';
+import { UserRole } from 'src/interfaces/user.interface';
 import { CategoryService } from './category.service';
 
 @Controller('category')

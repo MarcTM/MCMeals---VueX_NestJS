@@ -16,7 +16,7 @@ export class UserEntity {
     @Column({ unique: true, nullable: true })
     email: string;
 
-    @Column({ nullable: true })
+    @Column({ nullable: true, select: false })
     password: string;
 
     @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })

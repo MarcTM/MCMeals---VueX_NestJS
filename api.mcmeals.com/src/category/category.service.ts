@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { Category } from 'src/interfaces/category.interface';
 import { Repository } from 'typeorm';
 import { CategoryEntity } from 'src/entities/category.entity';
+import { switchMap } from 'rxjs/operators';
+const slugify = require('slugify');
 
 @Injectable()
 export class CategoryService {
@@ -15,7 +17,12 @@ export class CategoryService {
 
     // Create category
     create(category: Category): Observable<Category> {
-        return from(this.categoryRepository.save(category));
+        return this.generateSlug(category.name).pipe(
+            switchMap((slug: string) => {
+                category.slug = slug;
+                return from(this.categoryRepository.save(category));
+            })
+        )
     }
 
 
@@ -36,5 +43,11 @@ export class CategoryService {
     // Delete category
     deleteOne(id: number): Observable<any> {
         return from(this.categoryRepository.delete(id));
+    }
+
+
+    // Generate slug
+    generateSlug(name: string): Observable<string> {
+        return of(slugify(name));
     }
 }
