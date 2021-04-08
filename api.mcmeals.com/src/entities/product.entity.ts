@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 import { SubcategoryEntity } from "./subcategory.entity";
 import { CategoryEntity } from "./category.entity";
 
@@ -53,8 +53,10 @@ export class ProductEntity {
     salt: number;
 
     @ManyToMany(() => CategoryEntity, category => category.products)
+    @JoinTable()
     categories: CategoryEntity[];
 
     @ManyToMany(() => SubcategoryEntity, subcategory => subcategory.products)
+    @JoinTable()
     subcategories: SubcategoryEntity[];
 }
