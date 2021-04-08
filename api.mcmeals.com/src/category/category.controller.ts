@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -19,14 +18,14 @@ export class CategoryController {
     // @hasRoles(UserRole.ADMIN)
     // @UseGuards(JwtAuthGuard, RolesGuard)
     @Post()
-    create(@Body() category: Category): Observable<Category> {
+    create(@Body() category: Category) {
         return this.categoryService.create(category);
     }
 
 
     // Get all categories
     @Get()
-    findAll(): Observable<Category[]> {
+    findAll() {
         return this.categoryService.findAll();
     }
 
@@ -38,7 +37,7 @@ export class CategoryController {
     updateOne(
         @Param('id') id: string,
         @Body() category: Category
-    ): Observable<any> {
+    ) {
         return this.categoryService.updateOne(Number(id), category);
     }
 
@@ -47,7 +46,7 @@ export class CategoryController {
     // @hasRoles(UserRole.ADMIN)
     // @UseGuards(JwtAuthGuard, RolesGuard)
     @Delete(':id')
-    deleteOne(@Param('id') id: string): Observable<Category> {
+    deleteOne(@Param('id') id: string) {
         return this.categoryService.deleteOne(Number(id));
     }
 }

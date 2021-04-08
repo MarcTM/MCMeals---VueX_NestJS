@@ -1,7 +1,4 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
-import { Pagination } from 'nestjs-typeorm-paginate';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -19,22 +16,28 @@ export class UserController {
 
     // User Register
     @Post('register')
-    register(@Body() user: User): Observable<User> {
-        return this.userService.register(user).pipe(
-            map((user: User) => user),
-            catchError(err => throwError(err))
-        )
+    register(@Body() user: User) {
+        return this.userService.register(user)
+        .then((user) => {
+            return user;
+        })
+        .catch((error) => {
+            return error;
+        })
     }
 
 
     // User Login
     @Post('login')
-    login(@Body() user: User): Observable<Object> {
-        return this.userService.login(user).pipe(
-            map((jwt: string) => {
-                return { token: jwt };
-            })
-        )
+    login(@Body() user: User) {
+        return this.userService.login(user)
+        .then((response) => {
+            console.log(response);
+            return response;
+        })
+        .catch((error) => {
+            return error;
+        })
     }
 
 
@@ -46,7 +49,7 @@ export class UserController {
         @Query('page') page: number = 1,
         @Query('limit') limit: number = 4,
         @Query('email') email: string
-    ): Observable<Pagination<User>> {
+    ) {
         limit = limit > 15 ? 15 : limit;
 
         if(email === null || email === undefined) {
@@ -58,7 +61,6 @@ export class UserController {
                 { email: email.toLowerCase() }
             );
         }
-
     }
 
 
@@ -67,8 +69,8 @@ export class UserController {
     // @hasRoles(UserRole.ADMIN)
     // @UseGuards(JwtAuthGuard, RolesGuard)
     @UseGuards(JwtAuthGuard, UserIsUser)
-    findOne(@Param() params): Observable<User> {
-        return this.userService.findOne(params.id)
+    findOne(@Param() params) {
+        return this.userService.findOne(params.id);
     }
 
 
@@ -80,7 +82,7 @@ export class UserController {
     updateOne(
         @Param('id') id: string,
         @Body() user: User
-    ): Observable<any> {
+    ) {
         return this.userService.updateOne(Number(id), user);
     }
 
@@ -92,7 +94,7 @@ export class UserController {
     updateUserRole(
         @Param('id') id: string,
         @Body() user: User
-    ): Observable<User> {
+    ) {
         return this.userService.updateUserRole(Number(id), user);
     }
 
@@ -101,7 +103,7 @@ export class UserController {
     @hasRoles(UserRole.ADMIN)
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Delete('users/:id')
-    deleteOne(@Param('id') id: string): Observable<User> {
+    deleteOne(@Param('id') id: string) {
         return this.userService.deleteOne(Number(id));
     }
 }
