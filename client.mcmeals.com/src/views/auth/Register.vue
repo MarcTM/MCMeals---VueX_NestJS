@@ -2,7 +2,7 @@
   <section class="register">
     <h1>SIGN UP</h1>
 
-      <form class="register-form" @submit.prevent="onSubmit(name, surname, email, password, rpassword)">
+      <form class="register-form" @submit.prevent="register(name, surname, email, password, rpassword)">
         <label>Name</label>
         <input type="text" v-model="name" rerquired />
 
@@ -37,16 +37,17 @@
     name: "Register",
 
     methods: {
-        onSubmit(name, surname, email, password, rpassword) {
+        register(name, surname, email, password, rpassword) {
           if (password === rpassword) {
-            store
-            .dispatch(REGISTER, { name, surname, email, password })
-            .then((response) => {
-              this.$router.push({ name: "Login"});
-            })
-            .catch((response) => {
-              console.log(response.data);
-            })
+            this.$store.dispatch(REGISTER, { name, surname, email, password })
+              .then((response) => {
+                setTimeout(() => {
+                  this.$router.push({ name: "Login"})
+                }, 1500);
+              })
+              .catch((error) => {
+                console.error(error);
+              })
           }
         }
     },

@@ -10,7 +10,6 @@
       <router-link to="/cart">Cart</router-link>
     </nav>
     
-
     <nav class="main-header-logo">
       <router-link to="/home">
         <img src="../../../public/logowhite.png" alt="logo-image"/>
