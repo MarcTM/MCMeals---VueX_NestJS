@@ -53,16 +53,15 @@ const getters = {
 const actions = {
   // Login
   [LOGIN](context: any, credentials: any) {
-    console.log(credentials);
     return new Promise(resolve => {
-      ApiService.post("users/login", credentials)
+      ApiService.post("auth/login", credentials)
         .then(({ data }) => {
-          context.commit(SET_AUTH, data.token);
+          context.commit(SET_AUTH, data);
           resolve(data);
         })
         .catch(({ response }) => {
-          console.log(response.data.non_field_errors);
-          context.commit(SET_ERROR, response.data.non_field_errors);
+          console.log(response);
+          context.commit(SET_ERROR, response);
         });
     });
   },
@@ -77,12 +76,13 @@ const actions = {
   // Register
   [REGISTER](context: any, credentials: any) {
     return new Promise((resolve, reject) => {
-      ApiService.post("users", credentials)
+      ApiService.post("auth/register", credentials)
         .then(({ data }) => {
           resolve(data);
         })
         .catch(({ response }) => {
-          context.commit(SET_ERROR, response.data);
+          console.log(response);
+          // context.commit(SET_ERROR, response.data);
           reject(response);
         });
     });
@@ -112,19 +112,19 @@ const mutations = {
 
 
   // Set auth
-  [SET_AUTH](state: any, token: string) {
+  [SET_AUTH](state: any, data: any) {
     state.isAuthenticated = true;
-    state.user.token = token;
     state.errors = {};
-    JwtService.saveToken(state.user.token);
+    state.user = data.user;
+    JwtService.saveToken(data.token);
   },
 
   
   // Purge auth
   [PURGE_AUTH](state: any) {
     state.isAuthenticated = false;
-    state.user = {};
     state.errors = {};
+    state.user = {};
     JwtService.destroyToken();
   },
 };

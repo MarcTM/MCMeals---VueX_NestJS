@@ -12,8 +12,8 @@ import {
 
 const state = {
   errors: null,
-  categories: {},
-  category: {}
+  categories: null,
+  // category: {}
 };
 
 
@@ -24,10 +24,11 @@ const getters = {
     return state.categories;
   },
 
-  // Get category
-  category(state: any) {
-    return state.category;
-  },
+
+  // // Get category
+  // category(state: any) {
+  //   return state.category;
+  // },
 
 };
 
@@ -36,7 +37,7 @@ const actions = {
   // Get categories
   [GET_CATEGORIES](context: any) {
     return new Promise(resolve => {
-      ApiService.get("categories")
+      ApiService.get("category")
         .then(({ data }) => {
           context.commit(SET_CATEGORIES, data);
           resolve(data);
@@ -47,20 +48,20 @@ const actions = {
     });
   },
 
-  // Get category
-  [GET_CATEGORY](context: any, id: number) {
-    return new Promise(resolve => {
-      ApiService.get("categories/" + id)
-        .then(({ data }) => {
-          console.log(data)
-          context.commit(SET_CATEGORY, data);
-          resolve(data);
-        })
-        .catch(({ response }) => {
-          context.commit(SET_ERROR, response);
-        });
-    });
-  },
+  // // Get category
+  // [GET_CATEGORY](context: any, id: number) {
+  //   return new Promise(resolve => {
+  //     ApiService.get("categories/" + id)
+  //       .then(({ data }) => {
+  //         console.log(data)
+  //         context.commit(SET_CATEGORY, data);
+  //         resolve(data);
+  //       })
+  //       .catch(({ response }) => {
+  //         context.commit(SET_ERROR, response);
+  //       });
+  //   });
+  // },
 };
 
 
@@ -72,15 +73,15 @@ const mutations = {
 
   // Set categories
   [SET_CATEGORIES](state: any, categories: any) {
+    state.errors = null;
     state.categories = categories;
-    state.errors = {};
   },
 
-  // Set category
-  [SET_CATEGORY](state: any, category: any) {
-    state.category = category;
-    state.errors = {};
-  },
+  // // Set category
+  // [SET_CATEGORY](state: any, category: any) {
+  //   state.category = category;
+  //   state.errors = {};
+  // },
 };
 
 
