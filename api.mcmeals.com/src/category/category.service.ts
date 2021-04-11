@@ -29,6 +29,12 @@ export class CategoryService {
     }
 
 
+    // Get category by slug
+    findOne(slug: string) {
+        return this.categoryRepository.findOne({ slug });
+    }
+
+
     // Update category
     updateOne(id: number, category: Category) {
         delete category.slug;

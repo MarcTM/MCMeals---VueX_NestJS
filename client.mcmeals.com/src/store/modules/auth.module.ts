@@ -5,12 +5,12 @@ import {
   LOGOUT,
   REGISTER,
   VALIDATE_TOKEN,
-} from "./actions.type";
+} from "@/store/actions.type";
 import {
   SET_AUTH,
   PURGE_AUTH,
   SET_ERROR,
-} from "./mutations.type";
+} from "@/store/mutations.type";
 
 
 const state = {
@@ -24,7 +24,7 @@ const state = {
 
 const getters = {
   // Current user
-  currentUser(state: any) {
+  user(state: any) {
     return state.user;
   },
 
@@ -60,7 +60,6 @@ const actions = {
           resolve(data);
         })
         .catch(({ response }) => {
-          console.log(response);
           context.commit(SET_ERROR, response);
         });
     });
@@ -94,7 +93,6 @@ const actions = {
     if (JwtService.getToken()) {
       ApiService.get("users/validate", true)
         .catch(({ response }) => {
-          console.log(response);
           context.commit(PURGE_AUTH);
         });
     } else {

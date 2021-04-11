@@ -1,30 +1,5 @@
 <template>
-  <div class="meal-details">
-    <div class="meal-main">
-      <img class="meal-image" v-bind:src="meal.image" />
-
-      <div class="meal-info">
-        <h1 class="meal-title">{{ meal.title }}</h1>
-        <label class="meal-price">6.5 €</label>
-
-        <div class="meal-quantity-form">
-          <label class="quantity">QUANTITY</label>
-            <div class="quantity-form">
-              <div class="more-less">
-                <button @click="removeQty" class="less">-</button>
-                <input type="number" min="1" max="100" v-bind:value="quantity" />
-                <button @click="addQty" class="more">+</button>
-              </div>
-              <button class="add-to-cart">ADD TO CART</button>  
-            </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="meal-description">
-        <h3>Description</h3>
-        <p>{{ meal.description }}</p>
-    </div>
+  <div class="product">
   </div>
 </template>
 
@@ -33,42 +8,26 @@
 <script>
 import store from "@/store";
 import { mapGetters } from "vuex";
-import { GET_MEAL } from "@/store/actions.type";
+import { GET_PRODUCT } from "@/store/actions.type";
 
 export default {
-  name: 'Meal',
-
-  data() {
-    return {
-      quantity: 1
-    }
-  },
+  name: 'Product',
 
   beforeRouteEnter(to, from, next) {
-    store.dispatch(GET_MEAL, to.params.id);
+    store.dispatch(GET_PRODUCT, to.params.slug);
     return next();
   },
 
   computed: {
-      ...mapGetters(["meal"]),
+      ...mapGetters(["product"]),
   },
-
-  methods: {
-    addQty() {
-      (this.quantity > 99)? this.quantity = 100 : this.quantity += 1;
-    },
-
-    removeQty() {
-      (this.quantity < 2)? this.quantity = 1 : this.quantity -= 1;
-    }
-  }
 };
 </script>
 
 
 
 <style scoped>
-.meal-details {
+.product {
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -76,7 +35,7 @@ export default {
   align-items: center;
 }
 
-.meal-main {
+.product-main {
   margin-top: 80px;
   width: 70%;
   display: flex;
@@ -86,27 +45,27 @@ export default {
   border-bottom: 1px solid grey;
 }
 
-.meal-image {
+.product-image {
   width: 40%;
 }
 
-.meal-info {
+.product-info {
   color: #3a3a3a;
   width: 50%;
   text-align: left;
 }
 
-.meal-title {
+.product-title {
   text-transform: capitalize;
   color: black;
 }
 
-.meal-price {
+.product-price {
   font-weight: bold;
   font-size: 1.2em;
 }
 
-.meal-quantity-form {
+.product-quantity-form {
   margin-top: 30px;
 }
 
@@ -183,7 +142,7 @@ input[type="number"] {
   background-color: white;
 }
 
-.meal-description {
+.product-description {
   width: 65%;
   margin-top: 30px;
   margin-bottom: 50px;
@@ -194,7 +153,7 @@ input[type="number"] {
   align-items: flex-start;
 }
 
-.meal-description p {
+.product-description p {
   margin-top: 10px;
 }
 </style>

@@ -30,6 +30,13 @@ export class CategoryController {
     }
 
 
+    // Get category by slug
+    @Get(':slug')
+    findOne(@Param('slug') slug: string) {
+        return this.categoryService.findOne(slug);
+    }
+
+
     // Update category
     // @hasRoles(UserRole.ADMIN)
     // @UseGuards(JwtAuthGuard, RolesGuard)
