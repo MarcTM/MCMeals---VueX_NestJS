@@ -56,9 +56,9 @@ export class ProductService {
 
 
     // Get one product
-    findOne(id: number) {
+    findOne(slug: string) {
         return this.productRepository.findOne(
-            { id },
+            { slug },
             { relations: ['categories', 'subcategories'] }
         );
     }

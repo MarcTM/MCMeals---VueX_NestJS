@@ -1,19 +1,19 @@
 <template>
   <div class="shop">
-    <h1 class="shop--title">SHOP</h1>
-    <MealsList />
+    <ProductsList />
   </div>
 </template>
 
 
 
 <script>
-import MealsList from '@/components/MealsList.vue';
+import ProductsList from '@/components/ProductsList.vue';
 
 export default {
   name: 'Shop',
+
   components: {
-    MealsList
+    ProductsList
   },
 };
 </script>

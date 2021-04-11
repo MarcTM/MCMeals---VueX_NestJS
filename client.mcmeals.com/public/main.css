@@ -2,6 +2,8 @@
     --color-background-primary: #000000;
     --color-background-secondary: #EEEEEE;
     --light-grey: rgb(168, 167, 167);
+    --medium-grey: rgb(138, 136, 136);
+    --darker-grey: rgb(121, 118, 118);
 
     --color-hover-light: rgb(225, 225, 225);
     --color-hover-red: #cc3232;

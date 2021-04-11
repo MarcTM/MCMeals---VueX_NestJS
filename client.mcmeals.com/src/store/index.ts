@@ -1,12 +1,14 @@
 import { createStore } from 'vuex'
-import auth from "./auth.module";
-import meals from "./meals.module";
-import categories from "./categories.module";
+import auth from "./modules/auth.module";
+import products from "./modules/products.module";
+import categories from "./modules/categories.module";
+import admin from "./modules/admin.module"
 
 const store = createStore({
   modules: {
+    admin,
     auth,
-    meals,
+    products,
     categories
   }
 })

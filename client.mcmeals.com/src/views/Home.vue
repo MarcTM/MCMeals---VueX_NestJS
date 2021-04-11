@@ -4,11 +4,11 @@
     <section v-if="categories" class="home-categories">
       <article
       v-for="category in categories"
-      @click="getCategory(category.id)"
+      @click="getCategory(category.slug)"
       @mouseover="hoverCategory = true"
       @mouseleave="hoverCategory = false"
       class="home-category">
-        <img class="home-category-image" v-bind:src="category.image" alt="category-image" />
+        <img class="home-category-image" v-bind:class="{ 'home-category-image-hover': hoverCategory }" v-bind:src="category.image" alt="category-image" />
         <p v-if="hoverCategory" class="home-category-title">{{category.name}}</p>
       </article>
     </section>
@@ -45,9 +45,8 @@ export default defineComponent({
           this.$store.dispatch(GET_CATEGORIES)
       },
 
-      getCategory(id) {
-        console.log(id);
-        // this.$router.push({ name: "Category", params: {id: id}});
+      getCategory(slug) {
+        this.$router.push({ name: "Category", params: { slug }});
       }
   },
 });
@@ -65,6 +64,15 @@ export default defineComponent({
     }
     100% {
       opacity: 1;
+    }
+  }
+
+  @keyframes category-image {
+    0% {
+      filter: brightness(100%);
+    }
+    100% {
+      filter: brightness(50%);
     }
   }
 
@@ -89,13 +97,14 @@ export default defineComponent({
   }
 
   .home-category-image {
-    transition: 1s;
     width: 100%;
     cursor: pointer;
   }
 
-  .home-category-image:hover {
-    filter: brightness(50%);
+  .home-category-image-hover {
+    animation-name: category-image;
+    animation-duration: 0.7s;
+    animation-fill-mode: forwards;
   }
 
   .home-category-title {
@@ -110,6 +119,7 @@ export default defineComponent({
     left: 50%;
     transform: translate(-50%, -50%);
     animation-name: category-title;
-    animation-duration: 1.5s;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
   }
 </style>

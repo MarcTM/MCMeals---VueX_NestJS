@@ -16,7 +16,13 @@
       </router-link>
     </nav>
 
-    <nav class="main-header-bottom">
+    <nav v-if="user.role === 'admin'" class="main-header-bottom">
+      <router-link to="/admin/users">Users</router-link>
+      <router-link to="/admin/categories">Categories</router-link>
+      <router-link to="/admin/products">Products</router-link>
+    </nav>
+
+    <nav v-else class="main-header-bottom">
       <router-link to="/home">Home</router-link>
       <router-link to="/shop">Shop</router-link>
     </nav>
@@ -39,7 +45,7 @@ export default {
     },
 
     computed: {
-        ...mapGetters(["isAuthenticated"]),
+        ...mapGetters(["isAuthenticated", "user"]),
     },
 
     methods: {
