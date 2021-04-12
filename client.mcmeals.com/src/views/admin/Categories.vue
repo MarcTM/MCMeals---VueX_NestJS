@@ -14,7 +14,6 @@
         <img v-bind:src="category.image" />
       </section>
     </section>
-    
 
   </section>
 </template>

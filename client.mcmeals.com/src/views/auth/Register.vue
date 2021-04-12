@@ -41,9 +41,7 @@
           if (password === rpassword) {
             this.$store.dispatch(REGISTER, { name, surname, email, password })
               .then((response) => {
-                setTimeout(() => {
-                  this.$router.push({ name: "Login"})
-                }, 1500);
+                this.$router.push({ name: "Login"})
               })
               .catch((error) => {
                 console.error(error);

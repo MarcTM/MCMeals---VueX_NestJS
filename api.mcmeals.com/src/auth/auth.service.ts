@@ -15,6 +15,12 @@ export class AuthService {
     }
 
 
+    // Validate token
+    validate(token: string) {
+        return this.jwtService.verifyAsync(token);
+    }
+
+
     // Hash password when registering
     hashPassword(password: string) {
         return bcrypt.hash(password, 12);

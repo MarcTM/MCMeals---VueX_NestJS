@@ -53,6 +53,7 @@ const actions = {
     return new Promise(resolve => {
       ApiService.get("product")
         .then(({ data }) => {
+          console.log(data) 
           context.commit(SET_PRODUCTS, data);
           resolve(data);
         })

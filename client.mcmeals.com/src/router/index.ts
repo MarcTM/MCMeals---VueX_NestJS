@@ -50,6 +50,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/auth/Register.vue'),
     beforeEnter: noAuthGuard
   },
+  {
+    path: '/account',
+    name: 'Account',
+    component: () => import('@/views/auth/Account.vue'),
+    beforeEnter: authGuard
+  },
   // {
   //   path: '/cart',
   //   name: 'Cart',

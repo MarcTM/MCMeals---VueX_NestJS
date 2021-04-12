@@ -28,9 +28,7 @@
         login(email, password) {
           this.$store.dispatch(LOGIN, { email, password })
             .then((response) => {
-              setTimeout(() => {
-                this.$router.push({ name: "Home"})
-              }, 1500);
+              this.$router.push({ name: "Home"})
             })
             .catch((error) => {
               console.error(error)
