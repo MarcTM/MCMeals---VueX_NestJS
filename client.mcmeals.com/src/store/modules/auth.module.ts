@@ -18,7 +18,7 @@ const state = {
   user: {},
   profile: {},
   cart: {},
-  isAuthenticated: !!JwtService.getToken()
+  isAuthenticated: false,
 };
 
 
@@ -90,13 +90,15 @@ const actions = {
 
   // Check auth
   [VALIDATE_TOKEN](context: any) {
-    if (JwtService.getToken()) {
-      ApiService.get("users/validate", true)
-        .catch(({ response }) => {
+    const token = JwtService.getToken();
+    if (token) {
+      ApiService.post("auth/validate", { token })
+        .then(({ data }) => {
+          context.commit(SET_AUTH, data);
+        })
+        .catch(({ error }) => {
           context.commit(PURGE_AUTH);
         });
-    } else {
-      context.commit(PURGE_AUTH);
     }
   },
 };
@@ -114,7 +116,9 @@ const mutations = {
     state.isAuthenticated = true;
     state.errors = {};
     state.user = data.user;
-    JwtService.saveToken(data.token);
+    if (data.token) {
+      JwtService.saveToken(data.token);
+    }
   },
 
   

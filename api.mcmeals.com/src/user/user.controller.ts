@@ -106,4 +106,11 @@ export class UserController {
     deleteOne(@Param('id') id: string) {
         return this.userService.deleteOne(Number(id));
     }
+
+
+    // Validate token
+    @Post('validate')
+    validate(@Body() data: any) {
+        return this.userService.validate(data);
+    }
 }

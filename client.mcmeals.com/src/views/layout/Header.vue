@@ -41,7 +41,7 @@ export default {
     name: "Header",
 
     mounted() {
-        this.validate_token()
+      this.validate_token()
     },
 
     computed: {
