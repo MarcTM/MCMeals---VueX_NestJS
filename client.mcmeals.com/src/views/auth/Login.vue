@@ -1,8 +1,8 @@
 <template>
   <section class="login-page">
     <h1>SIGN IN</h1>
-
-      <form class="login-form" @submit.prevent="onSubmit(username, password)">
+    
+      <form class="login-form" @submit.prevent="login(username, password)">
         <label>Email</label>
         <input type="email" v-model="username" rerquired />
 
@@ -25,15 +25,13 @@
     name: "Login",
 
     methods: {
-        onSubmit(email, password) {
+        login(email, password) {
           this.$store.dispatch(LOGIN, { email, password })
             .then((response) => {
-              setTimeout(() => {
-                this.$router.push({ name: "Home"})
-              }, 2000);
+              this.$router.push({ name: "Home"})
             })
             .catch((error) => {
-              console.log(error)
+              console.error(error)
             })
         }
     },

@@ -35,8 +35,8 @@ export class SubcategoryController {
 
 
     // Find one subcategory
-    @Get(':id')
-    findOne(@Param('id') id: number) {
-        return this.subcategoryService.findOne(id);
+    @Get(':slug')
+    findOne(@Param('slug') slug: string) {
+        return this.subcategoryService.findOne(slug);
     }
 }

@@ -7,6 +7,7 @@ const headers = {
   "Authorization": `Token ${JwtService.getToken()}`,
 }
 
+
 const ApiService = {
   // Query
   query(resource: string, params: any) {
@@ -15,8 +16,9 @@ const ApiService = {
     });
   },
 
+
   // Get
-  get(resource: string, context=false) {
+  get(resource: string, context = false) {
     if (context) {
       return axios.get(`${API_URL}/${resource}`, {headers}).catch((error) => {
         throw new Error(`[RWV] ApiService ${error}`)
@@ -28,8 +30,9 @@ const ApiService = {
     }
   },
 
+
   // Post
-  post(resource: string, params: any, context=false) {
+  post(resource: string, params: any, context = false) {
     if (context) {
       return axios.post(`${API_URL}/${resource}`, params, {headers});
     } else {
@@ -37,15 +40,18 @@ const ApiService = {
     }
   },
 
+
   // Update
   update(resource: string, slug: string, params: any) {
     return axios.put(`${API_URL}/${resource}/${slug}`, params);
   },
 
+
   // Put
   put(resource: string, params: any) {
     return axios.put(`${API_URL}/${resource}`, params);
   },
+
 
   // Delete
   delete(resource: string, context=false) {

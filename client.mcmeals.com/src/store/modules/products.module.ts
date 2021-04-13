@@ -1,73 +1,76 @@
 import ApiService from "@/common/api.service";
 import {
-    GET_MEALS,
-    GET_MEALS_BY_SEARCH,
-    GET_MEALS_BY_PAGINATION,
-    GET_MEAL
-} from "./actions.type";
+    GET_PRODUCTS,
+    GET_PRODUCTS_BY_SEARCH,
+    GET_PRODUCTS_BY_PAGINATION,
+    GET_PRODUCT
+} from "@/store/actions.type";
 import {
-  SET_MEALS,
-  SET_MEAL,
+  SET_PRODUCTS,
+  SET_PRODUCT,
   SET_ERROR,
-} from "./mutations.type";
+} from "@/store/mutations.type";
 
 
 const state = {
   errors: null,
-  meals: {},
-  meal: {},
+  products: null,
+  product: null,
 };
 
 
 const getters = {
-  // Get meals
-  meals(state: any) {
-    return state.meals.results;
+  // Get products
+  products(state: any) {
+    return state.products;
   },
 
-  // Get total meals
-  meals_count(state: any) {
-    return state.meals.count;
+  // Get total of products
+  products_count(state: any) {
+    return state.products.count;
   },
 
-  // Get meal
-  meal(state: any) {
-    return state.meal;
+  // Get product
+  product(state: any) {
+    return state.product;
   },
 
   // Get previous page
   previous(state: any) {
-    return state.meals.previous;
+    return state.products.previous;
   },
 
   // Get next page
   next(state: any) {
-    return state.meals.next;
+    return state.products.next;
   }
 };
 
 
 const actions = {
-  // Login
-  [GET_MEALS](context: any) {
+  // Get all products
+  [GET_PRODUCTS](context: any) {
     return new Promise(resolve => {
-      ApiService.get("meals")
+      ApiService.get("product")
         .then(({ data }) => {
-          console.log(data)
-          context.commit(SET_MEALS, data);
+          console.log(data) 
+          context.commit(SET_PRODUCTS, data);
           resolve(data);
         })
         .catch(({ response }) => {
+          console.log(response);
           context.commit(SET_ERROR, response);
         });
     });
   },
 
-  [GET_MEALS_BY_SEARCH](context: any, query: string) {
+
+  // Gwt products filtered by search
+  [GET_PRODUCTS_BY_SEARCH](context: any, query: string) {
     return new Promise(resolve => {
       ApiService.query("meals", query)
         .then(({ data }) => {
-          context.commit(SET_MEALS, data);
+          context.commit(SET_PRODUCTS, data);
           resolve(data);
         })
         .catch(({ response }) => {
@@ -76,13 +79,15 @@ const actions = {
     });
   },
 
-  [GET_MEALS_BY_PAGINATION](context: any, query: string) {
+
+  // Get products filtered by pagination
+  [GET_PRODUCTS_BY_PAGINATION](context: any, query: string) {
     var res = query.split("?");
     return new Promise(resolve => {
       ApiService.query("meals", res[1])
         .then(({ data }) => {
           console.log(data)
-          context.commit(SET_MEALS, data);
+          context.commit(SET_PRODUCTS, data);
           resolve(data);
         })
         .catch(({ response }) => {
@@ -91,11 +96,14 @@ const actions = {
     });
   },
 
-  [GET_MEAL](context: any, id: number) {
+
+  // Get one product
+  [GET_PRODUCT](context: any, slug: string) {
     return new Promise(resolve => {
-      ApiService.get("meals/" + id)
+      ApiService.get("product/" + slug)
         .then(({ data }) => {
-          context.commit(SET_MEAL, data);
+          console.log(data);
+          context.commit(SET_PRODUCT, data);
           resolve(data);
         })
         .catch(({ response }) => {
@@ -112,16 +120,18 @@ const mutations = {
     state.errors = error;
   },
 
+
   // Set meals
-  [SET_MEALS](state: any, meals: any) {
-    state.meals = meals;
+  [SET_PRODUCTS](state: any, products: any) {
     state.errors = {};
+    state.products = products;
   },
 
+
   // Set meal
-  [SET_MEAL](state: any, meals: any) {
-    state.meal = meals;
+  [SET_PRODUCT](state: any, product: any) {
     state.errors = {};
+    state.product = product;
   },
 };
 

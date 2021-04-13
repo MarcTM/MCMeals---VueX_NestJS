@@ -43,8 +43,8 @@ export class SubcategoryService {
 
 
     // Get one subcategory
-    findOne(id: number) {
-        return this.subcategoryRepository.findOne({ id }, { relations: ['category'] });
+    findOne(slug: string) {
+        return this.subcategoryRepository.findOne({ slug }, { relations: ['category'] });
     }
 
 

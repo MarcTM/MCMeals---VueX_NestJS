@@ -181,4 +181,16 @@ export class UserService {
     findByEmail(email: string) {
         return this.userRepository.findOne({ email });
     }
+
+
+    // Validate token
+    validate(data: any) {
+        return this.authService.validate(data.token)
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            throw new Error(`Couldn't validate token: ${error}`)
+        })
+    }
 }

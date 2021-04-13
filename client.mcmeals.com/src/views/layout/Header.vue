@@ -10,14 +10,20 @@
       <router-link to="/cart">Cart</router-link>
     </nav>
     
-
     <nav class="main-header-logo">
       <router-link to="/home">
         <img src="../../../public/logowhite.png" alt="logo-image"/>
       </router-link>
     </nav>
 
-    <nav class="main-header-bottom">
+    <nav v-if="user && user.role === 'admin'" class="main-header-bottom">
+      <router-link to="/admin/users">Users</router-link>
+      <router-link to="/admin/categories">Categories</router-link>
+      <router-link to="/admin/subcategories">Subcategories</router-link>
+      <router-link to="/admin/products">Products</router-link>
+    </nav>
+
+    <nav v-else class="main-header-bottom">
       <router-link to="/home">Home</router-link>
       <router-link to="/shop">Shop</router-link>
     </nav>
@@ -36,11 +42,11 @@ export default {
     name: "Header",
 
     mounted() {
-        this.validate_token()
+      this.validate_token()
     },
 
     computed: {
-        ...mapGetters(["isAuthenticated"]),
+        ...mapGetters(["isAuthenticated", "user"]),
     },
 
     methods: {
