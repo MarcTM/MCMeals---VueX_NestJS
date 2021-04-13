@@ -12,5 +12,19 @@ export const GET_PRODUCT = "getProduct";
 export const GET_CATEGORIES = "getCategories";
 export const GET_CATEGORY = "getCategory";
 
+export const GET_SUBCATEGORIES = "getSubcategories";
+export const GET_SUBCATEGORY = "getSubcategory";
+
 // ADMIN
 export const GET_USERS = "getUsers";
+export const UPDATE_USER = "updateUser";
+export const DELETE_USER = "deleteUser";
+
+export const UPDATE_PRODUCT = "updateProduct";
+export const DELETE_PRODUCT = "deleteProduct";
+
+export const UPDATE_CATEGORY = "updateCategory";
+export const DELETE_CATEGORY = "deleteCategory";
+
+export const UPDATE_SUBCATEGORY = "updateSubategory";
+export const DELETE_SUBCATEGORY = "deleteSubcategory";

@@ -1,17 +1,20 @@
 <template>
-  <section class="products">
+  <section class="subcategories">
 
-    <section class="products-info">
-      <section class="products-columns">
+    <section class="subcategories-info">
+      <section class="subcategories-columns">
         <h1>Slug</h1>
         <h1>Name</h1>
         <h1>Image</h1>
+        <h1>Category</h1>
       </section>
 
-      <section @click="selectProduct(product.id)" v-for="product in products" class="products-details">
-        <h4>{{product.slug}}</h4>
-        <h4>{{product.name}}</h4>
-        <img v-bind:src="product.image" />
+      <section v-for="subcategory in subcategories" class="subcategories-details" @click="selectSubcategory(subcategory.id)">
+        <h4>{{subcategory.slug}}</h4>
+        <h4>{{subcategory.name}}</h4>
+        <img v-bind:src="subcategory.image" />
+        <h4 v-if="subcategory.category">{{subcategory.category.name}}</h4>
+        <h4 v-else>-</h4>
       </section>
     </section>
 
@@ -20,8 +23,8 @@
       <section class="modal-content">
         <span @click="openModal = false" class="close">&times;</span>
         <section v-if="selected">
-          <button @click="updateProduct(selected)" class="button">UPDATE</button>
-          <button @click="deleteProduct(selected)" class="button">DELETE</button>
+          <button @click="updateSubcategory(selected)" class="button">UPDATE</button>
+          <button @click="deleteSubcategory(selected)" class="button">DELETE</button>
         </section>
       </section>
     </section>
@@ -33,14 +36,11 @@
 
 <script>
 import { defineComponent } from 'vue';
-import {
-  GET_PRODUCTS,
-  DELETE_PRODUCT
-} from "@/store/actions.type";
+import { GET_SUBCATEGORIES } from "@/store/actions.type";
 import { mapGetters } from "vuex"
 
 export default defineComponent({
-  name: 'Products',
+  name: 'Subategories',
 
   data() {
     return {
@@ -50,29 +50,28 @@ export default defineComponent({
   },
 
   mounted() {
-      this.getProducts()
+      this.getSubcategories()
   },
 
   computed: {
-      ...mapGetters(["products"]),
+      ...mapGetters(["subcategories"]),
   },
 
   methods: {
-      getProducts() {
-          this.$store.dispatch(GET_PRODUCTS)
+      getSubcategories() {
+          this.$store.dispatch(GET_SUBCATEGORIES)
       },
 
-      selectProduct(id) {
+      selectSubcategory(id) {
         this.openModal = true;
         this.selected = id;
       },
 
-      updateProduct(id) {
-
+      updateSubcategory(id) {
       },
 
-      deleteProduct(id) {
-        this.$store.dispatch(DELETE_PRODUCT)
+      deleteSubcategory(id) {
+        this.$store.dispatch(DELETE_SUBCATEGORY)
       },
   },
 });
@@ -81,54 +80,54 @@ export default defineComponent({
 
 
 <style scoped>
-  .products {
+  .subcategories {
     width: 100%;
     display: flex;
     justify-content: center;
   }
 
-  .products-info {
+  .subcategories-info {
     width: 90%;
   }
 
-  .products-columns {
+  .subcategories-columns {
     width: 100%;
     font-size: 1.2em;
     background-color: var(--light-grey);
     text-transform: uppercase;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
     padding: 10px 0px;
   }
 
-  .products-columns article {
+  .subcategories-columns article {
     text-align: center;
   }
 
-  .products-details {
+  .subcategories-details {
     cursor: pointer;
     width: 100%;
     padding: 30px 0px;
     text-align: center;
     display: grid;
     padding: auto;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
     border-bottom: 1px solid var(--light-grey);
   }
 
-  .products-details:hover {
+  .subcategories-details:hover {
     background-color: var(--color-background-secondary);
   }
 
-  .products-details img {
+  .subcategories-details img {
     width: 50%;
   }
 
-  .products-details article {
+  .subcategories-details article {
     text-align: center;
   }
 

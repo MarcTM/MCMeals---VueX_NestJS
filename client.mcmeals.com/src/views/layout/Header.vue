@@ -16,9 +16,10 @@
       </router-link>
     </nav>
 
-    <nav v-if="user.role === 'admin'" class="main-header-bottom">
+    <nav v-if="user && user.role === 'admin'" class="main-header-bottom">
       <router-link to="/admin/users">Users</router-link>
       <router-link to="/admin/categories">Categories</router-link>
+      <router-link to="/admin/subcategories">Subcategories</router-link>
       <router-link to="/admin/products">Products</router-link>
     </nav>
 

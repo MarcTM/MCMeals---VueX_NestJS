@@ -10,5 +10,8 @@ export const SET_PRODUCT = "setProdduct";
 export const SET_CATEGORIES = "setCategories";
 export const SET_CATEGORY = "setCategory";
 
+export const SET_SUBCATEGORIES = "setSubcategories";
+export const SET_SUBCATEGORY = "setSubcategory";
+
 // ADMIN
 export const SET_USERS = "setUsers";
