@@ -8,10 +8,21 @@
         <h1>Image</h1>
       </section>
 
-      <section v-for="category in categories" class="categories-details">
+      <section @click="selectCategory(category.id)" v-for="category in categories" class="categories-details">
         <h4>{{category.slug}}</h4>
         <h4>{{category.name}}</h4>
         <img v-bind:src="category.image" />
+      </section>
+    </section>
+
+
+    <section class="modal" v-bind:class="{ 'showed': openModal }">
+      <section class="modal-content">
+        <span @click="openModal = false" class="close">&times;</span>
+        <section v-if="selected">
+          <button @click="updateCategory(selected)" class="button">UPDATE</button>
+          <button @click="deleteCategory(selected)" class="button">DELETE</button>
+        </section>
       </section>
     </section>
 
@@ -28,6 +39,13 @@ import { mapGetters } from "vuex"
 export default defineComponent({
   name: 'Categories',
 
+  data() {
+    return {
+      openModal: false,
+      selected: false,
+    }
+  },
+
   mounted() {
       this.getCategories()
   },
@@ -39,6 +57,18 @@ export default defineComponent({
   methods: {
       getCategories() {
           this.$store.dispatch(GET_CATEGORIES)
+      },
+
+      selectCategory(id) {
+        this.openModal = true;
+        this.selected = id;
+      },
+
+      updateCategory(id) {
+      },
+
+      deleteCategory(id) {
+        this.$store.dispatch(DELETE_CATEGORY)
       },
   },
 });
@@ -96,5 +126,61 @@ export default defineComponent({
 
   .categories-details article {
     text-align: center;
+  }
+
+
+    /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  .showed {
+    display: block;
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; 
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .button {
+    padding: 20px;
+    background-color: white;
+    border: 2px solid black;
+    color: black;
+    font-weight: bold;
+    margin: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .button:hover {
+    background-color: var(--color-hover-light);
   }
 </style>

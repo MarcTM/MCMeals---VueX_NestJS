@@ -28,6 +28,10 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/admin/Categories.vue')
       },
       {
+        path: 'subcategories',
+        component: () => import('@/views/admin/Subcategories.vue')
+      },
+      {
         path: 'products',
         component: () => import('@/views/admin/Products.vue')
       },
