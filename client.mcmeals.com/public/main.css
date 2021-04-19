@@ -4,11 +4,14 @@
     --light-grey: rgb(168, 167, 167);
     --medium-grey: rgb(138, 136, 136);
     --darker-grey: rgb(121, 118, 118);
+    --dark-grey: rgb(71, 70, 70);
 
-    --color-hover-light: rgb(225, 225, 225);
+    --color-hover-light: rgb(210, 210, 210);
     --color-hover-red: #cc3232;
 
     --color-button-primary: grey;
+
+    --selection-color: #F5E69C;
 }
 
 #app {
@@ -23,4 +26,8 @@
     left: 0;
     bottom: 0;
     right: 0;
+}
+
+* {
+    font-family: Pallafont, arial;
 }

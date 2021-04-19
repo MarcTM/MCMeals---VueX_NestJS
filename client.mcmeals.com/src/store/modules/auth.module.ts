@@ -56,7 +56,9 @@ const actions = {
     return new Promise(resolve => {
       ApiService.post("auth/login", credentials)
         .then(({ data }) => {
-          context.commit(SET_AUTH, data);
+          if (data.user) {
+            context.commit(SET_AUTH, data);
+          }
           resolve(data);
         })
         .catch(({ response }) => {
@@ -79,10 +81,10 @@ const actions = {
         .then(({ data }) => {
           resolve(data);
         })
-        .catch(({ response }) => {
-          console.log(response);
+        .catch(({ error }) => {
+          console.log(error);
           // context.commit(SET_ERROR, response.data);
-          reject(response);
+          reject(error);
         });
     });
   },

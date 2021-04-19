@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProductEntity } from 'src/entities/product.entity';
+import { CategoryEntity } from 'src/entities/category.entity';
 import { Product } from 'src/interfaces/product.interface';
 const slugify = require('slugify');
 
@@ -15,11 +16,9 @@ export class ProductService {
 
     // Create product
     create(product: Product) {
-        return this.generateSlug(product.name)
-        .then((slug) => {
-            product.slug = slug;
-            return this.productRepository.save(product);
-        })
+        const slug = this.generateSlug(product.name)
+        product.slug = slug;
+        return this.productRepository.save(product);
     }
 
 
@@ -31,28 +30,24 @@ export class ProductService {
     }
 
 
-    // // Get all products from a category
-    // findByCategory(categoryId: number) {
-    //     return this.productRepository.find({
-    //         where: {
-    //             categories: {
-    //                 category: categoryId
-    //             }
-    //         },
-    //         relations: ['categories', 'subcategories']
-    //     })
-    // }
+    // Get all products from a category
+    findByCategory(categoryId: number) {
+        return this.productRepository
+            .createQueryBuilder("product")
+            .leftJoinAndSelect("product.categories", "category")
+            .where("category.id = :id", { id: categoryId })
+            .getMany();
+    }
 
 
-    // // Get all products from a subcategory
-    // findBySubcategory(subcategoryId: number) {
-    //     return this.productRepository.find({
-    //         where: {
-    //             subcategories: subcategoryId
-    //         },
-    //         relations: ['categories', 'subcategories']
-    //     })
-    // }
+    // Get all products from a subcategory
+    findBySubcategory(subcategoryId: number) {
+        return this.productRepository
+            .createQueryBuilder("product")
+            .leftJoinAndSelect("product.subcategories", "subcategory")
+            .where("subcategory.id = :id", { id: subcategoryId })
+            .getMany();
+    }
 
 
     // Get one product

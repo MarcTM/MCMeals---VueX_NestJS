@@ -76,6 +76,12 @@
     width: 80%;
   }
 
+  @media (max-width: 767px) {
+    .register-form {
+      width: 100%;
+    }
+  }
+
   .register-form label {
     text-align: left;
     display: block;
@@ -86,7 +92,7 @@
   }
 
   .register-form input {
-    padding-left: 10px;
+    padding: 0px 10px;
     width: 50%;
     height: 50px;
     margin-bottom: 40px;

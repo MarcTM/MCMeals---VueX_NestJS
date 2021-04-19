@@ -55,7 +55,6 @@ const actions = {
     return new Promise(resolve => {
       ApiService.get("category")
         .then(({ data }) => {
-          console.log(data);
           context.commit(SET_CATEGORIES, data);
           resolve(data);
         })
@@ -71,7 +70,6 @@ const actions = {
     return new Promise(resolve => {
       ApiService.get("category/" + slug)
         .then(({ data }) => {
-          console.log(data);
           context.commit(SET_CATEGORY, data);
           resolve(data);
         })
@@ -83,23 +81,38 @@ const actions = {
 
 
   // Get subcategories
-  [GET_SUBCATEGORIES](context: any) {
-    return new Promise(resolve => {
-      ApiService.get("subcategory")
-        .then(({ data }) => {
-          console.log(data);
-          context.commit(SET_SUBCATEGORIES, data);
-          resolve(data);
-        })
-        .catch(({ response }) => {
-          context.commit(SET_ERROR, response);
-        });
-    });
+  [GET_SUBCATEGORIES](context: any, categoryId = null) {
+    if (categoryId) {
+      return new Promise(resolve => {
+        ApiService.get("subcategory?categoryId=" + categoryId)
+          .then(({ data }) => {
+            console.log(data);
+            context.commit(SET_SUBCATEGORIES, data);
+            resolve(data);
+          })
+          .catch(({ response }) => {
+            context.commit(SET_ERROR, response);
+          });
+      });
+    } else {
+      return new Promise(resolve => {
+        ApiService.get("subcategory")
+          .then(({ data }) => {
+            console.log(data);
+            context.commit(SET_SUBCATEGORIES, data);
+            resolve(data);
+          })
+          .catch(({ response }) => {
+            context.commit(SET_ERROR, response);
+          });
+      });
+    }
+    
   },
 
 
   // Get category
-  [GET_CATEGORY](context: any, slug: string) {
+  [GET_SUBCATEGORY](context: any, slug: string) {
     return new Promise(resolve => {
       ApiService.get("subcategory/" + slug)
         .then(({ data }) => {
@@ -138,7 +151,6 @@ const mutations = {
   // Set subcategories
   [SET_SUBCATEGORIES](state: any, subcategories: any) {
     state.errors = null;
-    console.log(subcategories);
     state.subcategories = subcategories;
   },
 
