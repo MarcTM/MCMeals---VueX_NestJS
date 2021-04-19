@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards, Query, Param } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, Query, Param, Delete } from '@nestjs/common';
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
@@ -38,5 +38,14 @@ export class SubcategoryController {
     @Get(':slug')
     findOne(@Param('slug') slug: string) {
         return this.subcategoryService.findOne(slug);
+    }
+
+
+    // Delete subcategory
+    // @hasRoles(UserRole.ADMIN)
+    // @UseGuards(JwtAuthGuard, RolesGuard)
+    @Delete(':id')
+    deleteOne(@Param('id') id: string) {
+        return this.subcategoryService.deleteOne(Number(id));
     }
 }

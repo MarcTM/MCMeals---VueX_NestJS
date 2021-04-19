@@ -28,7 +28,9 @@
         login(email, password) {
           this.$store.dispatch(LOGIN, { email, password })
             .then((response) => {
-              this.$router.push({ name: "Home"})
+              if (response.user) {
+                this.$router.push({ name: "Home"})
+              }
             })
             .catch((error) => {
               console.error(error)

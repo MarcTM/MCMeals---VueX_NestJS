@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 import JwtService from "@/common/jwt.service";
 import { API_URL } from "@/common/config";
 

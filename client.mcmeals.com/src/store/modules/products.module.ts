@@ -49,19 +49,34 @@ const getters = {
 
 const actions = {
   // Get all products
-  [GET_PRODUCTS](context: any) {
-    return new Promise(resolve => {
-      ApiService.get("product")
-        .then(({ data }) => {
-          console.log(data) 
-          context.commit(SET_PRODUCTS, data);
-          resolve(data);
-        })
-        .catch(({ response }) => {
-          console.log(response);
-          context.commit(SET_ERROR, response);
-        });
-    });
+  [GET_PRODUCTS](context: any, categoryId = null) {
+    if (categoryId) {
+      return new Promise(resolve => {
+        ApiService.get("product?categoryId=" + categoryId)
+          .then(({ data }) => {
+            console.log(data);
+            context.commit(SET_PRODUCTS, data);
+            resolve(data);
+          })
+          .catch(({ response }) => {
+            console.log(response);
+            context.commit(SET_ERROR, response);
+          });
+      });
+    } else {
+      return new Promise(resolve => {
+        ApiService.get("product")
+          .then(({ data }) => {
+            console.log(data);
+            context.commit(SET_PRODUCTS, data);
+            resolve(data);
+          })
+          .catch(({ response }) => {
+            console.log(response);
+            context.commit(SET_ERROR, response);
+          });
+      });
+    }
   },
 
 

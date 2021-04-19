@@ -15,11 +15,9 @@ export class CategoryService {
 
     // Create category
     create(category: Category) {
-        return this.generateSlug(category.name)
-        .then((slug) => {
-            category.slug = slug;
-            return this.categoryRepository.save(category);
-        })
+        const slug = this.generateSlug(category.name);
+        category.slug = slug;
+        return this.categoryRepository.save(category);
     }
 
 
