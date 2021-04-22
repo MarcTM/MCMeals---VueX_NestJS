@@ -1,10 +1,10 @@
 <template>
-  <section class="login-page">
+  <section class="login">
     <h1>SIGN IN</h1>
     
       <form class="login-form" @submit.prevent="login(username, password)">
         <label>Email</label>
-        <input type="email" v-model="username" rerquired />
+        <input type="email" v-model="username" required />
 
         <label>Password</label>
         <input type="password" v-model="password" required />
@@ -42,16 +42,16 @@
 
 
 <style scoped>
-  .login-page {
-    width: 100%;
+  .login {
+    box-sizing: border-box;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
     margin-bottom: 30px;
   }
 
-  .login-page h1 {
+  .login h1 {
     margin-top: 40px;
     width: 80%;
     padding-bottom: 20px;
@@ -59,28 +59,27 @@
   }
 
   .login-form {
-    margin: 40px 0px  ;
+    margin: 40px 0px;
     display: flex;
     flex-direction: column;
     width: 80%;
   }
 
   .login-form label {
-    text-align: left;
-    display: block;
     margin-bottom: 10px;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 0.8em;
+    font-size: 13px;
   }
 
   .login-form input {
-    padding-left: 10px;
+    box-sizing: border-box;
+    padding: 0px 10px;
     width: 50%;
     height: 50px;
     margin-bottom: 40px;
     border: 1.5px solid var(--light-grey);
-    border-radius: 0;
+    outline: none;
   }
 
   .login-button {
@@ -89,17 +88,13 @@
     height: 50px;
     color: white;
     background-color: var(--light-grey);
-    border: 1px solid var(--light-grey);
+    border: none;
+    outline: none;
+    transition: 0.3s;
   }
 
   .login-button:hover {
-    transition: 0.3s;
     background-color: var(--color-hover-red);
-    border: 1px solid  var(--color-hover-red);
-  }
-
-  .login-button:focus {
-    outline: none;
   }
 
   .login-form section {
@@ -110,13 +105,38 @@
   }
   .login-form section a {
     font-weight: 400;
-    text-decoration: underline;
+    text-decoration: none;
     color: black;
-    font-size: 1.2em;
+    font-size: 18px;
+    transition: 0.2s;
   }
 
   .login-form section a:hover {
-    transition: 0.3s;
-    color: var(--color-hover-red);
+    color: var(--color-hover-orange);
+  }
+
+  @media (max-width: 767px) {
+    .login-form input {
+      padding-left: 10px;
+      width: 100%;
+    }
+
+    .login-form section {
+      flex-direction: column;
+    }
+
+    .login-button {
+      width: 100%;
+    }
+
+    .login-form section {
+      width: 100%;
+    }
+
+    .login-form section a {
+      width: 100%;
+      margin-top: 10px;
+      font-size: 16px;
+    }
   }
 </style>

@@ -55,10 +55,11 @@
 
 <style scoped>
   .register {
+    box-sizing: border-box; 
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
     margin-bottom: 30px;
   }
 
@@ -76,28 +77,21 @@
     width: 80%;
   }
 
-  @media (max-width: 767px) {
-    .register-form {
-      width: 100%;
-    }
-  }
-
   .register-form label {
-    text-align: left;
-    display: block;
     margin-bottom: 10px;
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 0.8em;
+    font-size: 13px;
   }
 
   .register-form input {
+    box-sizing: border-box;
     padding: 0px 10px;
     width: 50%;
     height: 50px;
     margin-bottom: 40px;
     border: 1.5px solid var(--light-grey);
-    border-radius: 0;
+    outline: none;
   }
 
   .register-button {
@@ -106,13 +100,13 @@
     height: 50px;
     color: white;
     background-color: var(--light-grey);
-    border: 1px solid var(--light-grey);
+    border: none;
+    outline: none;
+    transition: 0.3s;
   }
 
   .register-button:hover {
-    transition: 0.3s;
     background-color: var(--color-hover-red);
-    border: 1px solid var(--color-hover-red);
   }
 
   .register-button:focus {
@@ -128,13 +122,38 @@
 
   .register-form section a {
     font-weight: 400;
-    text-decoration: underline;
+    text-decoration: none;
     color: black;
-    font-size: 1.2em;
+    font-size: 18px;
+    transition: 0.3s;
   }
 
   .register-form section a:hover {
-    transition: 0.3s;
-    color: var(--color-hover-red);
+    color: var(--color-hover-orange);
+  }
+
+  @media (max-width: 767px) {
+    .register-form input {
+      padding-left: 10px;
+      width: 100%;
+    }
+
+    .register-form section {
+      flex-direction: column;
+    }
+
+    .register-button {
+      width: 100%;
+    }
+
+    .register-form section {
+      width: 100%;
+    }
+
+    .register-form section a {
+      width: 100%;
+      margin-top: 10px;
+      font-size: 16px;
+    }
   }
 </style>
