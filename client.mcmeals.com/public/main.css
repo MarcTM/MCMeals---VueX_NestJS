@@ -1,6 +1,7 @@
 :root {
     --color-background-primary: #000000;
     --color-background-secondary: #EEEEEE;
+    --very-light-grey: rgb(240, 238, 238);
     --light-grey: rgb(168, 167, 167);
     --medium-grey: rgb(138, 136, 136);
     --darker-grey: rgb(121, 118, 118);
@@ -8,6 +9,7 @@
 
     --color-hover-light: rgb(210, 210, 210);
     --color-hover-red: #cc3232;
+    --color-hover-orange: #eb694b;
 
     --color-button-primary: grey;
 
