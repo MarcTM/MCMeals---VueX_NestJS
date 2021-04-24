@@ -26,26 +26,4 @@ export default {
 };
 </script>
 
-
-
-<style scoped>
-  .shop {
-    padding: 40px;
-  }
-
-  .shop-header {
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 20px;
-    padding-right: 20px;
-    border-bottom: 1px solid var(--medium-grey);
-    margin-bottom: 30px;
-  }
-
-  .shop-header h1 {
-    font-size: 30px;
-    text-transform: uppercase;
-  }
-</style>
+<style src="./Shop.css" scoped />

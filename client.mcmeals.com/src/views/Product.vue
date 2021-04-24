@@ -78,6 +78,33 @@
       </section>
     </section>
 
+    <section class="customer-reviews">
+      <span class="customer-reviews-title">Customer reviews</span>
+
+      <article class="no-reviews">
+        <span>No reviews yet</span>
+        <span @click="openReview ? openReview = false : openReview = true">Write a review</span>
+      </article>
+
+      <article v-if="openReview" class="add-review">
+        <form class="review-form" @submit.prevent="review(title, body)">
+          <label>REVIEW TITLE</label>
+          <input type="text" placeholder="Give your review a title" v-model="title" required />
+
+          <label>BODY OF REVIEW</label>
+          <input type="text" placeholder="Wrte your comments there" v-model="body" required />
+
+          <section>
+            <button class="review-button">SUBMIT REVIEW</button>
+          </section>  
+        </form>
+      </article>
+    </section>
+
+    <section class="related">
+      <span class="related-title">RELATED ITEMS</span>
+    </section>
+
   </section>
 </template>
 
@@ -95,7 +122,8 @@ export default {
     return {
       quantity: 1,
       description: 1,
-      nutritional: 0
+      nutritional: 0,
+      openReview: false,
     };
   },
 
@@ -138,178 +166,4 @@ export default {
 };
 </script>
 
-
-
-<style scoped>
-.product {
-  box-sizing: border-box;
-  padding: 40px 20px 20px 20px;
-  width: 100%;
-}
-
-.product-details {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 20px 10px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
-}
-
-.product-info {
-  padding-left: 20px;
-  box-sizing: border-box;
-}
-
-.image {
-  width: 100%;
-}
-
-.product-type {
-  display: inline-block;
-  background-color: var(--darker-grey);
-  text-align: center;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: white;
-  padding: 15px 24px;
-  margin-bottom: 10px;
-}
-
-.product-name {
-  margin-bottom: 0px;
-  font-weight: bold;
-  font-size: 1.5em;
-  text-transform: uppercase;
-}
-
-.product-price {
-  font-weight: bold;
-  font-size: 1.2em;
-  text-transform: uppercase;
-}
-
-.tabs {
-  width: 100%;
-  margin-top: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  aling-items: center;
-}
-
-.tabs-names {
-  width: 100%;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--medium-grey);
-}
-
-.tabs-names a {
-  user-select: none;
-  cursor: pointer;
-  margin-right: 30px;
-  font-size: 14px;
-  text-transform: uppercase;
-  transition: 0.1s;
-  padding-bottom: 7px;
-  border-bottom: 2px solid transparent;
-}
-
-.unselected:hover {
-  color: #eb694b;
-}
-
-.selected {
-  border-bottom: 2px solid var(--darker-grey) !important;
-  font-weight: bold;
-}
-
-.tabs-content {
-  margin-top: 30px;
-}
-
-.description {
-  text-align: left;
-}
-
-.nutritional-table {
-  width: 100%;
-  border: 1px solid var(--light-grey);
-  border-spacing: 0px;
-  border-radius: 10px;
-}
-
-.nutritional-table tr:nth-child(2n) {
-  background-color: var(--very-light-grey);
-}
-
-.nutritional-table tr td,
-.nutritional-table tr th {
-  padding: 12px;
-}
-
-.nutritional-table tr td:first-child,
-.nutritional-table tr th:first-child {
-  font-weight: bold;
-  border-right: 1px solid var(--light-grey);
-}
-
-.nutritional-table tr td:nth-child(2) {
-  text-align: center;
-}
-
-.align-right {
-  font-weight: normal !important;
-  padding-left: 40px !important;
-}
-
-.to-cart-button {
-  width: 100%;
-  color: white;
-  font-weight: bold;
-  font-size: 1.1em;
-  text-transform: uppercase;
-  background-color: black;
-  padding: 18px;
-  transition: 0.3s;
-}
-
-.add-to-cart {
-  margin-top: 50px;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-gap: 20px;
-}
-
-.add-to-cart button {
-  cursor: pointer;
-  border: none;
-}
-
-.quantity {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 5px;
-}
-
-.quantity * {
-  user-select: none;
-}
-
-.quantity span {
-  margin: auto;
-}
-
-.quantity button,
-.to-cart-button {
-  outline: none;
-}
-
-.quantity button:hover {
-  border: 1px solid var(--light-grey);
-}
-
-.to-cart-button:hover {
-  background-color: var(--dark-grey);
-}
-</style>
+<style src="./Product.css" scoped />
