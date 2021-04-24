@@ -2,15 +2,15 @@
   <section class="home">
 
     <section v-if="categories" class="home-categories">
-      <article
+      <section
       v-for="category in categories"
       @click="getCategory(category.slug)"
-      @mouseover="hoverCategory = true"
+      @mouseover="hoverCategory = category.id"
       @mouseleave="hoverCategory = false"
       class="home-category">
-        <img class="home-category-image" v-bind:class="{ 'home-category-image-hover': hoverCategory }" v-bind:src="category.image" alt="category-image" />
-        <p v-if="hoverCategory" class="home-category-title">{{category.name}}</p>
-      </article>
+        <img class="home-category-image" v-bind:class="{ 'home-category-image-hover': hoverCategory && hoverCategory === category.id }" v-bind:src="category.image" alt="category-image" />
+        <p class="home-category-title" v-bind:class="{ 'home-category-title-hover': hoverCategory && hoverCategory === category.id }">{{category.name}}</p>
+      </section>
     </section>
 
   </section>
@@ -46,80 +46,10 @@ export default defineComponent({
       },
 
       getCategory(slug) {
-        this.$router.push({ name: "Category", params: { slug }});
+        this.$router.push({ name: "Category", params: { slug: slug }});
       }
   },
 });
 </script>
 
-
-
-<style scoped>
-  @keyframes category-title {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes category-image {
-    0% {
-      filter: brightness(100%);
-    }
-    100% {
-      filter: brightness(50%);
-    }
-  }
-
-  .home {
-    width: 100%;
-    text-align: center;
-  }
-
-  .home-categories {
-    width: 100%;
-    background-color: var(--color-background-secondary);
-    box-sizing: border-box;
-    padding: 40px 20px;
-
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-  }
-
-  .home-category {
-    position: relative;
-    text-align: center;
-  }
-
-  .home-category-image {
-    width: 100%;
-    cursor: pointer;
-  }
-
-  .home-category-image-hover {
-    animation-name: category-image;
-    animation-duration: 0.7s;
-    animation-fill-mode: forwards;
-  }
-
-  .home-category-title {
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 16px;
-    background-color: black;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-name: category-title;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-  }
-</style>
+<style src="./Home.css" scoped />

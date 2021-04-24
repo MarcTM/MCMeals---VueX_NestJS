@@ -5,6 +5,7 @@
 </template>
 
 
+
 <script>
   import { LOGOUT } from "@/store/actions.type";
 
@@ -22,6 +23,4 @@
   }
 </script>
 
-
-<style scoped>
-</style>
+<style src="./Account.css" scoped />

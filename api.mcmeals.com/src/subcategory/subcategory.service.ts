@@ -15,11 +15,9 @@ export class SubcategoryService {
 
     // Create subcategory
     create(subcategory: Subcategory) {
-        return this.generateSlug(subcategory.name)
-        .then((slug) => {
-            subcategory.slug = slug;
-            return this.subcategoryRepository.save(subcategory);
-        })
+        const slug = this.generateSlug(subcategory.name)
+        subcategory.slug = slug;
+        return this.subcategoryRepository.save(subcategory);
     }
 
 
@@ -45,6 +43,12 @@ export class SubcategoryService {
     // Get one subcategory
     findOne(slug: string) {
         return this.subcategoryRepository.findOne({ slug }, { relations: ['category'] });
+    }
+
+
+    // Delete subcategory
+    deleteOne(id: number) {
+        return this.subcategoryRepository.delete(id);
     }
 
 

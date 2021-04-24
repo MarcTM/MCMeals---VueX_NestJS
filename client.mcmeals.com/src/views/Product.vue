@@ -1,6 +1,111 @@
 <template>
-  <div class="product">
-  </div>
+  <section class="product">
+
+    <section v-if="product" class="product-details">
+      <section class="product-image">
+        <img v-bind:src="product.image" class="image" />
+      </section>
+
+      <section class="product-info">
+        <article v-if="product.type" class="product-type">{{product.type}}</article>
+        <p class="product-name">{{product.name}} - {{product.weight}} KG</p>
+        <p class="product-price">{{product.price}} €</p>
+
+        <section class="tabs">
+          <section class="tabs-names">
+            <a @click="select(1)" v-bind:class="[ description === 1 ? 'selected' : 'unselected']">Description</a>
+            <a @click="select(2)" v-bind:class="[ nutritional === 1 ? 'selected' : 'unselected']">Nutritional Information</a> 
+          </section>
+
+          <section class="tabs-content">
+            <section v-if="description === 1" class="description">
+             <p>{{product.description}}</p>
+            </section>
+
+            <section v-if="nutritional === 1" class="nutritional">
+              <table class="nutritional-table">
+                  <tr>
+                    <th></th>
+                    <th>Per 100 g</th>
+                  </tr>
+                  <tr>
+                    <td>Energy</td>
+                    <td>{{product.energy}} kcal</td>
+                  </tr>
+                  <tr>
+                    <td>Fats</td>
+                    <td>{{product.fats}} g</td>
+                  </tr>
+                  <tr>
+                    <td class="align-right">of which saturated</td>
+                    <td>{{product.saturated}} g</td>
+                  </tr>
+                  <tr>
+                    <td>Carbohydrates</td>
+                    <td>{{product.carbohydrates}} g</td>
+                  </tr>
+                  <tr>
+                    <td class="align-right">of which sugars</td>
+                    <td>{{product.sugars}} g</td>
+                  </tr>
+                  <tr>
+                    <td>Proteins</td>
+                    <td>{{product.proteins}} g</td>
+                  </tr>
+                  <tr>
+                    <td>Fiber</td>
+                    <td>{{product.fiber}} g</td>
+                  </tr>
+                  <tr>
+                    <td>Salt</td>
+                    <td>{{product.salt}} g</td>
+                  </tr>
+              </table>
+            </section>
+          </section>
+        </section>
+
+        <section class="add-to-cart">
+          <section class="quantity">
+            <button @click="less()">-</button>
+            <span>{{quantity}}</span>
+            <button @click="more()">+</button>
+          </section>
+
+          <button @click="toCart()" class="to-cart-button">Add to cart</button>
+        </section>
+
+      </section>
+    </section>
+
+    <section class="customer-reviews">
+      <span class="customer-reviews-title">Customer reviews</span>
+
+      <article class="no-reviews">
+        <span>No reviews yet</span>
+        <span @click="openReview ? openReview = false : openReview = true">Write a review</span>
+      </article>
+
+      <article v-if="openReview" class="add-review">
+        <form class="review-form" @submit.prevent="review(title, body)">
+          <label>REVIEW TITLE</label>
+          <input type="text" placeholder="Give your review a title" v-model="title" required />
+
+          <label>BODY OF REVIEW</label>
+          <input type="text" placeholder="Wrte your comments there" v-model="body" required />
+
+          <section>
+            <button class="review-button">SUBMIT REVIEW</button>
+          </section>  
+        </form>
+      </article>
+    </section>
+
+    <section class="related">
+      <span class="related-title">RELATED ITEMS</span>
+    </section>
+
+  </section>
 </template>
 
 
@@ -13,6 +118,15 @@ import { GET_PRODUCT } from "@/store/actions.type";
 export default {
   name: 'Product',
 
+  data() {
+    return {
+      quantity: 1,
+      description: 1,
+      nutritional: 0,
+      openReview: false,
+    };
+  },
+
   beforeRouteEnter(to, from, next) {
     store.dispatch(GET_PRODUCT, to.params.slug);
     return next();
@@ -21,139 +135,35 @@ export default {
   computed: {
       ...mapGetters(["product"]),
   },
+
+  methods: {
+    select(number) {
+      switch (number) {
+        case 1:
+          this.description = 1;
+          this.nutritional = 0;
+          break;
+
+        case 2:
+          this.description = 0;
+          this.nutritional = 1;
+          break;
+      }
+    },
+
+    less() {
+      if (this.quantity !== 1) {this.quantity -= 1};
+    },
+
+    more() {
+      this.quantity += 1;
+    },
+
+    toCart() {
+      console.log(this.quantity);
+    }
+  }
 };
 </script>
 
-
-
-<style scoped>
-.product {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.product-main {
-  margin-top: 80px;
-  width: 70%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding-bottom: 70px;
-  border-bottom: 1px solid grey;
-}
-
-.product-image {
-  width: 40%;
-}
-
-.product-info {
-  color: #3a3a3a;
-  width: 50%;
-  text-align: left;
-}
-
-.product-title {
-  text-transform: capitalize;
-  color: black;
-}
-
-.product-price {
-  font-weight: bold;
-  font-size: 1.2em;
-}
-
-.product-quantity-form {
-  margin-top: 30px;
-}
-
-.quantity {
-  margin-bottom: 6px;
-  display: block;
-  font-weight: bold;
-  color: #5a5a5a;
-  font-size: 0.8em;
-}
-
-.quantity-form {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.add-to-cart {
-  height: 40px;
-  width: 50%;
-  background-color: #ef2929;
-  color: white;
-  border: 1px solid white;
-  cursor: pointer;
-}
-
-.add-to-cart:hover {
-  background-color: #bb1a1a;
-}
-
-.more-less {
-  width: 50%;
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-.more {
-  cursor: pointer;
-  height: 40px;
-  margin: 1px;
-  border: 2px solid grey;
-  width: 30%;
-  background-color: white;
-}
-
-.less {
-  cursor: pointer;
-  height: 40px;
-  margin: 1px;
-  border: 2px solid grey;
-  width: 30%;
-  background-color: white;
-}
-
-input[type="number"] {
-  text-align: center;
-  padding-left: 4px;
-  padding-right: 4px;
-  margin: 1px;
-  height: 34px;
-  border: 2px solid grey;
-  width: 30%;
-  display: inline;
-  background-color: white;
-}
-
-.product-description {
-  width: 65%;
-  margin-top: 30px;
-  margin-bottom: 50px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.product-description p {
-  margin-top: 10px;
-}
-</style>
+<style src="./Product.css" scoped />

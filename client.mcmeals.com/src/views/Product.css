@@ -1,0 +1,270 @@
+.product {
+    box-sizing: border-box;
+    padding: 40px 20px 20px 20px;
+    width: 100%;
+}
+
+.product-details {
+    margin-bottom: 50px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.product-image img {
+    width: 100%;
+    object-fit: cover;
+    max-height: 600px;
+}
+
+.product-info {
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.customer-reviews {
+    margin: 0px 10px;
+    padding: 20px;
+    border: 1px solid var(--lighter-grey);
+    box-sizing: border-box;
+}
+
+.customer-reviews-title {
+    display: block;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: bold
+}
+
+.no-reviews {
+    display: flex;
+    justify-content: space-between;
+}
+
+.no-reviews span {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.no-reviews span:nth-child(2) {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.no-reviews span:nth-child(2):hover {
+    color: var(--color-hover-orange);
+}
+
+.add-review {
+    margin-top: 40px;
+}
+
+.review-form {
+    border-top: 1px solid var(--lighter-grey);
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-form label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.review-form input {
+    box-sizing: border-box;
+    padding: 0px 10px;
+    min-height: 50px;
+    margin-bottom: 40px;
+    border: 1.5px solid var(--light-grey);
+    outline: none;
+}
+
+.review-button {
+    cursor: pointer;
+    width: 20%;
+    min-height: 50px;
+    color: white;
+    border: none;
+    font-weight: bold;
+    background: black;
+    outline: none;
+    transition: 0.3s;
+}
+
+.review-button:hover {
+    background-color: var(--color-hover-red);
+}
+
+.review-form section {
+    text-align: right;
+}
+
+.image {
+    width: 100%;
+}
+
+.product-type {
+    display: inline-block;
+    background-color: var(--darker-grey);
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    padding: 15px 24px;
+    margin-bottom: 10px;
+}
+
+.product-name {
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-transform: uppercase;
+}
+
+.product-price {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+.tabs {
+    width: 100%;
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    aling-items: center;
+}
+
+.tabs-names {
+    width: 100%;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--medium-grey);
+}
+
+.tabs-names a {
+    user-select: none;
+    cursor: pointer;
+    margin-right: 30px;
+    font-size: 14px;
+    text-transform: uppercase;
+    transition: 0.1s;
+    padding-bottom: 7px;
+    border-bottom: 2px solid transparent;
+}
+
+.unselected:hover {
+    color: #eb694b;
+}
+
+.selected {
+    border-bottom: 2px solid var(--darker-grey) !important;
+    font-weight: bold;
+}
+
+.tabs-content {
+    margin-top: 30px;
+}
+
+.description {
+    text-align: left;
+}
+
+.nutritional-table {
+    width: 100%;
+    border: 1px solid var(--light-grey);
+    border-spacing: 0px;
+    border-radius: 10px;
+}
+
+.nutritional-table tr:nth-child(2n) {
+    background-color: var(--very-light-grey);
+}
+
+.nutritional-table tr td, .nutritional-table tr th {
+    padding: 12px;
+}
+
+.nutritional-table tr td:first-child, .nutritional-table tr th:first-child {
+    font-weight: bold;
+    border-right: 1px solid var(--light-grey);
+}
+
+.nutritional-table tr td:nth-child(2) {
+    text-align: center;
+}
+
+.align-right {
+    font-weight: normal !important;
+    padding-left: 40px !important;
+}
+
+.to-cart-button {
+    width: 100%;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    background-color: black;
+    padding: 18px;
+    transition: 0.3s;
+}
+
+.add-to-cart {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-gap: 20px;
+}
+
+.add-to-cart button {
+    cursor: pointer;
+    border: none;
+}
+
+.quantity {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-gap: 7px;
+}
+
+.quantity * {
+    user-select: none;
+}
+
+.quantity span {
+    margin: auto;
+}
+
+.quantity button, .to-cart-button {
+    outline: none;
+}
+
+.quantity button:hover {
+    border: 1px solid var(--light-grey);
+}
+
+.to-cart-button:hover {
+    background-color: var(--dark-grey);
+}
+
+.related {
+    margin: 80px 10px;
+}
+
+.related-title {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    font-size: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-grey);
+    text-align: center;
+}

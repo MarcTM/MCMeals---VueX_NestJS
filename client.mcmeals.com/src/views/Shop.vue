@@ -1,7 +1,15 @@
 <template>
-  <div class="shop">
-    <ProductsList />
-  </div>
+  <section class="shop">
+
+    <section class="shop-header">
+      <h1>All products</h1>
+    </section>
+
+    <section class="shop-products">
+      <ProductsList />
+    </section>
+
+  </section>
 </template>
 
 
@@ -18,19 +26,4 @@ export default {
 };
 </script>
 
-
-
-<style scoped>
-.shop {
-  padding: 10px;
-}
-
-.shop--title {
-  color: black;
-}
-
-.shop h1 {
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
-</style>
+<style src="./Shop.css" scoped />

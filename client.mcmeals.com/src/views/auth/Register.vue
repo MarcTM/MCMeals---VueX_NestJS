@@ -27,6 +27,7 @@
 </template>
 
 
+
 <script>
   import store from '@/store';
   import {
@@ -52,83 +53,4 @@
   }
 </script>
 
-
-<style scoped>
-  .register {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    margin-bottom: 30px;
-  }
-
-  .register h1 {
-    margin-top: 40px;
-    width: 80%;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--light-grey);
-  }
-
-  .register-form {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-  }
-
-  .register-form label {
-    text-align: left;
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 0.8em;
-  }
-
-  .register-form input {
-    padding-left: 10px;
-    width: 50%;
-    height: 50px;
-    margin-bottom: 40px;
-    border: 1.5px solid var(--light-grey);
-    border-radius: 0;
-  }
-
-  .register-button {
-    cursor: pointer;
-    width: 50%;
-    height: 50px;
-    color: white;
-    background-color: var(--light-grey);
-    border: 1px solid var(--light-grey);
-  }
-
-  .register-button:hover {
-    transition: 0.3s;
-    background-color: var(--color-hover-red);
-    border: 1px solid var(--color-hover-red);
-  }
-
-  .register-button:focus {
-    outline: none;
-  }
-
-  .register-form section {
-    width: 50%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .register-form section a {
-    font-weight: 400;
-    text-decoration: underline;
-    color: black;
-    font-size: 1.2em;
-  }
-
-  .register-form section a:hover {
-    transition: 0.3s;
-    color: var(--color-hover-red);
-  }
-</style>
+<style src="./Register.css" scoped />

@@ -31,12 +31,11 @@ export class ProductController {
     ) {
         if (categoryId == null && subcategoryId == null) {
             return this.productService.findAll();
+        } else if (categoryId == null && subcategoryId) {
+            return this.productService.findBySubcategory(subcategoryId);
+        } else if (categoryId && subcategoryId == null) {
+            return this.productService.findByCategory(categoryId);
         }
-        // } else if (categoryId == null && subcategoryId) {
-        //     return this.productService.findBySubcategory(subcategoryId);
-        // } else if (categoryId && subcategoryId == null) {
-        //     return this.productService.findByCategory(categoryId);
-        // }
     }
 
 
