@@ -28,33 +28,4 @@ export default {
 }
 </script>
 
-
-
-<style scoped>
-  .product-preview {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .image {
-    width: 85%;
-    height: 200px;
-  }
-
-  .title {
-    width: 100%;
-    text-align: center;
-    font-size: 17px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  .money {
-    width: 100%;
-    text-align: center;
-    font-size: 17px;
-  }
-</style>
+<style src="./ProductPreview.css" scoped />

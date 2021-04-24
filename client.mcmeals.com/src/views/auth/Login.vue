@@ -18,6 +18,7 @@
 </template>
 
 
+
 <script>
   import { LOGIN } from "@/store/actions.type";
 
@@ -40,103 +41,4 @@
   }
 </script>
 
-
-<style scoped>
-  .login {
-    box-sizing: border-box;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px;
-  }
-
-  .login h1 {
-    margin-top: 40px;
-    width: 80%;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--light-grey);
-  }
-
-  .login-form {
-    margin: 40px 0px;
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-  }
-
-  .login-form label {
-    margin-bottom: 10px;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 13px;
-  }
-
-  .login-form input {
-    box-sizing: border-box;
-    padding: 0px 10px;
-    width: 50%;
-    height: 50px;
-    margin-bottom: 40px;
-    border: 1.5px solid var(--light-grey);
-    outline: none;
-  }
-
-  .login-button {
-    cursor: pointer;
-    width: 50%;
-    height: 50px;
-    color: white;
-    background-color: var(--light-grey);
-    border: none;
-    outline: none;
-    transition: 0.3s;
-  }
-
-  .login-button:hover {
-    background-color: var(--color-hover-red);
-  }
-
-  .login-form section {
-    width: 50%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .login-form section a {
-    font-weight: 400;
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-    transition: 0.2s;
-  }
-
-  .login-form section a:hover {
-    color: var(--color-hover-orange);
-  }
-
-  @media (max-width: 767px) {
-    .login-form input {
-      padding-left: 10px;
-      width: 100%;
-    }
-
-    .login-form section {
-      flex-direction: column;
-    }
-
-    .login-button {
-      width: 100%;
-    }
-
-    .login-form section {
-      width: 100%;
-    }
-
-    .login-form section a {
-      width: 100%;
-      margin-top: 10px;
-      font-size: 16px;
-    }
-  }
-</style>
+<style src="./Login.css" scoped />
