@@ -54,12 +54,10 @@ const actions = {
       return new Promise(resolve => {
         ApiService.get("product?categoryId=" + categoryId)
           .then(({ data }) => {
-            console.log(data);
             context.commit(SET_PRODUCTS, data);
             resolve(data);
           })
           .catch(({ response }) => {
-            console.log(response);
             context.commit(SET_ERROR, response);
           });
       });
@@ -67,12 +65,10 @@ const actions = {
       return new Promise(resolve => {
         ApiService.get("product")
           .then(({ data }) => {
-            console.log(data);
             context.commit(SET_PRODUCTS, data);
             resolve(data);
           })
           .catch(({ response }) => {
-            console.log(response);
             context.commit(SET_ERROR, response);
           });
       });
@@ -101,7 +97,6 @@ const actions = {
     return new Promise(resolve => {
       ApiService.query("meals", res[1])
         .then(({ data }) => {
-          console.log(data)
           context.commit(SET_PRODUCTS, data);
           resolve(data);
         })
@@ -117,7 +112,6 @@ const actions = {
     return new Promise(resolve => {
       ApiService.get("product/" + slug)
         .then(({ data }) => {
-          console.log(data);
           context.commit(SET_PRODUCT, data);
           resolve(data);
         })

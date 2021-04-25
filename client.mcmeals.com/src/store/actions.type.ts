@@ -9,6 +9,12 @@ export const GET_PRODUCTS_BY_SEARCH = "getProductsBySearch";
 export const GET_PRODUCTS_BY_PAGINATION = "getProductsByPagination";
 export const GET_PRODUCT = "getProduct";
 
+export const GET_CART = "getCart";
+export const ADD_CART = "addCart";
+
+export const GET_COMMENTS = "getComments";
+export const ADD_COMMENT = "addComment";
+
 export const GET_CATEGORIES = "getCategories";
 export const GET_CATEGORY = "getCategory";
 

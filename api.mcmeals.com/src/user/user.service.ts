@@ -166,7 +166,6 @@ export class UserService {
             return this.authService.comparePasswords(password, user.password)
             .then((match) => {
                 if (match) {
-                    console.log("match");
                     const {password, ...result} = user;
                     return result;
                 } else {

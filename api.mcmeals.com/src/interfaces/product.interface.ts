@@ -1,3 +1,4 @@
+import { Cart } from "./cart.interface";
 import { Category } from "./category.interface";
 import { Subcategory } from "./subcategory.interface";
 
@@ -21,4 +22,5 @@ export interface Product {
 
     categories?: Category[]
     subcategories?: Subcategory[];
+    cart_users?: Cart[];
 }

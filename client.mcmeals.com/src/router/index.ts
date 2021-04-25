@@ -60,12 +60,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/auth/Account.vue'),
     beforeEnter: authGuard
   },
-  // {
-  //   path: '/cart',
-  //   name: 'Cart',
-  //   component: () => import('@/views/auth/Cart.vue'),
-  //   beforeEnter: authGuard
-  // },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('@/views/auth/Cart.vue'),
+    beforeEnter: authGuard
+  },
   {
     path: '/shop',
     name: 'Shop',

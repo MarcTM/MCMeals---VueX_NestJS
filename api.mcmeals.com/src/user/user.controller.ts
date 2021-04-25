@@ -32,7 +32,6 @@ export class UserController {
     login(@Body() user: User) {
         return this.userService.login(user)
         .then((response) => {
-            console.log(response);
             return response;
         })
         .catch((error) => {
