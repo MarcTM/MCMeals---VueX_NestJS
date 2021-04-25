@@ -72,7 +72,7 @@
             <button @click="more()">+</button>
           </section>
 
-          <button @click="toCart()" class="to-cart-button">Add to cart</button>
+          <button @click="toCart(product)" class="to-cart-button">Add to cart</button>
         </section>
 
       </section>
@@ -113,7 +113,10 @@
 <script>
 import store from "@/store";
 import { mapGetters } from "vuex";
-import { GET_PRODUCT } from "@/store/actions.type";
+import {
+  GET_PRODUCT,
+  ADD_CART,
+} from "@/store/actions.type";
 
 export default {
   name: 'Product',
@@ -159,8 +162,8 @@ export default {
       this.quantity += 1;
     },
 
-    toCart() {
-      console.log(this.quantity);
+    toCart(product) {
+      this.$store.dispatch(ADD_CART, this.quantity);
     }
   }
 };

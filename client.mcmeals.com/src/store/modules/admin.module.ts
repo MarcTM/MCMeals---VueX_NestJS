@@ -33,7 +33,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       ApiService.get("auth/users")
         .then(({ data }) => {
-          console.log(data);
           context.commit(SET_USERS, data.items);
           resolve(data);
         })

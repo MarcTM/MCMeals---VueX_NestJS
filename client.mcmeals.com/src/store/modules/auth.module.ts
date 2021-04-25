@@ -15,9 +15,8 @@ import {
 
 const state = {
   errors: null,
-  user: {},
-  profile: {},
-  cart: {},
+  user: null,
+  profile: null,
   isAuthenticated: false,
 };
 
@@ -42,11 +41,6 @@ const getters = {
   profile(state: any) {
     return state.profile;
   },
-
-  // Get cart
-  cart(state: any) {
-    return state.cart;
-  }
 };
 
 
@@ -82,7 +76,6 @@ const actions = {
           resolve(data);
         })
         .catch(({ error }) => {
-          console.log(error);
           // context.commit(SET_ERROR, response.data);
           reject(error);
         });
