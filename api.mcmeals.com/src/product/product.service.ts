@@ -25,7 +25,7 @@ export class ProductService {
     // Get all products
     findAll() {
         return this.productRepository.find({
-            relations: ['categories', 'subcategories']
+            relations: ['categories', 'subcategories', 'comments']
         });
     }
 
@@ -35,6 +35,7 @@ export class ProductService {
         return this.productRepository
             .createQueryBuilder("product")
             .leftJoinAndSelect("product.categories", "category")
+            .leftJoinAndSelect("product.comments", "comment")
             .where("category.id = :id", { id: categoryId })
             .getMany();
     }
@@ -45,6 +46,7 @@ export class ProductService {
         return this.productRepository
             .createQueryBuilder("product")
             .leftJoinAndSelect("product.subcategories", "subcategory")
+            .leftJoinAndSelect("product.comments", "comment")
             .where("subcategory.id = :id", { id: subcategoryId })
             .getMany();
     }
@@ -54,7 +56,7 @@ export class ProductService {
     findOne(slug: string) {
         return this.productRepository.findOne(
             { slug },
-            { relations: ['categories', 'subcategories'] }
+            { relations: ['categories', 'subcategories', 'comments'] }
         );
     }
 

@@ -13,7 +13,6 @@ import { CartService } from './cart.service';
         forwardRef(() => UserModule),
         TypeOrmModule.forFeature([CartEntity]),
         AuthModule,
-        UserModule,
     ],
     providers: [CartService],
     controllers: [CartController],

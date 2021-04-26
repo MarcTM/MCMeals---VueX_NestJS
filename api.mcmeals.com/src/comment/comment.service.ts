@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CartEntity } from 'src/entities/cart.entity';
 import { Comment } from 'src/interfaces/comment.interface';
 import { CommentEntity } from 'src/entities/comment.entity';
 
@@ -9,7 +8,7 @@ import { CommentEntity } from 'src/entities/comment.entity';
 @Injectable()
 export class CommentService {
     constructor(
-        @InjectRepository(CartEntity) private readonly commentRepository: Repository<CommentEntity>,
+        @InjectRepository(CommentEntity) private readonly commentRepository: Repository<CommentEntity>,
     ) {}
 
 

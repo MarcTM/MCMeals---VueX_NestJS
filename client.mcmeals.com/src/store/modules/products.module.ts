@@ -1,13 +1,16 @@
 import ApiService from "@/common/api.service";
+import auth from "./auth.module";
 import {
     GET_PRODUCTS,
     GET_PRODUCTS_BY_SEARCH,
     GET_PRODUCTS_BY_PAGINATION,
-    GET_PRODUCT
+    GET_PRODUCT,
+    ADD_COMMENT,
 } from "@/store/actions.type";
 import {
   SET_PRODUCTS,
   SET_PRODUCT,
+  SET_COMMENT,
   SET_ERROR,
 } from "@/store/mutations.type";
 
@@ -112,6 +115,7 @@ const actions = {
     return new Promise(resolve => {
       ApiService.get("product/" + slug)
         .then(({ data }) => {
+          console.log(data);
           context.commit(SET_PRODUCT, data);
           resolve(data);
         })
@@ -119,7 +123,30 @@ const actions = {
           context.commit(SET_ERROR, response);
         });
     });
-  }
+  },
+
+
+  // Add a comment
+  [ADD_COMMENT](context: any, data: any) {
+    const comment = {
+      user: auth.getters.user(auth.state),
+      product: state.product,
+      title: data.title,
+      body: data.body
+    };
+
+    return new Promise(resolve => {
+      ApiService.post("comment", comment)
+        .then(({ data }) => {
+          console.log(data);
+          context.commit(SET_COMMENT, data);
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          context.commit(SET_ERROR, response);
+        });
+    });
+  },
 };
 
 
@@ -141,6 +168,13 @@ const mutations = {
   [SET_PRODUCT](state: any, product: any) {
     state.errors = {};
     state.product = product;
+  },
+
+
+  // Set comment
+  [SET_COMMENT](state: any, comment: any) {
+    state.errors = {};
+    state.product.comments.push(comment);
   },
 };
 

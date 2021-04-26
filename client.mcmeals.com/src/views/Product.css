@@ -50,12 +50,12 @@
     font-weight: bold;
 }
 
-.no-reviews span:nth-child(2) {
+.write-review {
     cursor: pointer;
     transition: 0.2s;
 }
 
-.no-reviews span:nth-child(2):hover {
+.write-review:hover {
     color: var(--color-hover-orange);
 }
 
@@ -240,7 +240,15 @@
 }
 
 .quantity span {
+    font-size: 17px;
+    font-weight: bold;
     margin: auto;
+}
+
+.quantity button {
+    font-size: 17px;
+    background-color: var(--lighter-grey);
+    font-weight: bold;
 }
 
 .quantity button, .to-cart-button {
@@ -253,6 +261,25 @@
 
 .to-cart-button:hover {
     background-color: var(--dark-grey);
+}
+
+.comment:first-child {
+    margin: 40px 0px;
+}
+
+.comment {
+    padding-top: 40px;
+    border-top: 1px solid var(--light-grey);
+}
+
+.comment-title {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.comment-body {
+    font-style: italic;
+    font-size: 17px;
 }
 
 .related {

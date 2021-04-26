@@ -7,7 +7,7 @@ import { Comment } from 'src/interfaces/comment.interface';
 import { CommentService } from './comment.service';
 
 
-@Controller('cart')
+@Controller('comment')
 export class CommentController {
     constructor(
         private commentService: CommentService
@@ -18,7 +18,7 @@ export class CommentController {
     // @hasRoles(UserRole.ADMIN)
     // @UseGuards(JwtAuthGuard, RolesGuard)
     @Post()
-    create(@Body() comment: Comment) {
+    add(@Body() comment: Comment) {
         return this.commentService.add(comment);
     }
 

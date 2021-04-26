@@ -2,6 +2,7 @@ import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColum
 import { SubcategoryEntity } from "./subcategory.entity";
 import { CategoryEntity } from "./category.entity";
 import { CartEntity } from "./cart.entity";
+import { CommentEntity } from "./comment.entity";
 
 @Entity()
 export class ProductEntity {
@@ -63,4 +64,7 @@ export class ProductEntity {
 
     @OneToMany(() => CartEntity, cart => cart.product)
     cart_users: CartEntity[];
+
+    @OneToMany(() => CommentEntity, comment => comment.product)
+    comments: CommentEntity[];
 }

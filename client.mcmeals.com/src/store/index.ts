@@ -11,7 +11,7 @@ const store = createStore({
     auth,
     products,
     categories,
-    cart
+    cart,
   }
 })
 

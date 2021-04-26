@@ -78,16 +78,16 @@
       </section>
     </section>
 
-    <section class="customer-reviews">
+    <section v-if="product" class="customer-reviews">
       <span class="customer-reviews-title">Customer reviews</span>
 
-      <article class="no-reviews">
-        <span>No reviews yet</span>
-        <span @click="openReview ? openReview = false : openReview = true">Write a review</span>
-      </article>
+      <section v-if="user || product.comments.length < 1" class="no-reviews">
+        <span v-if="product.comments.length < 1">No reviews yet</span>
+        <span v-if="user" class="write-review" @click="openReview ? openReview = false : openReview = true">Write a review</span>
+      </section>
 
-      <article v-if="openReview" class="add-review">
-        <form class="review-form" @submit.prevent="review(title, body)">
+      <section v-if="openReview" class="add-review">
+        <form class="review-form" @submit.prevent="add_review(title, body)">
           <label>REVIEW TITLE</label>
           <input type="text" placeholder="Give your review a title" v-model="title" required />
 
@@ -98,7 +98,14 @@
             <button class="review-button">SUBMIT REVIEW</button>
           </section>  
         </form>
-      </article>
+      </section>
+
+      <section v-if="product.comments.length > 0" class="product-comments">
+        <article class="comment" v-for="comment in product.comments">
+          <span class="comment-title">{{comment.title}}</span>
+          <p class="comment-body">{{comment.body}}</p>
+        </article>
+      </section>
     </section>
 
     <section class="related">
@@ -116,6 +123,7 @@ import { mapGetters } from "vuex";
 import {
   GET_PRODUCT,
   ADD_CART,
+  ADD_COMMENT,
 } from "@/store/actions.type";
 
 export default {
@@ -136,7 +144,7 @@ export default {
   },
 
   computed: {
-      ...mapGetters(["product"]),
+      ...mapGetters(["product", "user"]),
   },
 
   methods: {
@@ -164,6 +172,10 @@ export default {
 
     toCart(product) {
       this.$store.dispatch(ADD_CART, this.quantity);
+    },
+
+    add_review(title, body) {
+      this.$store.dispatch(ADD_COMMENT, { title, body });
     }
   }
 };
