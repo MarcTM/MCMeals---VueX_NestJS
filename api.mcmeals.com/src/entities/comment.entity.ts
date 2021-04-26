@@ -13,9 +13,9 @@ export class CommentEntity {
     @Column()
     body: string;
 
-    @ManyToOne(() => UserEntity, user => user.cart_products)
+    @ManyToOne(() => UserEntity, user => user.comments)
     user: UserEntity;
 
-    @ManyToOne(() => ProductEntity, product => product.cart_users)
+    @ManyToOne(() => ProductEntity, product => product.comments)
     product: ProductEntity;
 }

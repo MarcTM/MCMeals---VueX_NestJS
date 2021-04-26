@@ -1,6 +1,7 @@
 import { UserRole } from "src/interfaces/user.interface";
 import { BeforeInsert, OneToMany, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { CartEntity } from "./cart.entity";
+import { CommentEntity } from "./comment.entity";
 
 @Entity()
 export class UserEntity {
@@ -24,6 +25,9 @@ export class UserEntity {
 
     @OneToMany(() => CartEntity, cart => cart.user)
     cart_products: CartEntity[];
+
+    @OneToMany(() => CommentEntity, comment => comment.user)
+    comments: CommentEntity[];
 
     @BeforeInsert()
     emailToLowerCase() {

@@ -4,7 +4,7 @@ export const SET_AUTH = "setUser";
 
 export const SET_CART = "setCart";
 
-export const SET_COMMENTS = "setComments";
+export const SET_COMMENT = "setComment";
 
 export const SET_ERROR = "setError";
 

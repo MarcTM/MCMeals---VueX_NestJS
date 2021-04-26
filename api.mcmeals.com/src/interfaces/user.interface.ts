@@ -1,4 +1,5 @@
 import { Cart } from "./cart.interface";
+import { Comment } from "./comment.interface";
 
 export enum UserRole {
     ADMIN = 'admin',
@@ -14,4 +15,5 @@ export interface User {
     
     role?: UserRole;
     cart_products?: Cart[];
+    comments?: Comment[];
 }
