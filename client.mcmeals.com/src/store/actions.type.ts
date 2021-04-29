@@ -11,6 +11,8 @@ export const GET_PRODUCT = "getProduct";
 
 export const GET_CART = "getCart";
 export const ADD_CART = "addCart";
+export const UPDATE_CART = "updateCart";
+export const REMOVE_CART = "removeCart";
 
 export const ADD_COMMENT = "addComment";
 

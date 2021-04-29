@@ -19,7 +19,7 @@ export class CartService {
     }
 
 
-    // Get user's cart products 
+    // Get user's cart products
     findByUser(userId: number) {
         return this.cartRepository
             .createQueryBuilder("cart")
@@ -27,5 +27,21 @@ export class CartService {
             .leftJoinAndSelect("cart.product", "product")
             .where("user.id = :id", { id: userId })
             .getMany();
+    }
+
+
+    // Update cart
+    updateCart(id: number, cart: Cart) {
+        if (cart.quantity === 0) {
+            return this.cartRepository.delete(id);
+        } else {
+            return this.cartRepository.update(id, cart);
+        }
+    }
+
+
+    // Delete from cart
+    deleteCart(id: number) {
+        return this.cartRepository.delete(id);
     }
 }
