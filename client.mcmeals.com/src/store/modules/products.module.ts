@@ -6,11 +6,13 @@ import {
     GET_PRODUCTS_BY_PAGINATION,
     GET_PRODUCT,
     ADD_COMMENT,
+    DELETE_COMMENT,
 } from "@/store/actions.type";
 import {
   SET_PRODUCTS,
   SET_PRODUCT,
   SET_COMMENT,
+  REMOVE_COMMENT,
   SET_ERROR,
 } from "@/store/mutations.type";
 
@@ -120,6 +122,7 @@ const actions = {
           resolve(data);
         })
         .catch(({ response }) => {
+          console.log(response);
           context.commit(SET_ERROR, response);
         });
     });
@@ -140,6 +143,21 @@ const actions = {
         .then(({ data }) => {
           console.log(data);
           context.commit(SET_COMMENT, data);
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          context.commit(SET_ERROR, response);
+        });
+    });
+  },
+
+
+  // Delete comment
+  [DELETE_COMMENT](context: any, comment: any) {
+    return new Promise(resolve => {
+      ApiService.delete("comment/" + comment.id)
+        .then(({ data }) => {
+          context.commit(REMOVE_COMMENT, comment);
           resolve(data);
         })
         .catch(({ response }) => {
@@ -175,6 +193,13 @@ const mutations = {
   [SET_COMMENT](state: any, comment: any) {
     state.errors = {};
     state.product.comments.push(comment);
+  },
+
+
+  // Set comment
+  [REMOVE_COMMENT](state: any, data: any) {
+    state.errors = {};
+    state.product.comments = state.product.comments.filter((comment: any) => comment.id !== data.id);
   },
 };
 

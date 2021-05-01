@@ -104,6 +104,7 @@
         <article class="comment" v-for="comment in product.comments">
           <span class="comment-title">{{comment.title}}</span>
           <p class="comment-body">{{comment.body}}</p>
+          <button v-if="user && user.id === comment.user.id" @click="delete_comment(comment)" class="comment-delete">Delete Comment</button>
         </article>
       </section>
     </section>
@@ -124,6 +125,7 @@ import {
   GET_PRODUCT,
   ADD_CART,
   ADD_COMMENT,
+  DELETE_COMMENT,
 } from "@/store/actions.type";
 
 export default {
@@ -139,7 +141,7 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    store.dispatch(GET_PRODUCT, to.params.slug);
+    store.dispatch(GET_PRODUCT, to.params.slug)
     return next();
   },
 
@@ -176,6 +178,10 @@ export default {
 
     add_review(title, body) {
       this.$store.dispatch(ADD_COMMENT, { title, body });
+    },
+
+    delete_comment(comment) {
+      this.$store.dispatch(DELETE_COMMENT, comment);
     }
   }
 };

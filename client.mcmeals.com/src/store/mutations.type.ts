@@ -6,6 +6,7 @@ export const SET_CART = "setCart";
 export const DELETE_CART = "deleteCart";
 
 export const SET_COMMENT = "setComment";
+export const REMOVE_COMMENT = "removeComment";
 
 export const SET_ERROR = "setError";
 

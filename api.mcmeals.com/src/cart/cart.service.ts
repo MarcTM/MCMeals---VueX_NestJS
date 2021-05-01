@@ -14,8 +14,20 @@ export class CartService {
 
 
     // Add to cart
-    add(cart: Cart) {
-        return this.cartRepository.save(cart);
+    async add(cart: Cart) {
+        return this.cartRepository
+            .createQueryBuilder("cart")
+            .leftJoinAndSelect("cart.user", "user")
+            .leftJoinAndSelect("cart.product", "product")
+            .andWhere("product.id = " + cart.product.id)
+            .andWhere("user.id = " + cart.user.id)
+            .getOne()
+            .then((response) => {
+                if (!response) {
+                    this.cartRepository.save(cart);
+                }
+                return;
+            })
     }
 
 
@@ -23,7 +35,7 @@ export class CartService {
     findByUser(userId: number) {
         return this.cartRepository
             .createQueryBuilder("cart")
-            .leftJoin("cart.user", "user")
+            .leftJoinAndSelect("cart.user", "user")
             .leftJoinAndSelect("cart.product", "product")
             .where("user.id = :id", { id: userId })
             .getMany();

@@ -15,6 +15,8 @@ export const UPDATE_CART = "updateCart";
 export const REMOVE_CART = "removeCart";
 
 export const ADD_COMMENT = "addComment";
+export const UPDATE_COMMENT = "updateComment";
+export const DELETE_COMMENT = "deleteComment";
 
 export const GET_CATEGORIES = "getCategories";
 export const GET_CATEGORY = "getCategory";
