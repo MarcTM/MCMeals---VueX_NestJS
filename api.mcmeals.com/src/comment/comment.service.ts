@@ -27,4 +27,17 @@ export class CommentService {
             .where("product.id = :id", { id: productId })
             .getMany();
     }
+
+
+
+    // Update comment
+    updateComment(id: number, comment: Comment) {
+        return this.commentRepository.update(id, comment);
+    }
+
+
+    // Delete comment
+    deleteComment(id: number) {
+        return this.commentRepository.delete(id);
+    }
 }

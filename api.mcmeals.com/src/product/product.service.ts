@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { ProductEntity } from 'src/entities/product.entity';
 import { CategoryEntity } from 'src/entities/category.entity';
 import { Product } from 'src/interfaces/product.interface';
+import { addListener } from 'node:process';
 const slugify = require('slugify');
 
 
@@ -25,7 +26,7 @@ export class ProductService {
     // Get all products
     findAll() {
         return this.productRepository.find({
-            relations: ['categories', 'subcategories', 'comments']
+            relations: ['categories', 'subcategories', 'comments', 'comments.user']
         });
     }
 
@@ -54,10 +55,14 @@ export class ProductService {
 
     // Get one product
     findOne(slug: string) {
-        return this.productRepository.findOne(
-            { slug },
-            { relations: ['categories', 'subcategories', 'comments'] }
-        );
+        return this.productRepository
+            .createQueryBuilder("product")
+            .leftJoinAndSelect("product.categories", "category")
+            .leftJoinAndSelect("product.subcategories", "subcategory")
+            .leftJoinAndSelect("product.comments", "comment")
+            .leftJoinAndSelect("comment.user", "user")
+            .where("product.slug = :slug", { slug })
+            .getOne();
     }
 
 
