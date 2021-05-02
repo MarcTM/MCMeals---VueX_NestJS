@@ -1,7 +1,7 @@
 <template>
 
   <section @click="details(product.slug)" class="product-preview">
-    <img v-bind:src="product.image" class="image" />
+    <img v-bind:src="product.image" class="image" alt="product image" />
     <p class="title">{{ product.name }}</p>
     <span class="money">{{ product.price }} €</span>
   </section>

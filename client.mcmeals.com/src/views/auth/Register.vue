@@ -3,19 +3,19 @@
     <h1>SIGN UP</h1>
 
       <form class="register-form" @submit.prevent="register(name, surname, email, password, rpassword)">
-        <label>Name</label>
+        <label>NAME</label>
         <input type="text" v-model="name" rerquired />
 
-        <label>Surname</label>
+        <label>SURNAME</label>
         <input type="text" v-model="surname" rerquired />
         
-        <label>Email</label>
+        <label>EMAIL</label>
         <input type="email" v-model="email" rerquired />
 
-        <label>Password</label>
+        <label>PASSWORD</label>
         <input type="password" v-model="password" rerquired />
 
-        <label>Repeat Password</label>
+        <label>REPEAT PASSWORD</label>
         <input type="password" v-model="rpassword" required />
 
         <section>

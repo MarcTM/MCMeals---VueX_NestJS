@@ -17,14 +17,4 @@ export default defineComponent({
 
 
 
-<style scoped>
-  .admin {
-    padding: 30px 0px;
-    width: 100%;
-    text-align: center;
-  }
-
-  .admin h1 {
-    margin: 30px 0px 50px 0px;
-  }
-</style>
+<style src="./Admin.css" scoped />

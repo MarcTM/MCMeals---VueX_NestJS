@@ -6,7 +6,7 @@
     <section class="cart-section" v-if="cart && cart.length > 0">
       <section class="cart-products">
         <section v-for="article in cart" class="article">
-          <img @click="details(article.product.slug)" class="article-image" :src="article.product.image" />
+          <img @click="details(article.product.slug)" class="article-image" :src="article.product.image" alt="cart article image" />
 
           <section class="article-info">
             <section class="article-name-price">
