@@ -14,22 +14,19 @@
 .category-image img {
     width: 100%;
     object-fit: cover;
-    max-height: 500px;
+    height: 400px;
     filter: brightness(50%);
 }
 
 .category-image h1 {
     color: white;
     font-weight: bold;
-    font-size: 3em;
+    font-size: 2.5em;
     text-transform: uppercase;
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation-name: category-title;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
 }
 
 .category-image h1::selection {
@@ -39,4 +36,18 @@
 
 .category-products {
     padding: 40px;
+}
+
+@media (max-width: 767px) {
+    .category-image img {
+        height: 250px;
+    }
+
+    .category-image h1 {
+        font-size: 2em;
+    }
+
+    .category-products {
+        padding: 20px;
+    }
 }

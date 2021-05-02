@@ -2,7 +2,7 @@
   <section class="category">
 
     <section v-if="category" class="category-image">
-      <img v-bind:src="category.image" />
+      <img v-bind:src="category.image" alt="category image" />
       <h1>{{category.name}}</h1>
     </section>
 

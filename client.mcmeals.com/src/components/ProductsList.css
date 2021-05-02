@@ -1,6 +1,5 @@
 .searchbar {
     margin-top: 20px;
-    padding: 20px 0px;
     width: 100%;
     display: grid;
     grid-template-columns: 4fr 1fr;
@@ -18,7 +17,6 @@
     border: none;
     background-color: var(--dark-grey);
     color: white;
-    text-transform: uppercase;
     font-weight: bold;
     cursor: pointer;
     transition: 0.2s;
@@ -36,7 +34,7 @@
 
 .products-list {
     width: 100%;
-    padding: 50px;
+    padding: 50px 0px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
@@ -50,7 +48,6 @@
 .subcategories h3 {
     text-decoration: underline;
     font-weight: 700;
-    text-transform: uppercase;
     font-size: 14px;
 }
 
@@ -77,11 +74,9 @@
 
 .load-more button {
     cursor: pointer;
-    margin-right: 20px;
     padding: 10px 20px;
     line-height: 22px;
     font-size: 17px;
-    text-transform: uppercase;
     background-color: white;
     color: var(--dark-grey);
     border: 1px solid var(--dark-grey);
@@ -89,4 +84,25 @@
 
 .searchbar button:focus, .load-more button:focus, .searchbar input:focus {
     outline: none;
+}
+
+@media (max-width: 767px) {
+    .products-all {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .subcategories {
+        display: none;
+    }
+
+    .products-list {
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 30px 15px;
+    }
+
+    .load-more {
+        text-align: center;
+        margin-bottom: 30px;
+    }
 }

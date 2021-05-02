@@ -3,23 +3,23 @@
 
     <section v-if="product" class="product-details">
       <section class="product-image">
-        <img v-bind:src="product.image" class="image" />
+        <img v-bind:src="product.image" class="image" alt="product iamge" />
       </section>
 
       <section class="product-info">
         <article v-if="product.type" class="product-type">{{product.type}}</article>
         <p class="product-name">{{product.name}} - {{product.weight}} KG</p>
-        <p class="product-price">{{product.price}} €</p>
+        <p class="product-price">€{{product.price}}</p>
 
         <section class="tabs">
           <section class="tabs-names">
-            <a @click="select(1)" v-bind:class="[ description === 1 ? 'selected' : 'unselected']">Description</a>
-            <a @click="select(2)" v-bind:class="[ nutritional === 1 ? 'selected' : 'unselected']">Nutritional Information</a> 
+            <a @click="select(1)" v-bind:class="[ description === 1 ? 'selected' : 'unselected']">DESCRIPTION</a>
+            <a @click="select(2)" v-bind:class="[ nutritional === 1 ? 'selected' : 'unselected']">NUTRITIONAL INFORMATION</a> 
           </section>
 
           <section class="tabs-content">
             <section v-if="description === 1" class="description">
-             <p>{{product.description}}</p>
+             <span>{{product.description}}</span>
             </section>
 
             <section v-if="nutritional === 1" class="nutritional">
@@ -72,14 +72,14 @@
             <button @click="more()">+</button>
           </section>
 
-          <button @click="toCart(product)" class="to-cart-button">Add to cart</button>
+          <button @click="toCart(product)" class="to-cart-button">ADD TO CART</button>
         </section>
 
       </section>
     </section>
 
     <section v-if="product" class="customer-reviews">
-      <span class="customer-reviews-title">Customer reviews</span>
+      <span class="customer-reviews-title">CUSTOMER REVIEWS</span>
 
       <section v-if="user || product.comments.length < 1" class="no-reviews">
         <span v-if="product.comments.length < 1">No reviews yet</span>

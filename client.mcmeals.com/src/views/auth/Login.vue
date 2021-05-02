@@ -3,10 +3,10 @@
     <h1>SIGN IN</h1>
     
       <form class="login-form" @submit.prevent="login(username, password)">
-        <label>Email</label>
+        <label>EMAIL</label>
         <input type="email" v-model="username" required />
 
-        <label>Password</label>
+        <label>PASSWORD</label>
         <input type="password" v-model="password" required />
 
         <section>
@@ -30,7 +30,11 @@
           this.$store.dispatch(LOGIN, { email, password })
             .then((response) => {
               if (response.user) {
-                this.$router.push({ name: "Home"})
+                if (response.user.role === "admin") {
+                  this.$router.push({ name: "Admin-Users"})
+                } else {
+                  this.$router.push({ name: "Home"})
+                }
               }
             })
             .catch((error) => {

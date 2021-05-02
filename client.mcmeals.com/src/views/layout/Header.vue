@@ -5,44 +5,44 @@
     </nav>
 
     <nav v-if="!isAuthenticated" class="main-header-top">
-      <router-link to="/login">Login</router-link>
+      <router-link to="/login">LOGIN</router-link>
     </nav>
 
     <nav v-else class="main-header-top">
-      <router-link to="/account">My account</router-link>
-      <router-link to="/cart">Cart</router-link>
+      <router-link to="/account">MY ACCOUNT</router-link>
+      <router-link to="/cart">CART</router-link>
     </nav>
     
     <nav class="main-header-logo">
       <router-link to="/">
-        <img src="../../../public/logowhite.png" alt="logo-image"/>
+        <img src="../../../public/logowhite.png" alt="webpage logo"/>
       </router-link>
     </nav>
 
     <nav v-if="user && user.role === 'admin'" class="main-header-bottom">
-      <router-link to="/admin/users">Users</router-link>
-      <router-link to="/admin/categories">Categories</router-link>
-      <router-link to="/admin/subcategories">Subcategories</router-link>
-      <router-link to="/admin/products">Products</router-link>
+      <router-link to="/admin/users">USERS</router-link>
+      <router-link to="/admin/categories">CATEGORIES</router-link>
+      <router-link to="/admin/subcategories">SUBCATEGORIES</router-link>
+      <router-link to="/admin/products">PRODUCTS</router-link>
     </nav>
 
     <nav v-else class="main-header-bottom">
-      <router-link to="/">Home</router-link>
-      <router-link to="/shop">Shop</router-link>
+      <router-link to="/">HOME</router-link>
+      <router-link to="/shop">SHOP</router-link>
     </nav>
   </section>
 
   <section class="main-header-bottom-phone" v-bind:class="{ 'show': menu, 'hide': !menu }">
     <nav v-if="user && user.role === 'admin'" class="dropdown">
-      <router-link to="/admin/users">Users</router-link>
-      <router-link to="/admin/categories">Categories</router-link>
-      <router-link to="/admin/subcategories">Subcategories</router-link>
-      <router-link to="/admin/products">Products</router-link>
+      <router-link to="/admin/users">USERS</router-link>
+      <router-link to="/admin/categories">CATEGORIES</router-link>
+      <router-link to="/admin/subcategories">SUBCATEGORIES</router-link>
+      <router-link to="/admin/products">PRODUCT </router-link>
     </nav>
 
     <nav v-else class="dropdown">
-      <router-link to="/">Home</router-link>
-      <router-link to="/shop">Shop</router-link>
+      <router-link to="/">HOME</router-link>
+      <router-link to="/shop">SHOP</router-link>
     </nav>
   </section>
 </template>
