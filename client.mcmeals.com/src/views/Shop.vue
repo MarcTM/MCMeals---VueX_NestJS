@@ -2,12 +2,10 @@
   <section class="shop">
 
     <section class="shop-header">
-      <h1>All products</h1>
+      <h1>ALL PRODUCTS</h1>
     </section>
 
-    <section class="shop-products">
-      <ProductsList />
-    </section>
+    <ProductsList />
 
   </section>
 </template>

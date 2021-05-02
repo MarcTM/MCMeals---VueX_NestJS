@@ -36,7 +36,6 @@
     color: white;
     font-size: 1.2em;
     font-weight: bold;
-    text-transform: uppercase;
     margin: 10px 0px;
     text-decoration: none;
 }
@@ -56,7 +55,6 @@
     color: white;
     text-decoration: none;
     margin: 0px 16px;
-    text-transform: uppercase;
     font-weight: bold;
     transition: 0.4s;
 }
@@ -109,17 +107,24 @@
 }
 
 @media (max-width: 767px) {
+    .main-header-logo {
+        margin: 20px 0px;
+    }
+
     .menu-phone {
         display: block;
         width: 100%;
         text-align: left;
     }
+    
     .menu-phone button {
+        outline: none;
         background-color: black;
         border: none;
         font-weight: bold;
         color: white;
     }
+    
     .main-header-bottom {
         display: none;
     }

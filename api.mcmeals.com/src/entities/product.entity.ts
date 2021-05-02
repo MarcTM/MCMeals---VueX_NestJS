@@ -1,6 +1,8 @@
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { SubcategoryEntity } from "./subcategory.entity";
 import { CategoryEntity } from "./category.entity";
+import { CartEntity } from "./cart.entity";
+import { CommentEntity } from "./comment.entity";
 
 @Entity()
 export class ProductEntity {
@@ -59,4 +61,10 @@ export class ProductEntity {
     @ManyToMany(() => SubcategoryEntity, subcategory => subcategory.products)
     @JoinTable()
     subcategories: SubcategoryEntity[];
+
+    @OneToMany(() => CartEntity, cart => cart.product)
+    cart_users: CartEntity[];
+
+    @OneToMany(() => CommentEntity, comment => comment.product)
+    comments: CommentEntity[];
 }

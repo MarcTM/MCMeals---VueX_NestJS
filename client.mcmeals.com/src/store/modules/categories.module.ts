@@ -86,7 +86,6 @@ const actions = {
       return new Promise(resolve => {
         ApiService.get("subcategory?categoryId=" + categoryId)
           .then(({ data }) => {
-            console.log(data);
             context.commit(SET_SUBCATEGORIES, data);
             resolve(data);
           })
@@ -98,7 +97,6 @@ const actions = {
       return new Promise(resolve => {
         ApiService.get("subcategory")
           .then(({ data }) => {
-            console.log(data);
             context.commit(SET_SUBCATEGORIES, data);
             resolve(data);
           })

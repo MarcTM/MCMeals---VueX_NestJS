@@ -18,7 +18,6 @@ export class UserIsUser implements CanActivate {
 
         return this.userService.findOne(user.id)
         .then((user) => {
-            console.log(user);
             let hasPermission = false;
             if (user.id === Number(params.id)) {hasPermission = true};
             return user && hasPermission;

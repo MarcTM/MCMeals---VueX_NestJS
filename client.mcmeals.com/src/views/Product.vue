@@ -3,23 +3,23 @@
 
     <section v-if="product" class="product-details">
       <section class="product-image">
-        <img v-bind:src="product.image" class="image" />
+        <img v-bind:src="product.image" class="image" alt="product iamge" />
       </section>
 
       <section class="product-info">
         <article v-if="product.type" class="product-type">{{product.type}}</article>
         <p class="product-name">{{product.name}} - {{product.weight}} KG</p>
-        <p class="product-price">{{product.price}} €</p>
+        <p class="product-price">€{{product.price}}</p>
 
         <section class="tabs">
           <section class="tabs-names">
-            <a @click="select(1)" v-bind:class="[ description === 1 ? 'selected' : 'unselected']">Description</a>
-            <a @click="select(2)" v-bind:class="[ nutritional === 1 ? 'selected' : 'unselected']">Nutritional Information</a> 
+            <a @click="select(1)" v-bind:class="[ description === 1 ? 'selected' : 'unselected']">DESCRIPTION</a>
+            <a @click="select(2)" v-bind:class="[ nutritional === 1 ? 'selected' : 'unselected']">NUTRITIONAL INFORMATION</a> 
           </section>
 
           <section class="tabs-content">
             <section v-if="description === 1" class="description">
-             <p>{{product.description}}</p>
+             <span>{{product.description}}</span>
             </section>
 
             <section v-if="nutritional === 1" class="nutritional">
@@ -72,22 +72,22 @@
             <button @click="more()">+</button>
           </section>
 
-          <button @click="toCart()" class="to-cart-button">Add to cart</button>
+          <button @click="toCart(product)" class="to-cart-button">ADD TO CART</button>
         </section>
 
       </section>
     </section>
 
-    <section class="customer-reviews">
-      <span class="customer-reviews-title">Customer reviews</span>
+    <section v-if="product" class="customer-reviews">
+      <span class="customer-reviews-title">CUSTOMER REVIEWS</span>
 
-      <article class="no-reviews">
-        <span>No reviews yet</span>
-        <span @click="openReview ? openReview = false : openReview = true">Write a review</span>
-      </article>
+      <section v-if="user || product.comments.length < 1" class="no-reviews">
+        <span v-if="product.comments.length < 1">No reviews yet</span>
+        <span v-if="user" class="write-review" @click="openReview ? openReview = false : openReview = true">Write a review</span>
+      </section>
 
-      <article v-if="openReview" class="add-review">
-        <form class="review-form" @submit.prevent="review(title, body)">
+      <section v-if="openReview" class="add-review">
+        <form class="review-form" @submit.prevent="add_review(title, body)">
           <label>REVIEW TITLE</label>
           <input type="text" placeholder="Give your review a title" v-model="title" required />
 
@@ -98,7 +98,15 @@
             <button class="review-button">SUBMIT REVIEW</button>
           </section>  
         </form>
-      </article>
+      </section>
+
+      <section v-if="product.comments.length > 0" class="product-comments">
+        <article class="comment" v-for="comment in product.comments">
+          <span class="comment-title">{{comment.title}}</span>
+          <p class="comment-body">{{comment.body}}</p>
+          <button v-if="user && user.id === comment.user.id" @click="delete_comment(comment)" class="comment-delete">Delete Comment</button>
+        </article>
+      </section>
     </section>
 
     <section class="related">
@@ -113,7 +121,12 @@
 <script>
 import store from "@/store";
 import { mapGetters } from "vuex";
-import { GET_PRODUCT } from "@/store/actions.type";
+import {
+  GET_PRODUCT,
+  ADD_CART,
+  ADD_COMMENT,
+  DELETE_COMMENT,
+} from "@/store/actions.type";
 
 export default {
   name: 'Product',
@@ -128,12 +141,12 @@ export default {
   },
 
   beforeRouteEnter(to, from, next) {
-    store.dispatch(GET_PRODUCT, to.params.slug);
+    store.dispatch(GET_PRODUCT, to.params.slug)
     return next();
   },
 
   computed: {
-      ...mapGetters(["product"]),
+      ...mapGetters(["product", "user"]),
   },
 
   methods: {
@@ -159,8 +172,16 @@ export default {
       this.quantity += 1;
     },
 
-    toCart() {
-      console.log(this.quantity);
+    toCart(product) {
+      this.$store.dispatch(ADD_CART, this.quantity);
+    },
+
+    add_review(title, body) {
+      this.$store.dispatch(ADD_COMMENT, { title, body });
+    },
+
+    delete_comment(comment) {
+      this.$store.dispatch(DELETE_COMMENT, comment);
     }
   }
 };

@@ -13,26 +13,32 @@ let authGuard = (to: any, from: any, next: any) => {
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/admin',
+    name: 'Admin',
     component: () => import('@/views/admin/Admin.vue'),
     children: [
       {
         path: '',
+        name: 'Admin-Users',
         component: () => import('@/views/admin/Users.vue')
       },
       {
         path: 'users',
+        name: 'Admin-Users',
         component: () => import('@/views/admin/Users.vue')
       },
       {
         path: 'categories',
+        name: 'Admin-Categories',
         component: () => import('@/views/admin/Categories.vue')
       },
       {
         path: 'subcategories',
+        name: 'Admin-Subcategories',
         component: () => import('@/views/admin/Subcategories.vue')
       },
       {
         path: 'products',
+        name: 'Admin-Products',
         component: () => import('@/views/admin/Products.vue')
       },
     ]
@@ -60,12 +66,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/auth/Account.vue'),
     beforeEnter: authGuard
   },
-  // {
-  //   path: '/cart',
-  //   name: 'Cart',
-  //   component: () => import('@/views/auth/Cart.vue'),
-  //   beforeEnter: authGuard
-  // },
+  {
+    path: '/cart',
+    name: 'Cart',
+    component: () => import('@/views/auth/Cart.vue'),
+    beforeEnter: authGuard
+  },
   {
     path: '/shop',
     name: 'Shop',

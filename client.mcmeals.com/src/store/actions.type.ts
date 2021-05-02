@@ -9,6 +9,15 @@ export const GET_PRODUCTS_BY_SEARCH = "getProductsBySearch";
 export const GET_PRODUCTS_BY_PAGINATION = "getProductsByPagination";
 export const GET_PRODUCT = "getProduct";
 
+export const GET_CART = "getCart";
+export const ADD_CART = "addCart";
+export const UPDATE_CART = "updateCart";
+export const REMOVE_CART = "removeCart";
+
+export const ADD_COMMENT = "addComment";
+export const UPDATE_COMMENT = "updateComment";
+export const DELETE_COMMENT = "deleteComment";
+
 export const GET_CATEGORIES = "getCategories";
 export const GET_CATEGORY = "getCategory";
 

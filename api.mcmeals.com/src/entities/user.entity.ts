@@ -1,6 +1,7 @@
 import { UserRole } from "src/interfaces/user.interface";
-import { BeforeInsert, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, OneToMany, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { CartEntity } from "./cart.entity";
+import { CommentEntity } from "./comment.entity";
 
 @Entity()
 export class UserEntity {
@@ -22,8 +23,11 @@ export class UserEntity {
     @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
     role: UserRole;
 
-    @OneToOne(() => CartEntity, cart => cart.user)
-    cart: CartEntity;
+    @OneToMany(() => CartEntity, cart => cart.user)
+    cart_products: CartEntity[];
+
+    @OneToMany(() => CommentEntity, comment => comment.user)
+    comments: CommentEntity[];
 
     @BeforeInsert()
     emailToLowerCase() {

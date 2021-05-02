@@ -1,16 +1,14 @@
 <template>
-  <section class="products">
-
     <section class="products-all">
         <section class="subcategories">
-            <h3>By subcategories</h3>
+            <h3>BY SUBCATEGORIES</h3>
             <span v-for="subcategory in subcategories" @click="bySubcategory(subcategory.slug)">{{subcategory.name}}</span>
         </section>
 
         <section class="list">
             <form class="searchbar" @submit.prevent="onSubmit(search)">
                 <input type="text" v-model="search" placeholder="Search" />
-                <button >Search</button>
+                <button>SEARCH</button>
             </form>
 
             <section class="products-list">
@@ -20,12 +18,10 @@
             </section>
 
             <section class="load-more">
-                <button>Load more products</button>
+                <button>LOAD MORE PRODUCTS</button>
             </section>
         </section>
     </section>
-
-  </section>
 </template>
 
 

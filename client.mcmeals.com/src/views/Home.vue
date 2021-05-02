@@ -8,7 +8,7 @@
       @mouseover="hoverCategory = category.id"
       @mouseleave="hoverCategory = false"
       class="home-category">
-        <img class="home-category-image" v-bind:class="{ 'home-category-image-hover': hoverCategory && hoverCategory === category.id }" v-bind:src="category.image" alt="category-image" />
+        <img class="home-category-image" v-bind:class="{ 'home-category-image-hover': hoverCategory && hoverCategory === category.id }" v-bind:src="category.image" alt="category image" />
         <p class="home-category-title" v-bind:class="{ 'home-category-title-hover': hoverCategory && hoverCategory === category.id }">{{category.name}}</p>
       </section>
     </section>

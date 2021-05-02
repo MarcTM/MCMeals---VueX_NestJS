@@ -13,6 +13,7 @@
     --color-hover-orange: #eb694b;
 
     --color-button-primary: grey;
+    --color-button-blue: #008190;
 
     --selection-color: #F5E69C;
 }
@@ -32,5 +33,5 @@
 }
 
 * {
-    font-family: Pallafont, arial;
+    font-family: arial;
 }

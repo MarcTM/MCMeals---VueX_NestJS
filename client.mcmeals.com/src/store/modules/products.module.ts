@@ -1,13 +1,18 @@
 import ApiService from "@/common/api.service";
+import auth from "./auth.module";
 import {
     GET_PRODUCTS,
     GET_PRODUCTS_BY_SEARCH,
     GET_PRODUCTS_BY_PAGINATION,
-    GET_PRODUCT
+    GET_PRODUCT,
+    ADD_COMMENT,
+    DELETE_COMMENT,
 } from "@/store/actions.type";
 import {
   SET_PRODUCTS,
   SET_PRODUCT,
+  SET_COMMENT,
+  REMOVE_COMMENT,
   SET_ERROR,
 } from "@/store/mutations.type";
 
@@ -54,12 +59,10 @@ const actions = {
       return new Promise(resolve => {
         ApiService.get("product?categoryId=" + categoryId)
           .then(({ data }) => {
-            console.log(data);
             context.commit(SET_PRODUCTS, data);
             resolve(data);
           })
           .catch(({ response }) => {
-            console.log(response);
             context.commit(SET_ERROR, response);
           });
       });
@@ -67,12 +70,10 @@ const actions = {
       return new Promise(resolve => {
         ApiService.get("product")
           .then(({ data }) => {
-            console.log(data);
             context.commit(SET_PRODUCTS, data);
             resolve(data);
           })
           .catch(({ response }) => {
-            console.log(response);
             context.commit(SET_ERROR, response);
           });
       });
@@ -101,7 +102,6 @@ const actions = {
     return new Promise(resolve => {
       ApiService.query("meals", res[1])
         .then(({ data }) => {
-          console.log(data)
           context.commit(SET_PRODUCTS, data);
           resolve(data);
         })
@@ -122,10 +122,49 @@ const actions = {
           resolve(data);
         })
         .catch(({ response }) => {
+          console.log(response);
           context.commit(SET_ERROR, response);
         });
     });
-  }
+  },
+
+
+  // Add a comment
+  [ADD_COMMENT](context: any, data: any) {
+    const comment = {
+      user: auth.getters.user(auth.state),
+      product: state.product,
+      title: data.title,
+      body: data.body
+    };
+
+    return new Promise(resolve => {
+      ApiService.post("comment", comment)
+        .then(({ data }) => {
+          console.log(data);
+          context.commit(SET_COMMENT, data);
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          context.commit(SET_ERROR, response);
+        });
+    });
+  },
+
+
+  // Delete comment
+  [DELETE_COMMENT](context: any, comment: any) {
+    return new Promise(resolve => {
+      ApiService.delete("comment/" + comment.id)
+        .then(({ data }) => {
+          context.commit(REMOVE_COMMENT, comment);
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          context.commit(SET_ERROR, response);
+        });
+    });
+  },
 };
 
 
@@ -147,6 +186,20 @@ const mutations = {
   [SET_PRODUCT](state: any, product: any) {
     state.errors = {};
     state.product = product;
+  },
+
+
+  // Set comment
+  [SET_COMMENT](state: any, comment: any) {
+    state.errors = {};
+    state.product.comments.push(comment);
+  },
+
+
+  // Set comment
+  [REMOVE_COMMENT](state: any, data: any) {
+    state.errors = {};
+    state.product.comments = state.product.comments.filter((comment: any) => comment.id !== data.id);
   },
 };
 
