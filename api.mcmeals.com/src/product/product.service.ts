@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Brackets, Repository } from 'typeorm';
 import { ProductEntity } from 'src/entities/product.entity';
 import { CategoryEntity } from 'src/entities/category.entity';
 import { Product } from 'src/interfaces/product.interface';
@@ -23,33 +23,93 @@ export class ProductService {
     }
 
 
+    // Get most visited products
+    findMostVisited() {
+        return this.productRepository
+            .createQueryBuilder("product")
+            .orderBy('product.visits', 'DESC')
+            .limit(4)
+            .getMany();
+    }
+
+
     // Get all products
-    findAll() {
-        return this.productRepository.find({
-            relations: ['categories', 'subcategories', 'comments', 'comments.user']
-        });
+    findAll(limit: number, search: string) {
+        if (search) {
+            return this.productRepository
+                .createQueryBuilder("product")
+                .leftJoinAndSelect("product.categories", "category")
+                .leftJoinAndSelect("product.subcategories", "subcategory")
+                .leftJoinAndSelect("product.comments", "comment")
+                .leftJoinAndSelect("comment.user", "user")
+                .where("LOWER(product.name) like LOWER(:name)", { name: `%${search}%` })
+                .orWhere("LOWER(product.description) like LOWER(:description)", { description: `%${search}%`})
+                .limit(limit)
+                .getMany();
+        } else {
+            return this.productRepository
+                .createQueryBuilder("product")
+                .leftJoinAndSelect("product.categories", "category")
+                .leftJoinAndSelect("product.subcategories", "subcategory")
+                .leftJoinAndSelect("product.comments", "comment")
+                .leftJoinAndSelect("comment.user", "user")
+                .limit(limit)
+                .getMany();
+        }
+        
     }
 
 
     // Get all products from a category
-    findByCategory(categoryId: number) {
-        return this.productRepository
-            .createQueryBuilder("product")
-            .leftJoinAndSelect("product.categories", "category")
-            .leftJoinAndSelect("product.comments", "comment")
-            .where("category.id = :id", { id: categoryId })
-            .getMany();
+    findByCategory(categoryId: number, limit: number, search: string) {
+        if (search) {
+            return this.productRepository
+                .createQueryBuilder("product")
+                .leftJoinAndSelect("product.categories", "category")
+                .leftJoinAndSelect("product.comments", "comment")
+                .where("category.id = :id", { id: categoryId })
+                .andWhere(new Brackets(qb => {
+                    qb.where("LOWER(product.name) like LOWER(:name)", { name: `%${search}%` })
+                    .orWhere("LOWER(product.description) like LOWER(:description)", { description: `%${search}%` })
+                }))
+                .limit(limit)
+                .getMany();
+        } else {
+            return this.productRepository
+                .createQueryBuilder("product")
+                .leftJoinAndSelect("product.categories", "category")
+                .leftJoinAndSelect("product.comments", "comment")
+                .where("category.id = :id", { id: categoryId })
+                .limit(limit)
+                .getMany();
+        }
+
     }
 
 
     // Get all products from a subcategory
-    findBySubcategory(subcategoryId: number) {
-        return this.productRepository
-            .createQueryBuilder("product")
-            .leftJoinAndSelect("product.subcategories", "subcategory")
-            .leftJoinAndSelect("product.comments", "comment")
-            .where("subcategory.id = :id", { id: subcategoryId })
-            .getMany();
+    findBySubcategory(subcategoryId: number, limit: number, search: string) {
+        if (search) {
+            return this.productRepository
+                .createQueryBuilder("product")
+                .leftJoinAndSelect("product.subcategories", "subcategory")
+                .leftJoinAndSelect("product.comments", "comment")
+                .where("subcategory.id = :id", { id: subcategoryId })
+                .andWhere(new Brackets(qb => {
+                    qb.where("LOWER(product.name) like LOWER(:name)", { name: `%${search}%` })
+                    .orWhere("LOWER(product.description) like LOWER(:description)", { description: `%${search}%` })
+                }))
+                .limit(limit)
+                .getMany();
+        } else {
+            return this.productRepository
+                .createQueryBuilder("product")
+                .leftJoinAndSelect("product.subcategories", "subcategory")
+                .leftJoinAndSelect("product.comments", "comment")
+                .where("subcategory.id = :id", { id: subcategoryId })
+                .limit(limit)
+                .getMany();
+        }
     }
 
 
@@ -59,15 +119,42 @@ export class ProductService {
             .createQueryBuilder("product")
             .leftJoinAndSelect("product.categories", "category")
             .leftJoinAndSelect("product.subcategories", "subcategory")
+            .leftJoinAndSelect("product.ingredients", "ingredient")
             .leftJoinAndSelect("product.comments", "comment")
             .leftJoinAndSelect("comment.user", "user")
             .where("product.slug = :slug", { slug })
-            .getOne();
+            .getOne().then((product) => {
+                this.updateVisits(product.id, product);
+                return product;
+            });
+    }
+
+
+    // Update product's visits
+    updateVisits(id: number, product: Product) {
+        return this.productRepository
+            .createQueryBuilder("product")
+            .update(product)
+            .set({ visits: product.visits + 1 })
+            .where("id = :id", { id })
+            .execute();
     }
 
 
     // Generate slug
     generateSlug(name: string) {
         return slugify(name);
+    }
+
+
+    // Update product
+    updateOne(id: number, product: Product) {
+        return this.productRepository.update(id, product);
+    }
+
+
+    // Delete product
+    deleteOne(id: number) {
+        return this.productRepository.delete(id);
     }
 }

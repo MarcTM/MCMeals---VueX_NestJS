@@ -5,9 +5,8 @@ export const LOGOUT = "logout";
 export const VALIDATE_TOKEN = "validateToken"
 
 export const GET_PRODUCTS = "getProducts";
-export const GET_PRODUCTS_BY_SEARCH = "getProductsBySearch";
-export const GET_PRODUCTS_BY_PAGINATION = "getProductsByPagination";
 export const GET_PRODUCT = "getProduct";
+export const GET_MOST_VISITED = "getMostVisited";
 
 export const GET_CART = "getCart";
 export const ADD_CART = "addCart";

@@ -26,7 +26,27 @@
 }
 
 .description {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 20px;
+}
+
+.product-description {
+    margin-top: 10px;
+}
+
+.product-ingredients {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+.product-ingredients span:first-child {
+    font-weight: bold;
+}
+
+.product-ingredients span {
+    margin-bottom: 6px;
 }
 
 .customer-reviews {
@@ -38,6 +58,7 @@
 
 .customer-reviews-title {
     display: block;
+    margin-top: 20px;
     margin-bottom: 30px;
     font-size: 24px;
     font-weight: bold
@@ -363,7 +384,7 @@
 
     .customer-reviews-title {
         text-align: center;
-        margin-bottom: 10px;
+        margin: 10px 0px;
     }
 
     .add-review {

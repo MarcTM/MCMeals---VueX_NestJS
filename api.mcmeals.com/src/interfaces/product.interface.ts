@@ -2,6 +2,7 @@ import { Cart } from "./cart.interface";
 import { Category } from "./category.interface";
 import { Subcategory } from "./subcategory.interface";
 import { Comment } from "./comment.interface";
+import { Ingredient } from "./ingredient.interface";
 
 export interface Product {
     id?: number;
@@ -20,7 +21,9 @@ export interface Product {
     fiber?: number;
     proteins?: number;
     salt?: number;
+    visits?: number;
 
+    ingredients?: Ingredient[];
     categories?: Category[]
     subcategories?: Subcategory[];
     cart_users?: Cart[];
