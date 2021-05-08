@@ -19,7 +19,11 @@
 
           <section class="tabs-content">
             <section v-if="description === 1" class="description">
-             <span>{{product.description}}</span>
+             <span class="product-description">{{product.description}}</span>
+             <section v-if="product.ingredients.length > 0" class="product-ingredients">
+              <span>Ingredients:</span>
+              <span v-for="ingredient in product.ingredients">- {{ingredient.name}}</span>
+             </section>
             </section>
 
             <section v-if="nutritional === 1" class="nutritional">

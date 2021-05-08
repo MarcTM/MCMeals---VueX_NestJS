@@ -3,6 +3,7 @@ import { SubcategoryEntity } from "./subcategory.entity";
 import { CategoryEntity } from "./category.entity";
 import { CartEntity } from "./cart.entity";
 import { CommentEntity } from "./comment.entity";
+import { IngredientEntity } from "./ingredient.entity";
 
 @Entity()
 export class ProductEntity {
@@ -54,6 +55,13 @@ export class ProductEntity {
     @Column()
     salt: number;
 
+    @Column({ default: 0 })
+    visits: number;
+
+    @ManyToMany(() => IngredientEntity, ingredient => ingredient.products)
+    @JoinTable()
+    ingredients: IngredientEntity[];
+
     @ManyToMany(() => CategoryEntity, category => category.products)
     @JoinTable()
     categories: CategoryEntity[];
@@ -65,6 +73,6 @@ export class ProductEntity {
     @OneToMany(() => CartEntity, cart => cart.product)
     cart_users: CartEntity[];
 
-    @OneToMany(() => CommentEntity, comment => comment.product)
+    @OneToMany(() => CommentEntity, comment => comment.product, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
     comments: CommentEntity[];
 }

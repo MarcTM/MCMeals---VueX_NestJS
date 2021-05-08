@@ -7,6 +7,7 @@ import { CommentModule } from 'src/comment/comment.module';
 import { ProductEntity } from 'src/entities/product.entity';
 import { SubcategoryModule } from 'src/subcategory/subcategory.module';
 import { UserModule } from 'src/user/user.module';
+import { IngredientModule } from 'src/ingredient/ingredient.module';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
 
@@ -17,6 +18,7 @@ import { ProductService } from './product.service';
         forwardRef(() => SubcategoryModule),
         forwardRef(() => CartModule),
         forwardRef(() => CommentModule),
+        forwardRef(() => IngredientModule),
         TypeOrmModule.forFeature([ProductEntity]),
         AuthModule,
     ],
