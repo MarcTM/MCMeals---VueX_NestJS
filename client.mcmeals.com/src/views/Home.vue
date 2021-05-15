@@ -3,7 +3,7 @@
 
     <section v-if="categories" class="home-categories">
       <section v-for="category in categories"
-      @click="getCategory(category.slug)"
+      @click="getCategory(category)"
       @mouseover="hoverCategory = category.id"
       @mouseleave="hoverCategory = false"
       class="home-category">
@@ -64,8 +64,13 @@ export default defineComponent({
         this.$store.dispatch(GET_MOST_VISITED);
       },
 
-      getCategory(slug) {
-        this.$router.push({ name: "Category", params: { slug: slug }});
+      getCategory(category) {
+        console.log(category);
+        if (category.name === "Custom Meals") {
+          this.$router.push({ name: "Custom"});
+        } else {
+          this.$router.push({ name: "Category", params: { slug: category.slug }});
+        }
       }
   },
 });

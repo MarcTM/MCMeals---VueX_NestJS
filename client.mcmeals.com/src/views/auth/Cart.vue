@@ -6,19 +6,34 @@
     <section class="cart-section" v-if="cart && cart.length > 0">
       <section class="cart-products">
         <section v-for="article in cart" class="article">
-          <img @click="details(article.product.slug)" class="article-image" :src="article.product.image" alt="cart article image" />
+          <img v-if="article.product.image" @click="details(article.product.slug)" class="article-image" :src="article.product.image" alt="cart article image" />
+          <img v-else class="article-image custom" src="../../assets/custom-meals.jpg" alt="cart custom meal image" />
 
           <section class="article-info">
             <section class="article-name-price">
-              <span class="article-name" @click="details(article.product.slug)">{{article.product.name}}</span>
+              <span v-if="article.product.name" class="article-name" @click="details(article.product.slug)">{{article.product.name}}</span>
+              <span v-else class="article-name custom">Custom Meal</span>
               <section class="article-price">
                 <span>€{{article.product.price}}</span>
                 <span @click="removeFromCart(article)" class="remove-cart">x</span>
               </section>
             </section>
 
-            <span class="article-weight italic">Weight: {{article.product.weight}} KG</span>
-            <span class="article-slug italic">Code: {{article.product.slug}}</span>
+            <span v-if="article.product.weight" class="article-weight italic"><b>Weight:</b> {{article.product.weight}} KG</span>
+            <span v-if="article.product.slug" class="article-slug italic"><b>Code:</b> {{article.product.slug}}</span>
+            <section v-if="article.product.type === 'Custom'">
+              <section class="article-ingredients">
+                <b>Ingredients:</b> <span class="ingredient italic" v-for="ingredient in article.product.ingredients">{{ingredient.name}} |</span>
+              </section>
+
+              <section class="article-macros">
+                <span><b>Calories:</b> {{article.product.energy}}g</span>
+                <span><b>Carbs:</b> {{article.product.carbohydrates}}g</span>
+                <span><b>Proteins:</b> {{article.product.proteins}}g</span>
+                <span><b>Fats:</b> {{article.product.fats}}g</span>
+                <span><b>Fiber:</b> {{article.product.fiber}}g</span>
+              </section>
+            </section>
 
             <section class="quantity-section">
               <span>QTY:</span>

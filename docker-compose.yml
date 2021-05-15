@@ -1,0 +1,44 @@
+version: "3.3"
+
+services:
+    # NestJS
+    api:
+        image: api-mcmeals
+        build:
+            dockerfile: Dockerfile
+            context: ./api.mcmeals.com
+        depends_on:
+            - postgres
+        ports:
+            - "3000:3000"
+        networks:
+            - mcmeals_network
+
+    # VueJS
+    client:
+        image: client-mcmeals
+        build:
+            dockerfile: Dockerfile
+            context: ./client.mcmeals.com
+        depends_on:
+            - postgres
+            - api
+        ports:
+            - "8080:8080"
+        networks:
+            - mcmeals_network
+
+    # PostgreSQL
+    postgres:
+        image: postgres:10.4
+        ports:
+            - "35000:5432"
+        environment:
+            POSTGRES_USER: marc
+            POSTGRES_PASSWORD: root
+            POSTGRES_DB: mcmeals
+        networks:
+            - mcmeals_network
+
+networks:
+    mcmeals_network:

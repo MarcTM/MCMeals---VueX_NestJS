@@ -4,6 +4,7 @@ import products from "./products.module";
 import {
     GET_CART,
     ADD_CART,
+    ADD_CUSTOM_TO_CART,
     UPDATE_CART,
     REMOVE_CART,
 } from "@/store/actions.type";
@@ -25,7 +26,6 @@ const getters = {
   cart(state: any) {
     return state.cart;
   },
-
 
   // Get cart subtotal
   subtotal(state: any) {
@@ -65,6 +65,18 @@ const actions = {
 
     return new Promise(resolve => {
       ApiService.post("cart", cart)
+        .then(({ data }) => {
+          resolve(data);
+        });
+    });
+  },
+
+
+  // Add custom meal to cart
+  [ADD_CUSTOM_TO_CART](context: any, data: any) {
+    data.user = auth.getters.user(auth.state);
+    return new Promise(resolve => {
+      ApiService.post("cart/custom", data)
         .then(({ data }) => {
           resolve(data);
         })

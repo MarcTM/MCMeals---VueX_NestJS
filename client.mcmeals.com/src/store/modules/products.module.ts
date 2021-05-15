@@ -1,7 +1,9 @@
+import store from "@/store";
 import ApiService from "@/common/api.service";
 import auth from "./auth.module";
 import {
     GET_PRODUCTS,
+    GET_RELATED_PRODUCTS,
     GET_PRODUCT,
     ADD_COMMENT,
     DELETE_COMMENT,
@@ -9,6 +11,7 @@ import {
 } from "@/store/actions.type";
 import {
   SET_PRODUCTS,
+  SET_RELATED_PRODUCTS,
   SET_MOST_VISITED,
   SET_PRODUCT,
   SET_LIMIT,
@@ -22,6 +25,7 @@ import {
 const state = {
   errors: null,
   products: null,
+  related_to_product: null,
   most_visited: null,
   product: null,
   limit: 1,
@@ -33,6 +37,11 @@ const getters = {
   // Get products
   products(state: any) {
     return state.products;
+  },
+
+  // Get related to product
+  related_to_product(state: any) {
+    return state.related_to_product;
   },
 
   // Return limit of products
@@ -121,6 +130,24 @@ const actions = {
         .then(({ data }) => {
           console.log(data);
           context.commit(SET_PRODUCT, data);
+          store.dispatch(GET_RELATED_PRODUCTS, { slug: data.slug, type: data.type, category: data.categories[0] });
+          resolve(data);
+        })
+        .catch(({ response }) => {
+          console.log(response);
+          context.commit(SET_ERROR, response);
+        });
+    });
+  },
+
+
+
+  // Get related products
+  [GET_RELATED_PRODUCTS](context: any, data: any) {
+    return new Promise(resolve => {
+      ApiService.get(`product/related?slug=${data.slug}&type=${data.type}&category=${data.category}`)
+        .then(({ data }) => {
+          context.commit(SET_RELATED_PRODUCTS, data);
           resolve(data);
         })
         .catch(({ response }) => {
@@ -176,13 +203,17 @@ const mutations = {
     state.errors = error;
   },
 
-
   // Set products
   [SET_PRODUCTS](state: any, products: any) {
     state.errors = {};
     (products.length > 0) ? state.products = products : state.products = null;
   },
 
+  // Set products
+  [SET_RELATED_PRODUCTS](state: any, related: any) {
+    state.errors = {};
+    (related.length > 0) ? state.related_to_product = related : state.related_to_product = null;
+  },
 
   // Set limit
   [SET_LIMIT](state: any, limit: number) {
@@ -190,13 +221,11 @@ const mutations = {
     state.limit = limit;
   },
 
-
   // Set search query
   [SET_SEARCH](state: any, search: string) {
     state.errors = {};
     state.search = search;
   },
-
 
   // Set most visited products
   [SET_MOST_VISITED](state: any, popular: any) {
@@ -204,20 +233,17 @@ const mutations = {
     state.most_visited = popular;
   },
 
-
   // Set product
   [SET_PRODUCT](state: any, product: any) {
     state.errors = {};
     state.product = product;
   },
 
-
   // Set comment
   [SET_COMMENT](state: any, comment: any) {
     state.errors = {};
     state.product.comments.push(comment);
   },
-
 
   // Set comment
   [REMOVE_COMMENT](state: any, data: any) {

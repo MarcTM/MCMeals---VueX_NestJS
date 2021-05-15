@@ -13,6 +13,24 @@ export class IngredientEntity {
     @Column({ nullable: true })
     description: string;
 
+    @Column()
+    price: number;
+
+    @Column()
+    energy: number;
+
+    @Column()
+    carbohydrates: number;
+
+    @Column()
+    proteins: number;
+
+    @Column()
+    fats: number;
+
+    @Column()
+    fiber: number;
+
     @Column({ type: 'enum', enum: Side })
     side: Side
 

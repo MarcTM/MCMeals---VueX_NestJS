@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, UseGuards, Query, Param, Put, Delete } fro
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Category } from 'src/interfaces/category.interface';
 import { Product } from 'src/interfaces/product.interface';
 import { UserRole } from 'src/interfaces/user.interface';
 import { ProductService } from './product.service';
@@ -38,6 +39,17 @@ export class ProductController {
         } else if (categoryId && subcategoryId == null) {
             return this.productService.findByCategory(categoryId, limit, search);
         }
+    }
+
+
+    // Find related to product
+    @Get("related")
+    relatedToProduct(
+        @Query('slug') slug: string,
+        @Query('category') category: Category,
+        @Query('type') type: string,
+    ) {
+        return this.productService.relatedToProduct(slug, type, category);
     }
 
 
