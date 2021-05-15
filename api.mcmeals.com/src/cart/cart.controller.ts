@@ -4,6 +4,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { UserIsUser } from 'src/auth/guards/user.guard';
 import { Cart } from 'src/interfaces/cart.interface';
+import { Product } from 'src/interfaces/product.interface';
 import { UserRole } from 'src/interfaces/user.interface';
 import { CartService } from './cart.service';
 
@@ -21,6 +22,13 @@ export class CartController {
     @Post()
     add(@Body() cart: Cart) {
         return this.cartService.add(cart);
+    }
+
+
+    // Add custom meal to cart
+    @Post('custom')
+    addCustom(@Body() custom: Product) {
+        return this.cartService.addCustom(custom);
     }
 
 

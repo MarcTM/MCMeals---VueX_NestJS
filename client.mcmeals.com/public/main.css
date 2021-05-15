@@ -9,11 +9,15 @@
     --dark-grey: rgb(71, 70, 70);
 
     --color-hover-light: rgb(210, 210, 210);
+    --color-hover-red-light: #f12a2a;
     --color-hover-red: #cc3232;
     --color-hover-orange: #eb694b;
 
     --color-button-primary: grey;
     --color-button-blue: #008190;
+
+    --toastr-red: #ee1212;
+    --toastr-green: #2cee12;
 
     --selection-color: #F5E69C;
 }
@@ -34,4 +38,28 @@
 
 * {
     font-family: arial;
+}
+
+.toastr {
+    cursor: pointer;
+    width: 300px;
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    z-index: 1;
+    position: fixed;
+    right: 50px;
+    top: 30px;
+}
+
+.toastr-green {
+    background-color: var(--toastr-green);
+}
+
+.toastr-red {
+    background-color: var(--toastr-red);
 }

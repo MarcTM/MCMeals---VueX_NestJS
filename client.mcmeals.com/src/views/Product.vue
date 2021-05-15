@@ -20,9 +20,13 @@
           <section class="tabs-content">
             <section v-if="description === 1" class="description">
              <span class="product-description">{{product.description}}</span>
+             
              <section v-if="product.ingredients.length > 0" class="product-ingredients">
-              <span>Ingredients:</span>
-              <span v-for="ingredient in product.ingredients">- {{ingredient.name}}</span>
+              <span class="ingredient-title">Ingredients:</span>
+              <article class="ingredient" v-for="ingredient in product.ingredients">
+                <span v-if="ingredient.description" @click="openDescription(ingredient.description)" class="ingredient-description">{{ingredient.name}}</span>
+                <span v-else>{{ingredient.name}}</span>
+              </article>
              </section>
             </section>
 
@@ -72,7 +76,7 @@
         <section class="add-to-cart">
           <section class="quantity">
             <button @click="less()">-</button>
-            <span>{{quantity}}</span>
+            <span>{{ quantity }}</span>
             <button @click="more()">+</button>
           </section>
 
@@ -113,9 +117,24 @@
       </section>
     </section>
 
-    <section class="related">
+    <section v-if="related_to_product" class="related">
       <span class="related-title">RELATED ITEMS</span>
+      <section class="related-to-product">
+        <ProductPreview v-for="product in related_to_product" v-bind:product="product" />
+      </section>
     </section>
+
+    <section v-if="ingredientDescription" class="description-modal">
+      <button @click="ingredientDescription = null">X</button>
+      <span>{{ingredientDescription}}</span>
+    </section>
+
+    <article @click="removeToastr()" v-if="toastr_success" class="toastr toastr-green">
+      <span>Successfully added to cart</span>
+    </article>
+    <article @click="removeToastr()" v-if="toastr_error" class="toastr toastr-red">
+      <span>This product is already in your cart</span>
+    </article>
 
   </section>
 </template>
@@ -124,6 +143,7 @@
 
 <script>
 import store from "@/store";
+import ProductPreview from '@/components/ProductPreview.vue';
 import { mapGetters } from "vuex";
 import {
   GET_PRODUCT,
@@ -141,16 +161,24 @@ export default {
       description: 1,
       nutritional: 0,
       openReview: false,
+      ingredientDescription: null,
+      toastr_success: false,
+      toastr_error: false,
     };
   },
 
+  components: {
+    ProductPreview
+  },
+
+
   beforeRouteEnter(to, from, next) {
-    store.dispatch(GET_PRODUCT, to.params.slug)
+    store.dispatch(GET_PRODUCT, to.params.slug);
     return next();
   },
 
   computed: {
-      ...mapGetters(["product", "user"]),
+      ...mapGetters(["product", "related_to_product", "user"]),
   },
 
   methods: {
@@ -177,7 +205,18 @@ export default {
     },
 
     toCart(product) {
-      this.$store.dispatch(ADD_CART, this.quantity);
+      this.$store.dispatch(ADD_CART, this.quantity)
+      .then((response) => {
+        if (response) {
+          this.toastr_error = false;
+          this.toastr_success = true;
+          setTimeout(() => this.toastr_success = false, 3000);
+        } else {
+          this.toastr_success = false;
+          this.toastr_error = true;
+          setTimeout(() => this.toastr_error = false, 3000);
+        }
+      });
     },
 
     add_review(title, body) {
@@ -186,6 +225,15 @@ export default {
 
     delete_comment(comment) {
       this.$store.dispatch(DELETE_COMMENT, comment);
+    },
+
+    openDescription(description) {
+      this.ingredientDescription = description;
+    },
+
+    removeToastr() {
+      this.toastr_error = false;
+      this.toastr_success = false;
     }
   }
 };

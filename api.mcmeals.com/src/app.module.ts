@@ -15,6 +15,7 @@ import { CommentModule } from './comment/comment.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    // Local
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
@@ -26,6 +27,14 @@ import { CommentModule } from './comment/comment.module';
       autoLoadEntities: true,
       synchronize: true
     }),
+    // Docker
+    // TypeOrmModule.forRoot({
+    //   type: 'postgres',
+    //   url: process.env.POSTGRES_URL, 
+    //   entities: ["./entities/*.entity{.ts,.js}"],
+    //   autoLoadEntities: true,
+    //   synchronize: true
+    // }),
     UserModule,
     AuthModule,
     CartModule,

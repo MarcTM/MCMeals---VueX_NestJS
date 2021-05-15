@@ -10,25 +10,25 @@ export class ProductEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ unique: true })
+    @Column({ unique: true, nullable: true })
     slug: string;
 
-    @Column()
+    @Column({ nullable: true })
     name: string;
 
-    @Column()
+    @Column({ nullable: true })
     image: string;
 
-    @Column()
+    @Column({ nullable: true })
     description: string;
 
-    @Column()
+    @Column({ nullable: true })
     weight: number;
 
     @Column()
     price: number;
 
-    @Column()
+    @Column({ nullable: true })
     type: string;
 
     @Column()
@@ -37,13 +37,13 @@ export class ProductEntity {
     @Column()
     fats: number;
 
-    @Column()
+    @Column({ nullable: true })
     saturated: number;
 
     @Column()
     carbohydrates: number;
 
-    @Column()
+    @Column({ nullable: true })
     sugars: number;
 
     @Column()
@@ -52,7 +52,7 @@ export class ProductEntity {
     @Column()
     proteins: number;
 
-    @Column()
+    @Column({ nullable: true })
     salt: number;
 
     @Column({ default: 0 })

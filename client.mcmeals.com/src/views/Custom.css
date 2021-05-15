@@ -1,0 +1,171 @@
+.custom {
+    padding: 60px 40px;
+}
+
+.custom-meals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+
+.custom-meals img {
+    width: 100%;
+}
+
+.meals-sides {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    padding-left: 20px;
+    flex-direction: column;
+}
+
+.sides-title {
+    font-weight: bold;
+    font-size: 35px;
+    margin-top: 20px;
+}
+
+.sides-description {
+    margin-bottom: 20px;
+}
+
+.sides-description p {
+    color: var(--dark-grey);
+    font-size: 20px;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+.sides-price {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 24px;
+    color: var(--dark-grey);
+}
+
+.sides {
+    margin-top: 40px;
+}
+
+.side {
+    width: 50%;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.side label {
+    color: var(--dark-grey);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.side select {
+    background-color: white;
+    border: 1px solid var(--light-grey);
+    color: var(--dark-grey);
+    padding: 0px 3px;
+    height: 35px;
+    outline: none;
+}
+
+.add-to-cart {
+    margin-top: 30px;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 3fr;
+}
+
+.add-to-cart button {
+    cursor: pointer;
+    height: 40px;
+    font-weight: bold;
+}
+
+.quantity {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr;
+    grid-gap: 7px;
+}
+
+.quantity *,
+.to-cart-button {
+    outline: none;
+    user-select: none;
+}
+
+.quantity span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.quantity button {
+    border: 2px solid var(--lighter-grey);
+    background-color: white;
+}
+
+.to-cart-button {
+    width: 100%;
+    color: white;
+    border: none;
+    background-color: var(--color-hover-red-light);
+    transition: 0.1s;
+}
+
+.to-cart-button:hover {
+    background-color: var(--color-hover-red);
+}
+
+.sides-macros {
+    margin-top: 100px;
+}
+
+table {
+    width: 100%;
+}
+
+table th {
+    padding: 15px;
+    text-align: left;
+    background-color: var(--color-button-blue);
+    color: white;
+    font-weight: bold;
+
+}
+
+table td {
+    padding: 15px;
+    text-align: left;
+}
+
+@media (max-width: 767px) {
+    .custom {
+        padding: 40px 20px;
+    }
+
+    .custom-meals {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .meals-sides {
+        padding-left: 0px;
+    }
+
+    .side {
+        width: 80%;
+    }
+
+    .add-to-cart {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .quantity {
+        width: 50%;
+    }
+}

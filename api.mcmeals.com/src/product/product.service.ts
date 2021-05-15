@@ -5,6 +5,7 @@ import { ProductEntity } from 'src/entities/product.entity';
 import { CategoryEntity } from 'src/entities/category.entity';
 import { Product } from 'src/interfaces/product.interface';
 import { addListener } from 'node:process';
+import { Category } from 'src/interfaces/category.interface';
 const slugify = require('slugify');
 
 
@@ -17,8 +18,10 @@ export class ProductService {
 
     // Create product
     create(product: Product) {
-        const slug = this.generateSlug(product.name)
-        product.slug = slug;
+        if (product.name) {
+            product.slug = this.generateSlug(product.name);
+            console.log(product.slug);
+        }
         return this.productRepository.save(product);
     }
 
@@ -27,6 +30,7 @@ export class ProductService {
     findMostVisited() {
         return this.productRepository
             .createQueryBuilder("product")
+            .where("LOWER(product.type) not like LOWER(:type)", { type: `%Custom%` })
             .orderBy('product.visits', 'DESC')
             .limit(4)
             .getMany();
@@ -42,8 +46,11 @@ export class ProductService {
                 .leftJoinAndSelect("product.subcategories", "subcategory")
                 .leftJoinAndSelect("product.comments", "comment")
                 .leftJoinAndSelect("comment.user", "user")
-                .where("LOWER(product.name) like LOWER(:name)", { name: `%${search}%` })
-                .orWhere("LOWER(product.description) like LOWER(:description)", { description: `%${search}%`})
+                .where("LOWER(product.type) not like LOWER(:type)", { type: `%Custom%` })
+                .andWhere(new Brackets(qb => {
+                    qb.where("LOWER(product.name) like LOWER(:name)", { name: `%${search}%` })
+                    .orWhere("LOWER(product.description) like LOWER(:description)", { description: `%${search}%` })
+                }))
                 .limit(limit)
                 .getMany();
         } else {
@@ -53,6 +60,7 @@ export class ProductService {
                 .leftJoinAndSelect("product.subcategories", "subcategory")
                 .leftJoinAndSelect("product.comments", "comment")
                 .leftJoinAndSelect("comment.user", "user")
+                .where("LOWER(product.type) not like LOWER(:type)", { type: `%Custom%` })
                 .limit(limit)
                 .getMany();
         }
@@ -67,7 +75,8 @@ export class ProductService {
                 .createQueryBuilder("product")
                 .leftJoinAndSelect("product.categories", "category")
                 .leftJoinAndSelect("product.comments", "comment")
-                .where("category.id = :id", { id: categoryId })
+                .where("LOWER(product.type) not like LOWER(:type)", { type: `%Custom%` })
+                .andWhere("category.id = :id", { id: categoryId })
                 .andWhere(new Brackets(qb => {
                     qb.where("LOWER(product.name) like LOWER(:name)", { name: `%${search}%` })
                     .orWhere("LOWER(product.description) like LOWER(:description)", { description: `%${search}%` })
@@ -79,7 +88,8 @@ export class ProductService {
                 .createQueryBuilder("product")
                 .leftJoinAndSelect("product.categories", "category")
                 .leftJoinAndSelect("product.comments", "comment")
-                .where("category.id = :id", { id: categoryId })
+                .where("LOWER(product.type) not like LOWER(:type)", { type: `%Custom%` })
+                .andWhere("category.id = :id", { id: categoryId })
                 .limit(limit)
                 .getMany();
         }
@@ -94,7 +104,8 @@ export class ProductService {
                 .createQueryBuilder("product")
                 .leftJoinAndSelect("product.subcategories", "subcategory")
                 .leftJoinAndSelect("product.comments", "comment")
-                .where("subcategory.id = :id", { id: subcategoryId })
+                .where("LOWER(product.type) not like LOWER(:type)", { type: `%Custom%` })
+                .andWhere("subcategory.id = :id", { id: subcategoryId })
                 .andWhere(new Brackets(qb => {
                     qb.where("LOWER(product.name) like LOWER(:name)", { name: `%${search}%` })
                     .orWhere("LOWER(product.description) like LOWER(:description)", { description: `%${search}%` })
@@ -106,10 +117,27 @@ export class ProductService {
                 .createQueryBuilder("product")
                 .leftJoinAndSelect("product.subcategories", "subcategory")
                 .leftJoinAndSelect("product.comments", "comment")
-                .where("subcategory.id = :id", { id: subcategoryId })
+                .where("LOWER(product.type) not like LOWER(:type)", { type: `%Custom%` })
+                .andWhere("subcategory.id = :id", { id: subcategoryId })
                 .limit(limit)
                 .getMany();
         }
+    }
+
+
+    // Get related to product
+    relatedToProduct(slug: string, type: string, category: Category) {
+        return this.productRepository
+            .createQueryBuilder("product")
+            .leftJoinAndSelect("product.categories", "category")
+            .where("LOWER(product.type) not like LOWER(:type)", { type: `%Custom%` })
+            .andWhere("product.slug != :slug", { slug })
+            .andWhere(new Brackets(qb => {
+                qb.where("product.type = :type", { type })
+                .orWhere("category.id = :id", { id: category.id})
+            }))
+            .limit(4)
+            .getMany();
     }
 
 

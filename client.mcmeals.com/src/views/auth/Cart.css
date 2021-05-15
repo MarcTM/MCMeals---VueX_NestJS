@@ -30,8 +30,10 @@
     display: flex;
 }
 
-.article img {
+.article-image {
     cursor: pointer;
+    min-width: 200px;
+    max-width: 200px;
     height: 200px;
     object-fit: cover;
 }
@@ -72,9 +74,24 @@
 }
 
 .article-weight,
-.article-slug {
+.article-slug,
+.article-ingredients,
+.article-macros {
     margin-top: 15px;
     font-size: 15px;
+}
+
+.article-macros {
+    display: flex;
+    flex-direction: column;
+}
+
+.custom {
+    cursor: default;
+}
+
+.ingredient {
+    margin-right: 10px;
 }
 
 .quantity-section {
@@ -229,7 +246,9 @@
         margin-bottom: 0px;
     }
 
-    .article img {
+    .article-image {
+        min-width: 100% !important;
+        height: 300px !important;
         margin-bottom: 40px;
     }
 

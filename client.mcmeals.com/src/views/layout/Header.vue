@@ -9,8 +9,8 @@
     </nav>
 
     <nav v-else class="main-header-top">
-      <router-link to="/account">MY ACCOUNT</router-link>
       <router-link to="/cart">CART</router-link>
+      <a @click="logout()">LOGOUT</a>
     </nav>
     
     <nav class="main-header-logo">
@@ -29,6 +29,7 @@
     <nav v-else class="main-header-bottom">
       <router-link to="/">HOME</router-link>
       <router-link to="/shop">SHOP</router-link>
+      <router-link to="/custom-meals">CUSTOM MEALS</router-link>
     </nav>
   </section>
 
@@ -51,7 +52,8 @@
 
 <script>
 import {
-  VALIDATE_TOKEN
+  VALIDATE_TOKEN,
+  LOGOUT,
 } from "@/store/actions.type";
 import { mapGetters } from "vuex";
 
@@ -65,7 +67,7 @@ export default {
     },
 
     mounted() {
-      this.validate_token()
+      this.validate_token();
     },
 
     computed: {
@@ -81,7 +83,14 @@ export default {
       },
 
       validate_token() {
-        this.$store.dispatch(VALIDATE_TOKEN)
+        this.$store.dispatch(VALIDATE_TOKEN);
+      },
+
+      logout() {
+        this.$store.dispatch(LOGOUT)
+          .then((response) => {
+            this.$router.push({ name: "Home"})
+          })
       }
     }
 }

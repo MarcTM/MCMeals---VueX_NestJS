@@ -52,6 +52,7 @@
 }
 
 .main-header a {
+    cursor: pointer;
     color: white;
     text-decoration: none;
     margin: 0px 16px;
@@ -91,6 +92,7 @@
 }
 
 .main-header-logo img {
+    user-select: none;
     width: 110px;
 }
 

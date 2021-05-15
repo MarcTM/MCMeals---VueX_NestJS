@@ -11,10 +11,13 @@ export const REMOVE_COMMENT = "removeComment";
 export const SET_ERROR = "setError";
 
 export const SET_PRODUCTS = "setProducts";
+export const SET_RELATED_PRODUCTS = "setRelatedProducts";
 export const SET_PRODUCT = "setProduct";
 export const SET_LIMIT = "setLimit";
 export const SET_SEARCH = "setSearch";
 export const SET_MOST_VISITED = "setMostVisited";
+
+export const SET_INGREDIENTS = "setIngredients";
 
 export const SET_CATEGORIES = "setCategories";
 export const SET_CATEGORY = "setCategory";

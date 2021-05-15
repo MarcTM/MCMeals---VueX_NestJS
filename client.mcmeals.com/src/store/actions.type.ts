@@ -5,11 +5,15 @@ export const LOGOUT = "logout";
 export const VALIDATE_TOKEN = "validateToken"
 
 export const GET_PRODUCTS = "getProducts";
+export const GET_RELATED_PRODUCTS = "getRelatedProducts";
 export const GET_PRODUCT = "getProduct";
 export const GET_MOST_VISITED = "getMostVisited";
 
+export const GET_INGREDIENTS = "getIngredients";
+
 export const GET_CART = "getCart";
 export const ADD_CART = "addCart";
+export const ADD_CUSTOM_TO_CART = "addCustomToCart";
 export const UPDATE_CART = "updateCart";
 export const REMOVE_CART = "removeCart";
 
