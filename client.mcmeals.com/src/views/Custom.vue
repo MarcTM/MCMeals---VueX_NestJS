@@ -45,7 +45,8 @@
             <button @click="more()">+</button>
           </section>
 
-          <button @click="toCart()" class="to-cart-button">ADD TO CART</button>
+          <button v-if="isAuthenticated" @click="toCart()" class="to-cart-button">ADD TO CART</button>
+          <button v-else @click="notAuthenticated()" class="to-cart-button">ADD TO CART</button>
         </section>
       </section> 
     </section>
@@ -99,6 +100,16 @@
       </table>
     </section>
 
+    <article @click="removeToastr()" v-if="toastr_success" class="toastr toastr-green">
+      <span>Successfully added to cart</span>
+    </article>
+    <article @click="removeToastr()" v-if="toastr_error_authentication" class="toastr toastr-red">
+      <span>You must log in to add to cart</span>
+    </article>
+    <article @click="removeToastr()" v-if="toastr_error_length" class="toastr toastr-red">
+      <span>Select at least one ingredient</span>
+    </article>
+
   </section>
 </template>
 
@@ -122,6 +133,9 @@ export default {
       macros: { calories: 0, proteins: 0, carbs: 0, fats: 0, fiber: 0 },
       price: 0,
       quantity: 1,
+      toastr_success: false,
+      toastr_error_authentication: false,
+      toastr_error_length: false,
     };
   },
 
@@ -130,7 +144,7 @@ export default {
   },
 
   computed: {
-      ...mapGetters(["ingredients"]),
+      ...mapGetters(["isAuthenticated", "ingredients"]),
   },
 
   methods: {
@@ -158,19 +172,38 @@ export default {
         ingredients.push(this.side3);
       }
 
-      this.$store.dispatch(ADD_CUSTOM_TO_CART, {
-        product: {
-          type: "Custom",
-          ingredients,
-          carbohydrates: this.macros.carbs,
-          proteins: this.macros.proteins,
-          fats: this.macros.fats,
-          fiber: this.macros.fiber,
-          energy: this.macros.calories,
-          price: this.price
-        },
-        quantity: this.quantity
-      });
+      if (ingredients.length > 0) {
+        this.$store.dispatch(ADD_CUSTOM_TO_CART, {
+          product: {
+            type: "Custom",
+            ingredients,
+            carbohydrates: this.macros.carbs,
+            proteins: this.macros.proteins,
+            fats: this.macros.fats,
+            fiber: this.macros.fiber,
+            energy: this.macros.calories,
+            price: this.price
+          },
+          quantity: this.quantity
+        }).then((response) => {
+          this.toastr_error_authentication = false;
+          this.toastr_error_length = false;
+          this.toastr_success = true;
+          setTimeout(() => this.toastr_success = false, 3000);
+        });
+      } else {
+        this.toastr_error_authentication = false;
+        this.toastr_success = false;
+        this.toastr_error_length = true;
+        setTimeout(() => this.toastr_error_length = false, 3000);
+      }
+    },
+
+    notAuthenticated() {
+      this.toastr_success = false;
+      this.toastr_error_length = false;
+      this.toastr_error_authentication = true;
+      setTimeout(() => this.toastr_error_authentication = false, 3000);
     },
 
     selectSide() {
@@ -182,17 +215,17 @@ export default {
         this.side1 = null;
       }
       if (this.side2 && this.side2 != 'null') {
-        price += this.side2.price;
+        (price > 0) ? price += this.side2.price * 0.15 : price += this.side2.price;
       } else {
         this.side2 = null;
       }
       if (this.side3 && this.side3 != 'null') {
-        price += this.side3.price;
+        (price > 0) ? price += this.side3.price * 0.15 : price += this.side3.price;
       } else {
         this.side3 = null;
       }
 
-      this.price = price;
+      this.price = Math.round(price);
       this.calculateMacros();
     },
 
@@ -220,6 +253,12 @@ export default {
         this.macros.fats += this.side3.fats;
         this.macros.fiber += this.side3.fiber;
       }
+    },
+
+    removeToastr() {
+      this.toastr_success = false;
+      this.toastr_error_length = false;
+      this.toastr_error_authentication = false;
     }
   }
 };

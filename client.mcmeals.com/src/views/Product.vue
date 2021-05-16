@@ -80,7 +80,8 @@
             <button @click="more()">+</button>
           </section>
 
-          <button @click="toCart(product)" class="to-cart-button">ADD TO CART</button>
+          <button v-if="isAuthenticated" @click="toCart(product)" class="to-cart-button">ADD TO CART</button>
+          <button v-else @click="notAuthenticated()" class="to-cart-button">ADD TO CART</button>
         </section>
 
       </section>
@@ -135,6 +136,9 @@
     <article @click="removeToastr()" v-if="toastr_error" class="toastr toastr-red">
       <span>This product is already in your cart</span>
     </article>
+    <article @click="removeToastr()" v-if="toastr_error_authentication" class="toastr toastr-red">
+      <span>You must log in to add to cart</span>
+    </article>
 
   </section>
 </template>
@@ -163,6 +167,7 @@ export default {
       ingredientDescription: null,
       toastr_success: false,
       toastr_error: false,
+      toastr_error_authentication: false,
     };
   },
 
@@ -177,7 +182,7 @@ export default {
   },
 
   computed: {
-      ...mapGetters(["product", "related_to_product", "user"]),
+      ...mapGetters(["isAuthenticated", "product", "related_to_product", "user"]),
   },
 
   methods: {
@@ -208,14 +213,23 @@ export default {
       .then((response) => {
         if (response) {
           this.toastr_error = false;
+          this.toastr_error_authentication = false;
           this.toastr_success = true;
           setTimeout(() => this.toastr_success = false, 3000);
         } else {
           this.toastr_success = false;
+          this.toastr_error_authentication = false;
           this.toastr_error = true;
           setTimeout(() => this.toastr_error = false, 3000);
         }
       });
+    },
+
+    notAuthenticated() {
+      this.toastr_error = false;
+      this.toastr_success = false;
+      this.toastr_error_authentication = true;
+      setTimeout(() => this.toastr_error_authentication = false, 3000);
     },
 
     add_review(title, body) {
@@ -232,6 +246,7 @@ export default {
 
     removeToastr() {
       this.toastr_error = false;
+      this.toastr_error_authentication = false;
       this.toastr_success = false;
     }
   }
