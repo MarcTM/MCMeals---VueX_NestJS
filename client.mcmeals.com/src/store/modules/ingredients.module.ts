@@ -1,7 +1,5 @@
 import ApiService from "@/common/api.service";
-import {
-    GET_INGREDIENTS,
-} from "@/store/actions.type";
+import { GET_INGREDIENTS } from "@/store/actions.type";
 import {
   SET_INGREDIENTS,
   SET_ERROR,

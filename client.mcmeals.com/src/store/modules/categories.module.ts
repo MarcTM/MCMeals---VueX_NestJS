@@ -29,18 +29,15 @@ const getters = {
     return state.categories;
   },
 
-
   // Get category
   category(state: any) {
     return state.category;
   },
 
-
   // Get subcategories
   subcategories(state: any) {
     return state.subcategories;
   },
-
 
   // Get subcategory
   subcategory(state: any) {
@@ -105,7 +102,6 @@ const actions = {
           });
       });
     }
-    
   },
 
 
@@ -131,13 +127,11 @@ const mutations = {
     state.errors = error;
   },
 
-
   // Set categories
   [SET_CATEGORIES](state: any, categories: any) {
     state.errors = null;
     state.categories = categories;
   },
-
 
   // Set category
   [SET_CATEGORY](state: any, category: any) {
@@ -145,13 +139,11 @@ const mutations = {
     state.category = category;
   },
 
-
   // Set subcategories
   [SET_SUBCATEGORIES](state: any, subcategories: any) {
     state.errors = null;
     state.subcategories = subcategories;
   },
-
 
   // Set subcategory
   [SET_SUBCATEGORY](state: any, subcategory: any) {

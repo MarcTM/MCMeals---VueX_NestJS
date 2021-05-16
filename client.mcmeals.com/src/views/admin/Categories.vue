@@ -30,13 +30,11 @@
 </template>
 
 
-
 <script>
-import { defineComponent } from 'vue';
 import { GET_CATEGORIES } from "@/store/actions.type";
 import { mapGetters } from "vuex"
 
-export default defineComponent({
+export default {
   name: 'Admin-Categories',
 
   data() {
@@ -71,9 +69,7 @@ export default defineComponent({
         this.$store.dispatch(DELETE_CATEGORY)
       },
   },
-});
+};
 </script>
-
-
 
 <style src="./Categories.css" scoped />

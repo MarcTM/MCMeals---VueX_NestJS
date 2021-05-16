@@ -103,9 +103,7 @@
 </template>
 
 
-
 <script>
-import { defineComponent } from 'vue';
 import ProductPreview from '@/components/ProductPreview.vue';
 import {
   GET_INGREDIENTS,
@@ -113,7 +111,7 @@ import {
 } from "@/store/actions.type";
 import { mapGetters } from "vuex";
 
-export default defineComponent({
+export default {
   name: 'Custom',
 
   data() {
@@ -224,7 +222,7 @@ export default defineComponent({
       }
     }
   }
-});
+};
 </script>
 
 <style src="./Custom.css" scoped />

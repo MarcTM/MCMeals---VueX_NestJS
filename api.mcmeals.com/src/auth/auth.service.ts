@@ -4,9 +4,8 @@ const bcrypt = require('bcrypt');
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private readonly jwtService: JwtService
-    ) {}
+    
+    constructor(private readonly jwtService: JwtService) {}
 
 
     // Generate JWT

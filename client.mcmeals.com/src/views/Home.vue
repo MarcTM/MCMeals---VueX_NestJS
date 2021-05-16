@@ -23,9 +23,7 @@
 </template>
 
 
-
 <script>
-import { defineComponent } from 'vue';
 import ProductPreview from '@/components/ProductPreview.vue';
 import {
   GET_CATEGORIES,
@@ -33,7 +31,7 @@ import {
 } from "@/store/actions.type";
 import { mapGetters } from "vuex";
 
-export default defineComponent({
+export default {
   name: 'Home',
 
   data() {
@@ -73,7 +71,7 @@ export default defineComponent({
         }
       }
   },
-});
+};
 </script>
 
 <style src="./Home.css" scoped />

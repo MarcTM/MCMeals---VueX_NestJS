@@ -5,12 +5,10 @@ import { Subcategory } from 'src/interfaces/subcategory.interface';
 import { SubcategoryEntity } from 'src/entities/subcategory.entity';
 const slugify = require('slugify');
 
-
 @Injectable()
 export class SubcategoryService {
-    constructor(
-        @InjectRepository(SubcategoryEntity) private readonly subcategoryRepository: Repository<SubcategoryEntity>,
-    ) {}
+
+    constructor(@InjectRepository(SubcategoryEntity) private readonly subcategoryRepository: Repository<SubcategoryEntity>) {}
 
 
     // Create subcategory
@@ -23,18 +21,14 @@ export class SubcategoryService {
 
     // Get all subcategories
     findAll() {
-        return this.subcategoryRepository.find({
-            relations: ['category']
-        });
+        return this.subcategoryRepository.find({ relations: ['category'] });
     }
 
 
     // Get all subcategories from a category
     findByCategory(categoryId: number) {
         return this.subcategoryRepository.find({
-            where: {
-                category: categoryId
-            },
+            where: { category: categoryId },
             relations: ['category']
         });
     }

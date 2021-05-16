@@ -11,9 +11,8 @@ const slugify = require('slugify');
 
 @Injectable()
 export class ProductService {
-    constructor(
-        @InjectRepository(ProductEntity) private readonly productRepository: Repository<ProductEntity>,
-    ) {}
+
+    constructor(@InjectRepository(ProductEntity) private readonly productRepository: Repository<ProductEntity>) {}
 
 
     // Create product
@@ -64,7 +63,6 @@ export class ProductService {
                 .limit(limit)
                 .getMany();
         }
-        
     }
 
 
@@ -93,7 +91,6 @@ export class ProductService {
                 .limit(limit)
                 .getMany();
         }
-
     }
 
 

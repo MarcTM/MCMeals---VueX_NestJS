@@ -5,10 +5,7 @@ import { UserService } from "src/user/user.service";
 @Injectable()
 export class UserIsUser implements CanActivate {
 
-    constructor(
-        @Inject(forwardRef(() => UserService))
-        private userService: UserService
-    ) {}
+    constructor(@Inject(forwardRef(() => UserService)) private userService: UserService) {}
 
 
     canActivate(context: ExecutionContext) {
@@ -19,7 +16,9 @@ export class UserIsUser implements CanActivate {
         return this.userService.findOne(user.id)
         .then((user) => {
             let hasPermission = false;
-            if (user.id === Number(params.id)) {hasPermission = true};
+            if (user.id === Number(params.id)) {
+                hasPermission = true;
+            };
             return user && hasPermission;
         })
     }

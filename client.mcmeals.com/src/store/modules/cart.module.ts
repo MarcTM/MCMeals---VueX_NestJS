@@ -130,13 +130,11 @@ const mutations = {
     state.errors = error;
   },
 
-
   // Set user's cart
   [SET_CART](state: any, cart: any) {
     state.errors = null;
     state.cart = cart;
   },
-
 
   // Delete from cart
   [DELETE_CART](state: any, cart: any) {

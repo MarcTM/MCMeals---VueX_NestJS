@@ -6,12 +6,10 @@ import { Subcategory } from 'src/interfaces/subcategory.interface';
 import { UserRole } from 'src/interfaces/user.interface';
 import { SubcategoryService } from './subcategory.service';
 
-
 @Controller('subcategory')
 export class SubcategoryController {
-    constructor(
-        private subcategoryService: SubcategoryService
-    ) {}
+
+    constructor(private subcategoryService: SubcategoryService) {}
 
 
     // Create subcategory

@@ -2,16 +2,13 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } fro
 import { hasRoles } from 'src/auth/decorators/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { UserIsUser } from 'src/auth/guards/user.guard';
 import { User, UserRole } from 'src/interfaces/user.interface';
 import { UserService } from './user.service';
 
 @Controller('auth')
 export class UserController {
 
-    constructor(
-        private userService: UserService
-    ) {}
+    constructor(private userService: UserService) {}
 
 
     // User Register
@@ -41,8 +38,8 @@ export class UserController {
 
 
     // Get all users by pagination and filtered
-    // @hasRoles(UserRole.ADMIN)
-    // @UseGuards(JwtAuthGuard, RolesGuard)
+    @hasRoles(UserRole.ADMIN)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Get('users')
     index(
         @Query('page') page: number = 1,
@@ -65,18 +62,16 @@ export class UserController {
 
     // Get user
     @Get('users/:id')
-    // @hasRoles(UserRole.ADMIN)
-    // @UseGuards(JwtAuthGuard, RolesGuard)
-    @UseGuards(JwtAuthGuard, UserIsUser)
+    @hasRoles(UserRole.ADMIN)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     findOne(@Param() params) {
         return this.userService.findOne(params.id);
     }
 
 
     // Update user
-    // @hasRoles(UserRole.ADMIN)
-    // @UseGuards(JwtAuthGuard, RolesGuard)
-    @UseGuards(JwtAuthGuard, UserIsUser)
+    @hasRoles(UserRole.ADMIN)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Put('users/:id')
     updateOne(
         @Param('id') id: string,

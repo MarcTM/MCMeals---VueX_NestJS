@@ -105,7 +105,6 @@ const mutations = {
     state.errors = error;
   },
 
-
   // Set auth
   [SET_AUTH](state: any, data: any) {
     state.isAuthenticated = true;
@@ -116,7 +115,6 @@ const mutations = {
     }
   },
 
-  
   // Purge auth
   [PURGE_AUTH](state: any) {
     state.isAuthenticated = false;

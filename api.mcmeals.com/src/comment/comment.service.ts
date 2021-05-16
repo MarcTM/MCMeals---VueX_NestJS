@@ -4,12 +4,10 @@ import { Repository } from 'typeorm';
 import { Comment } from 'src/interfaces/comment.interface';
 import { CommentEntity } from 'src/entities/comment.entity';
 
-
 @Injectable()
 export class CommentService {
-    constructor(
-        @InjectRepository(CommentEntity) private readonly commentRepository: Repository<CommentEntity>,
-    ) {}
+
+    constructor(@InjectRepository(CommentEntity) private readonly commentRepository: Repository<CommentEntity>) {}
 
 
     // Add comment
@@ -27,7 +25,6 @@ export class CommentService {
             .where("product.id = :id", { id: productId })
             .getMany();
     }
-
 
 
     // Update comment

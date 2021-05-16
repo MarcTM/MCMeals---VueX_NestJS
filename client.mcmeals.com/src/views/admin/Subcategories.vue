@@ -33,13 +33,11 @@
 </template>
 
 
-
 <script>
-import { defineComponent } from 'vue';
 import { GET_SUBCATEGORIES } from "@/store/actions.type";
 import { mapGetters } from "vuex"
 
-export default defineComponent({
+export default {
   name: 'Admin-Subategories',
 
   data() {
@@ -74,9 +72,7 @@ export default defineComponent({
         this.$store.dispatch(DELETE_SUBCATEGORY)
       },
   },
-});
+};
 </script>
-
-
 
 <style src="./Subcategories.css" scoped />

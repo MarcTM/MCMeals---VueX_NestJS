@@ -1,5 +1,6 @@
 <template>
   <section class="main-header">
+
     <nav class="menu-phone">
       <button @click="showMenu()">MENU</button>
     </nav>
@@ -45,9 +46,9 @@
       <router-link to="/">HOME</router-link>
       <router-link to="/shop">SHOP</router-link>
     </nav>
+    
   </section>
 </template>
-
 
 
 <script>

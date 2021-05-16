@@ -11,7 +11,6 @@
 </template>
 
 
-
 <script>
 import ProductsList from '@/components/ProductsList.vue';
 

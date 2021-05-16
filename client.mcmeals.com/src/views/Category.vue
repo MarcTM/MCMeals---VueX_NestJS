@@ -14,30 +14,28 @@
 </template>
 
 
-
 <script>
 import store from '@/store';
 import ProductsList from '@/components/ProductsList.vue';
-import { defineComponent } from 'vue';
 import { GET_CATEGORY } from "@/store/actions.type";
 import { mapGetters } from "vuex";
 
-export default  defineComponent({
+export default  {
   name: 'Category',
 
   components: {
     ProductsList
   },
 
-  beforeRouteEnter(to, from, next) {
-    store.dispatch(GET_CATEGORY, to.params.slug);
-    return next();
+  async beforeRouteEnter(to, from, next) {
+    await store.dispatch(GET_CATEGORY, to.params.slug);
+    next();
   },
 
   computed: {
       ...mapGetters(["category"]),
   },
-});
+};
 </script>
 
 <style src="./Category.css" scoped />

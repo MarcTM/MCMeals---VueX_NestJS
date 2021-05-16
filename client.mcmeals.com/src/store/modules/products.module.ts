@@ -141,7 +141,6 @@ const actions = {
   },
 
 
-
   // Get related products
   [GET_RELATED_PRODUCTS](context: any, data: any) {
     return new Promise(resolve => {

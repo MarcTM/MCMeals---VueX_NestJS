@@ -30,16 +30,14 @@
 </template>
 
 
-
 <script>
-import { defineComponent } from 'vue';
 import {
   GET_PRODUCTS,
   DELETE_PRODUCT
 } from "@/store/actions.type";
 import { mapGetters } from "vuex"
 
-export default defineComponent({
+export default {
   name: 'Admin-Products',
 
   data() {
@@ -75,9 +73,7 @@ export default defineComponent({
         this.$store.dispatch(DELETE_PRODUCT)
       },
   },
-});
+};
 </script>
-
-
 
 <style src="./Products.css" scoped />

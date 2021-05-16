@@ -1,5 +1,6 @@
 <template>
     <section class="products-all">
+
         <section v-if="subcategories" class="subcategories-phone">
             <button @click="phoneFilters = true" v-if="!phoneFilters">REFINE BY</button>
             <button @click="phoneFilters = false" v-if="phoneFilters">HIDE FILTERS</button>
@@ -34,9 +35,9 @@
                 <button @click="loadMore()">LOAD MORE PRODUCTS</button>
             </section>
         </section>
+        
     </section>
 </template>
-
 
 
 <script>

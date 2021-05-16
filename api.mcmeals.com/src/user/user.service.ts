@@ -50,16 +50,10 @@ export class UserService {
             if (user) {
                 return this.authService.generateJWT(user)
                 .then((token) => {
-                    return {
-                        user,
-                        token
-                    };
+                    return { user, token};
                 })
             } else {
-                return {
-                    user: undefined,
-                    token: undefined
-                }
+                return { user: undefined, token: undefined }
             }
             
         })

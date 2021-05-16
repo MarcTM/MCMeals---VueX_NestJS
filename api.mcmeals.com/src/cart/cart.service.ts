@@ -3,18 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CartEntity } from 'src/entities/cart.entity';
 import { Cart } from 'src/interfaces/cart.interface';
-import { Product } from 'src/interfaces/product.interface';
-import { ProductEntity } from 'src/entities/product.entity';
 import { ProductService } from '../product/product.service';
-const slugify = require('slugify');
-
 
 @Injectable()
 export class CartService {
+    
     constructor(
         private productService: ProductService,
         @InjectRepository(CartEntity) private readonly cartRepository: Repository<CartEntity>,
-        // @InjectRepository(ProductEntity) private readonly productRepository: Repository<ProductEntity>,
     ) {}
 
 

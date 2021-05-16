@@ -7,12 +7,10 @@ import { Product } from 'src/interfaces/product.interface';
 import { UserRole } from 'src/interfaces/user.interface';
 import { ProductService } from './product.service';
 
-
 @Controller('product')
 export class ProductController {
-    constructor(
-        private productService: ProductService
-    ) {}
+
+    constructor(private productService: ProductService) {}
 
 
     // Create product

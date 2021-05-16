@@ -140,7 +140,6 @@
 </template>
 
 
-
 <script>
 import store from "@/store";
 import ProductPreview from '@/components/ProductPreview.vue';
@@ -172,9 +171,9 @@ export default {
   },
 
 
-  beforeRouteEnter(to, from, next) {
-    store.dispatch(GET_PRODUCT, to.params.slug);
-    return next();
+  async beforeRouteEnter(to, from, next) {
+    await store.dispatch(GET_PRODUCT, to.params.slug);
+    next();
   },
 
   computed: {

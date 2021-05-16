@@ -1,22 +1,23 @@
 <template>
   <section class="login">
+
     <h1>SIGN IN</h1>
     
-      <form class="login-form" @submit.prevent="login(username, password)">
-        <label>EMAIL</label>
-        <input type="email" v-model="username" required />
+    <form class="login-form" @submit.prevent="login(username, password)">
+      <label>EMAIL</label>
+      <input type="email" v-model="username" required />
 
-        <label>PASSWORD</label>
-        <input type="password" v-model="password" required />
+      <label>PASSWORD</label>
+      <input type="password" v-model="password" required />
 
-        <section>
-          <button class="login-button">SIGN IN</button>
-          <router-link to="/register">Register</router-link>
-        </section>  
-      </form>
+      <section>
+        <button class="login-button">SIGN IN</button>
+        <router-link to="/register">Register</router-link>
+      </section>  
+    </form>
+
   </section>
 </template>
-
 
 
 <script>

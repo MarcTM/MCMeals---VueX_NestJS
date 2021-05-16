@@ -2,11 +2,9 @@ import axios from "axios";
 import JwtService from "@/common/jwt.service";
 import { API_URL } from "@/common/config";
 
-
 const headers = {
   "Authorization": `Token ${JwtService.getToken()}`,
 }
-
 
 const ApiService = {
   // Query

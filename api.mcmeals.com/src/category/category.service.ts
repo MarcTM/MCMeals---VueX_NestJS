@@ -8,9 +8,7 @@ const slugify = require('slugify');
 @Injectable()
 export class CategoryService {
 
-    constructor(
-        @InjectRepository(CategoryEntity) private readonly categoryRepository: Repository<CategoryEntity>
-    ) {}
+    constructor(@InjectRepository(CategoryEntity) private readonly categoryRepository: Repository<CategoryEntity>) {}
 
 
     // Create category

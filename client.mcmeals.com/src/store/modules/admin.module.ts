@@ -1,7 +1,5 @@
 import ApiService from "@/common/api.service";
-import {
-  GET_USERS,
-} from "@/store/actions.type";
+import { GET_USERS } from "@/store/actions.type";
 import {
   SET_USERS,
   SET_ERROR,
@@ -51,7 +49,6 @@ const mutations = {
     state.errors = {};
     state.users = data;
   },
-
 
   // Set errors
   [SET_ERROR](state: any, error: any) {

@@ -32,16 +32,14 @@
 </template>
 
 
-
 <script>
-import { defineComponent } from 'vue';
 import {
   GET_USERS,
   DELETE_USER
 } from "@/store/actions.type";
 import { mapGetters } from "vuex"
 
-export default defineComponent({
+export default {
   name: 'Admin-Users',
 
   data() {
@@ -76,9 +74,7 @@ export default defineComponent({
         this.$store.dispatch(DELETE_USER)
       },
   },
-});
+};
 </script>
-
-
 
 <style src="./Users.css" scoped />

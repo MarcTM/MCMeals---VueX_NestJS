@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
-
 let noAuthGuard = (to: any, from: any, next: any) => {
   (localStorage.getItem("Bearer")) ? next("/") : next()
 }
@@ -8,7 +7,6 @@ let noAuthGuard = (to: any, from: any, next: any) => {
 let authGuard = (to: any, from: any, next: any) => {
   (!localStorage.getItem("Bearer")) ? next("/login") : next()
 }
-
 
 const routes: Array<RouteRecordRaw> = [
   {
