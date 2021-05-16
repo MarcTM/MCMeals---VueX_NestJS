@@ -63,7 +63,6 @@ export default {
       },
 
       getCategory(category) {
-        console.log(category);
         if (category.name === "Custom Meals") {
           this.$router.push({ name: "Custom"});
         } else {

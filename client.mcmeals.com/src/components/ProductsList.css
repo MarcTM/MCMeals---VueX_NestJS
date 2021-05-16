@@ -8,6 +8,8 @@
 
 .subcategories-phone {
     display: none;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--light-grey);
 }
 
 .subcategories-phone button {
@@ -21,21 +23,15 @@
 }
 
 .subcategories-phone section {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    padding-bottom: 40px;
-    border-bottom: 1px solid var(--light-grey);
 }
 
-.subcategories-phone section h3 {
-    margin-top: 20px;
-    font-size: 15px;
-}
-
-.subcategories-phone section span {
-    font-size: 17px;
-    text-transform: uppercase;
+h3 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .searchbar input {
@@ -78,18 +74,27 @@
     border-right: 1px solid var(--medium-grey);
 }
 
-.subcategories-desktop h3 {
-    text-decoration: underline;
-    font-weight: 700;
-    font-size: 14px;
+.subcategories-desktop section {
+    display: flex;
+    flex-direction: column;
 }
 
-.subcategories-desktop span {
-    cursor: pointer;
+.subcategory {
     margin: 10px 0px;
-    font-weight: 400;
+    font-weight: bold;
+    text-decoration: underline;
     text-transform: uppercase;
-    font-size: 17px;
+    font-size: 15px;
+}
+
+.subcategory-section {
+    margin-bottom: 20px;
+}
+
+.subcategory-subcategory {
+    margin-top: 4px;
+    font-style: italic;
+    cursor: pointer;
 }
 
 .products-all {

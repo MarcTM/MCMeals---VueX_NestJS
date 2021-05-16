@@ -19,7 +19,6 @@ export class ProductService {
     create(product: Product) {
         if (product.name) {
             product.slug = this.generateSlug(product.name);
-            console.log(product.slug);
         }
         return this.productRepository.save(product);
     }
@@ -100,6 +99,7 @@ export class ProductService {
             return this.productRepository
                 .createQueryBuilder("product")
                 .leftJoinAndSelect("product.subcategories", "subcategory")
+                .leftJoinAndSelect("subcategory.subcategories", "subsubcategory")
                 .leftJoinAndSelect("product.comments", "comment")
                 .where("LOWER(product.type) not like LOWER(:type)", { type: `%Custom%` })
                 .andWhere("subcategory.id = :id", { id: subcategoryId })

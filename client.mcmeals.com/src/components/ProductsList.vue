@@ -5,14 +5,26 @@
             <button @click="phoneFilters = true" v-if="!phoneFilters">REFINE BY</button>
             <button @click="phoneFilters = false" v-if="phoneFilters">HIDE FILTERS</button>
             <section v-if="phoneFilters && subcategories">
-                <h3>BY SUBCATEGORIES</h3>
-                <span v-for="subcategory in subcategories" @click="bySubcategory(subcategory.slug)">{{subcategory.name}}</span>
+                <h3>SUBCATEGORIES</h3>
+                <section v-if="subcategories" v-for="subcategory in subcategories">
+                    <span v-if="subcategory.subcategories.length == 0" class="subcategory" @click="bySubcategory(subcategory.id)">{{ subcategory.name }}</span>
+                    <section class="subcategory-section" v-else>
+                        <span class="subcategory">{{ subcategory.name }}</span>
+                        <span class="subcategory-subcategory" v-for="subsubcategory in subcategory.subcategories" @click="bySubcategory(subsubcategory.id)">{{ subsubcategory.name }}</span>
+                    </section>
+                </section>
             </section>
         </section>
 
         <section class="subcategories-desktop">
-            <h3 v-if="subcategories">BY SUBCATEGORIES</h3>
-            <span v-if="subcategories" v-for="subcategory in subcategories" @click="bySubcategory(subcategory.slug)">{{subcategory.name}}</span>
+            <h3 v-if="subcategories">SUBCATEGORIES</h3>
+            <section v-if="subcategories" v-for="subcategory in subcategories">
+                <span v-if="subcategory.subcategories.length == 0" class="subcategory" @click="bySubcategory(subcategory.id)">{{ subcategory.name }}</span>
+                <section class="subcategory-section" v-else>
+                    <span class="subcategory">{{ subcategory.name }}</span>
+                    <span class="subcategory-subcategory" v-for="subsubcategory in subcategory.subcategories" @click="bySubcategory(subsubcategory.id)">{{ subsubcategory.name }}</span>
+                </section>
+            </section>
         </section>
 
         <section class="list">
@@ -53,6 +65,7 @@ export default {
 
     data() {
       return {
+        subcategoryId: null,
         phoneFilters: false,
       };
     },
@@ -82,17 +95,28 @@ export default {
         },
 
         bySearch(query) {
-            (!query)
-            ? this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: 3 })
-            : this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: 3, search: query });
+            if (this.subcategoryId) {
+                (!query)
+                ? this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: 3 })
+                : this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: 3, search: query });
+            } else {
+                (!query)
+                ? this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: 3 })
+                : this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: 3, search: query });
+            }
         },
 
-        bySubcategory(slug) {
-            console.log(slug);
+        bySubcategory(id) {
+            this.subcategoryId = id;
+            this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: 3 });
         },
 
         loadMore() {
-            this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: this.limit + 3, search: this.search });
+            if (this.subcategoryId) {
+                this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: this.limit + 3, search: this.search });
+            } else {
+                this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: this.limit + 3, search: this.search });
+            }
         }
     },
 };

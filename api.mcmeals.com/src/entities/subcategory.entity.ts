@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { CategoryEntity } from "./category.entity";
 import { ProductEntity } from "./product.entity";
 
@@ -13,12 +13,18 @@ export class SubcategoryEntity {
     @Column({ unique: true })
     name: string;
 
-    @Column()
+    @Column({ nullable: true })
     image: string;
 
-    @ManyToOne(() => CategoryEntity, category => category.subcategories)
+    @ManyToOne(() => CategoryEntity, category => category.subcategories, { nullable: true })
     category: CategoryEntity;
 
     @ManyToMany(() => ProductEntity, product => product.subcategories)
     products: ProductEntity[];
+
+    @OneToMany(() => SubcategoryEntity, subcategory => subcategory.subcategory, { nullable: true })
+    subcategories: SubcategoryEntity[];
+
+    @ManyToOne(() => SubcategoryEntity, subcategory => subcategory.subcategories, { nullable: true })
+    subcategory: SubcategoryEntity;
 }

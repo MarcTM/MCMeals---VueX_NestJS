@@ -21,7 +21,7 @@ export class SubcategoryService {
 
     // Get all subcategories
     findAll() {
-        return this.subcategoryRepository.find({ relations: ['category'] });
+        return this.subcategoryRepository.find({ relations: ['category', 'subcategories'] });
     }
 
 
@@ -29,7 +29,7 @@ export class SubcategoryService {
     findByCategory(categoryId: number) {
         return this.subcategoryRepository.find({
             where: { category: categoryId },
-            relations: ['category']
+            relations: ['category', 'subcategories']
         });
     }
 

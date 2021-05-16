@@ -92,6 +92,9 @@ const actions = {
       if (data['categoryId']) {
         query += `&categoryId=${data['categoryId']}`;
       }
+      if (data['subcategoryId']) {
+        query += `&subcategoryId=${data['subcategoryId']}`;
+      }
       if (data['search']) {
         query += `&search=${data['search']}`;
       }
@@ -128,13 +131,11 @@ const actions = {
     return new Promise(resolve => {
       ApiService.get("product/" + slug)
         .then(({ data }) => {
-          console.log(data);
           context.commit(SET_PRODUCT, data);
           store.dispatch(GET_RELATED_PRODUCTS, { slug: data.slug, type: data.type, category: data.categories[0] });
           resolve(data);
         })
         .catch(({ response }) => {
-          console.log(response);
           context.commit(SET_ERROR, response);
         });
     });
@@ -150,7 +151,6 @@ const actions = {
           resolve(data);
         })
         .catch(({ response }) => {
-          console.log(response);
           context.commit(SET_ERROR, response);
         });
     });
@@ -169,7 +169,6 @@ const actions = {
     return new Promise(resolve => {
       ApiService.post("comment", comment)
         .then(({ data }) => {
-          console.log(data);
           context.commit(SET_COMMENT, data);
           resolve(data);
         })

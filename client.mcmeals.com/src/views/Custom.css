@@ -142,6 +142,24 @@ table td {
 }
 
 @media (max-width: 767px) {
+    table {
+        font-size: 11px;
+        display: flex;
+    }
+
+    table tr {
+        display: flex;
+        flex-direction: column;
+    }
+
+    td, th {
+        height: 20px;
+    }
+
+    .sides-macros {
+        margin-top: 60px;
+    }
+
     .custom {
         padding: 40px 20px;
     }

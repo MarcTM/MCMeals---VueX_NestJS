@@ -44,7 +44,6 @@ const actions = {
     return new Promise(resolve => {
       ApiService.get("cart/" + auth.getters.user(auth.state).id)
         .then(({ data }) => {
-          console.log(data);
           context.commit(SET_CART, data);
           resolve(data);
         })
