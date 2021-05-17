@@ -20,14 +20,6 @@
           <section class="tabs-content">
             <section v-if="description === 1" class="description">
              <span class="product-description">{{product.description}}</span>
-             
-             <section v-if="product.ingredients.length > 0" class="product-ingredients">
-              <span class="ingredient-title">Ingredients:</span>
-              <article class="ingredient" v-for="ingredient in product.ingredients">
-                <span v-if="ingredient.description" @click="openDescription(ingredient.description)" class="ingredient-description">{{ingredient.name}}</span>
-                <span v-else>{{ingredient.name}}</span>
-              </article>
-             </section>
             </section>
 
             <section v-if="nutritional === 1" class="nutritional">

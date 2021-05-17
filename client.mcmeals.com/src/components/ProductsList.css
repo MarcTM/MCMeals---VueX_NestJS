@@ -131,7 +131,9 @@ h3 {
 }
 
 .no-products span {
-    font-size: 17px;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--dark-grey);
 }
 
 @media (max-width: 767px) {

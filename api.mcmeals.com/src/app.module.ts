@@ -12,26 +12,33 @@ import { CommentModule } from './comment/comment.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    // Local
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.POSTGRES_HOST,
-      port: parseInt(process.env.POSTGRES_PORT),
-      username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD,
-      database: process.env.POSTGRES_DATABASE,
-      entities: ["./entities/*.entity{.ts,.js}"],
-      autoLoadEntities: true,
-      synchronize: true
-    }),
-    // Docker
+    
+    /**
+     * Local
+    **/ 
     // TypeOrmModule.forRoot({
     //   type: 'postgres',
-    //   url: process.env.POSTGRES_URL, 
+    //   host: process.env.POSTGRES_HOST,
+    //   port: parseInt(process.env.POSTGRES_PORT),
+    //   username: process.env.POSTGRES_USER,
+    //   password: process.env.POSTGRES_PASSWORD,
+    //   database: process.env.POSTGRES_DATABASE,
     //   entities: ["./entities/*.entity{.ts,.js}"],
     //   autoLoadEntities: true,
     //   synchronize: true
     // }),
+
+    /**
+     * Docker
+    **/ 
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      url: process.env.POSTGRES_URL, 
+      entities: ["./entities/*.entity{.ts,.js}"],
+      autoLoadEntities: true,
+      synchronize: true
+    }),
+
     UserModule,
     AuthModule,
     CartModule,

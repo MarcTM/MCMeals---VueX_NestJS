@@ -35,25 +35,6 @@
     margin-top: 10px;
 }
 
-.product-ingredients {
-    display: flex;
-    flex-direction: column;
-    margin-top: 40px;
-}
-
-.ingredient-title {
-    font-weight: bold;
-}
-
-.ingredient {
-    margin-top: 6px;
-}
-
-.ingredient-description {
-    cursor: pointer;
-    color: var(--color-button-blue); 
-}
-
 .customer-reviews {
     margin: 0px 10px 80px 10px;
     padding: 20px;

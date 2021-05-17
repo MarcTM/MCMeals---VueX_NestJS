@@ -39,11 +39,11 @@
                 </section>
             </section>
 
-            <section v-else class="no-products">
+            <section v-if="!products" class="no-products">
                 <span>Sorry, no results were found</span>
             </section>
 
-            <section class="load-more">
+            <section v-if="products" class="load-more">
                 <button @click="loadMore()">LOAD MORE PRODUCTS</button>
             </section>
         </section>
@@ -91,31 +91,31 @@ export default {
         },
 
         getProducts() {
-            this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: 3 });
+            this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: 6 });
         },
 
         bySearch(query) {
             if (this.subcategoryId) {
                 (!query)
-                ? this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: 3 })
-                : this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: 3, search: query });
+                ? this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: 6 })
+                : this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: 6, search: query });
             } else {
                 (!query)
-                ? this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: 3 })
-                : this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: 3, search: query });
+                ? this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: 6 })
+                : this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: 6, search: query });
             }
         },
 
         bySubcategory(id) {
             this.subcategoryId = id;
-            this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: 3 });
+            this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: 6 });
         },
 
         loadMore() {
             if (this.subcategoryId) {
-                this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: this.limit + 3, search: this.search });
+                this.$store.dispatch(GET_PRODUCTS, { subcategoryId: this.subcategoryId, limit: this.limit + 6, search: this.search });
             } else {
-                this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: this.limit + 3, search: this.search });
+                this.$store.dispatch(GET_PRODUCTS, { categoryId: this.categoryId, limit: this.limit + 6, search: this.search });
             }
         }
     },
