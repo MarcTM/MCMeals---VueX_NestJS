@@ -19,8 +19,7 @@
         <section class="subcategories-desktop">
             <h3 v-if="subcategories">SUBCATEGORIES</h3>
             <section v-if="subcategories" v-for="subcategory in subcategories">
-                <span v-if="subcategory.subcategories.length == 0" class="subcategory" @click="bySubcategory(subcategory.id)">{{ subcategory.name }}</span>
-                <section class="subcategory-section" v-else>
+                <section v-if="subcategory.subcategories.length > 0" class="subcategory-section">
                     <span class="subcategory">{{ subcategory.name }}</span>
                     <span class="subcategory-subcategory" v-for="subsubcategory in subcategory.subcategories" @click="bySubcategory(subsubcategory.id)">{{ subsubcategory.name }}</span>
                 </section>

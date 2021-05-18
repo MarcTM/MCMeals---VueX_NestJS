@@ -127,10 +127,10 @@ export class ProductService {
         return this.productRepository
             .createQueryBuilder("product")
             .leftJoinAndSelect("product.categories", "category")
-            .where("LOWER(product.type) not like LOWER(:type)", { type: `%Custom%` })
-            .andWhere("product.slug != :slug", { slug })
+            .where("product.type != :type", { type: `%Custom%` })
+            .where("product.slug != :slug", { slug })
             .andWhere(new Brackets(qb => {
-                qb.where("product.type = :type", { type })
+                qb.where("product.type = :type", { type: type })
                 .orWhere("category.id = :id", { id: category.id})
             }))
             .limit(4)

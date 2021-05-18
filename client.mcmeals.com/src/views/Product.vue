@@ -8,7 +8,7 @@
 
       <section class="product-info">
         <article v-if="product.type" class="product-type">{{product.type}}</article>
-        <p class="product-name">{{product.name}} - {{product.weight}} KG</p>
+        <p class="product-name"><span>{{product.name}}</span><span v-if="product.type != 'Meal'"> - {{product.weight}} KG</span></p>
         <p class="product-price">€{{product.price}}</p>
 
         <section class="tabs">

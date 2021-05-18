@@ -144,9 +144,14 @@ const actions = {
 
   // Get related products
   [GET_RELATED_PRODUCTS](context: any, data: any) {
+    console.log(data.slug);
+    console.log(data.type);
+    console.log(data.category);
     return new Promise(resolve => {
       ApiService.get(`product/related?slug=${data.slug}&type=${data.type}&category=${data.category}`)
         .then(({ data }) => {
+          console.log("entra");
+          console.log(data);
           context.commit(SET_RELATED_PRODUCTS, data);
           resolve(data);
         })
